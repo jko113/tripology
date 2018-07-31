@@ -67,6 +67,15 @@ app.post("/signin", (req, res) => {
         })
 });
 
+app.post("/createnewuser", (req, res) => {
+    db.createNewUser(req.body.username, req.body.password)
+        .then(result => {
+            // console.log(result);
+            res.json(result);
+        })
+        .catch(error => console.error);
+});
+
 app.listen(port, () => {
     console.log(`Application running at http://localhost:${port}`);
 });

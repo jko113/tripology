@@ -7,6 +7,7 @@ export const GET_USER_ID = "GET_USER_ID";
 export const UPDATE_USERNAME = "UPDATE_USERNAME";
 export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
 export const LOG_IN = "LOG_IN";
+export const CREATE_NEW_USER = "CREATE_NEW_USER";
 
 export const updateUsername = (typedValue) => {
     return {
@@ -22,9 +23,21 @@ export const updatePassword = (typedValue) => {
     };
 };
 
+export const createNewUser = (username, password) => {
+    return async (dispatch) => {
+        axios.post(`http://localhost:5000/createnewuser`, {
+            username,
+            password,
+        }).then(result => {
+            console.log(result);
+        }).catch(error => {
+            console.error(error);
+        })
+    };
+};
+
 export const logIn = (username, password) => {
 
-    // console.log("username", username, " password: ", password);
     return async (dispatch) => {
         axios.post(`http://localhost:5000/signin`, {
             username,
@@ -32,18 +45,23 @@ export const logIn = (username, password) => {
         }).then(result => {
             if (result.data) {
                 const userInfo = result.data;
-                console.log(userInfo);
                 dispatch({
                     type: LOG_IN,
                     isAuthenticated: true,
                     userId: userInfo.user_id,
                 });
-                // console.log(result.data);
             } else {
+                // dispatch({
+                //     type: LOG_IN,
+                //     isAuthenticated: false,
+                //     userId: undefined,
+                // });
                 dispatch({
-                    type: LOG_IN,
+                    type: SIGN_OUT,
                     isAuthenticated: false,
                     userId: undefined,
+                    authorizationMode: "signin",
+                    errorMessage: "Not an authorized user."
                 });
             }
         }).catch(error => {

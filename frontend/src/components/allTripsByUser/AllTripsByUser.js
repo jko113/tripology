@@ -3,28 +3,36 @@ import {Link} from "react-router-dom";
 
 class AllTripsByUser extends React.Component {
     componentDidMount() {
-        console.log("all trips props: ", this.props);
-        this.props.getAllTripsByUser(1);
+        const tripProps = this.props;
+        // console.log("all trip props: ", this.props);
+        // console.log(tripProps.match.params);
+        this.props.getAllTripsByUser(tripProps.match.params.id);
     }
 
     render() {
-        // console.log(this.props);
-        const allTripsByUser = this.props.allTripsByUser.data;
+        console.log("all trips props", this.props);
+        const authenticated = this.props.user.authenticated;
 
-        return (
-            <div>
-            {allTripsByUser.map((trip) => {
-                return (
-                    <Link
-                        to={`/trip/${trip.trip_id}`}
-                        key={trip.trip_id}
-                    >
-                        {trip.title}
-                    </Link>
-                );
-            })}
-            </div>
-        );
+        if (authenticated) {
+            const allTripsByUser = this.props.allTripsByUser.data;
+    
+            return (
+                <div>
+                {allTripsByUser.map((trip) => {
+                    return (
+                        <Link
+                            to={`/trip/${trip.trip_id}`}
+                            key={trip.trip_id}
+                        >
+                            {trip.title}
+                        </Link>
+                    );
+                })}
+                </div>
+            );
+        } else {
+            return null;
+        }
     }
 };
 

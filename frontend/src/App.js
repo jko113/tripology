@@ -11,7 +11,9 @@ import { ConnectedHeader as Header} from "./components/header/HeaderContainer";
 import { ConnectedAuthorization as Authorization } from './components/authorization/AuthorizationContainer';
 
 class App extends Component {
+  
   render() {
+
     return (
       <Router>
         <div>

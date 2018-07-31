@@ -28,10 +28,37 @@ function checkUserExistence(username, password) {
     return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 AND password = $2 GROUP BY user_id;", [username, password]);
 }
 
+function checkUserExistenceByUsername(username) {
+    return db.oneOrNone("SELECT COUNT(user_id) = 1 AS exists FROM users WHERE username ILIKE $1;", [username]);
+}
+
+function createNewUser(username, password) {
+    return checkUserExistenceByUsername(username)
+        .then(result => {
+            const alreadyExists = result.exists;
+            if (alreadyExists) {
+                // console.log("already exists");
+                return {
+                    usernameAvailable: false,
+                };
+            } else {
+                // return {
+                //     usernameAvailable: true,
+                // };
+                return addUserToDatabase(username, password);
+            }
+        })
+}
+
+function addUserToDatabase(username, password) {
+    return db.query("INSERT INTO users (username, password) VALUES ($1, $2)", [username, password]);
+}
+
 module.exports = {
     getAllTrips,
     getOneTrip,
     getTripDetails,
     checkUserExistence,
     getAllTripsByUser,
+    createNewUser,
 };

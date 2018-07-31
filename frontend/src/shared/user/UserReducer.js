@@ -4,7 +4,8 @@ import {
     SIGN_OUT,
     UPDATE_USERNAME,
     UPDATE_PASSWORD,
-    LOG_IN
+    LOG_IN,
+    CREATE_NEW_USER,
 } from "./UserActions";
 
 const initialState = {
@@ -21,8 +22,7 @@ export const userReducer = (
     if (!action) {
         return state;
     }
-    // console.log("state: ", state);
-    // console.log("reducer action: ", action);
+
     switch (action.type) {
         case UPDATE_USERNAME:
             return {
@@ -35,11 +35,13 @@ export const userReducer = (
                 password: action.payload,
             };
         case LOG_IN:
-            console.log(action);
             return {
                 ...state,
                 authenticated: action.isAuthenticated,
                 userId: action.userId,
+                username: "",
+                password: "",
+                errorMessage: undefined,
             };
         case CHANGE_AUTHORIZATION_MODE:
             return Object.assign({}, state, {authorizationMode: action.payload});
@@ -53,6 +55,19 @@ export const userReducer = (
                 ...state,
                 authenticated: false,
                 userId: undefined,
+                username: "",
+                password: "",
+                authorizationMode: action.authorizationMode,
+                errorMessage: action.errorMessage,
+            };
+        case CREATE_NEW_USER:
+            return {
+                ...state,
+                authenticated: action.isAuthenticated,
+                userId: action.userId,
+                username: "",
+                password: "",
+                errorMessage: action.errorMessage,
             };
         default:
             return state;

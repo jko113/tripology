@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Authorization from "./Authorization";
-import { updateUsername, updatePassword, logIn } from "../../shared/user/UserActions";
+import { updateUsername, updatePassword, logIn, createNewUser } from "../../shared/user/UserActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -22,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         logIn: (username, password) => {
             dispatch(logIn(username, password));
+        },
+        createNewUser: (username, password) => {
+            dispatch(createNewUser(username, password));
         },
     };
 };

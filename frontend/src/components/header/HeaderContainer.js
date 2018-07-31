@@ -5,7 +5,6 @@ import { changeAuthorizationMode, signOut } from "../../shared/user/UserActions"
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        auth: state.auth,
     };
 };
 

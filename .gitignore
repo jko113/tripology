@@ -10,6 +10,8 @@
 
 # production
 /build
+#/frontend/build
+/frontend/build_old
 
 # misc
 .DS_Store

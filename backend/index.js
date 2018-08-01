@@ -5,7 +5,7 @@ const db = require("./db");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
-const port = 5000;
+const port = process.env.APP_PORT;
 const cors = require('cors')
 
 const static = express.static;

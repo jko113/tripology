@@ -11,6 +11,7 @@ export const LOG_IN = "LOG_IN";
 export const LOG_IN_FAILED = "LOG_IN_FAILED";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const CREATE_NEW_USER_FAILED = "CREATE_NEW_USER_FAILED";
+export const GOD_MODE = "GOD_MODE";
 
 export const updateUsername = (typedValue) => {
     return {
@@ -106,6 +107,12 @@ export const changeAuthorizationMode = (mode) => {
         type: CHANGE_AUTHORIZATION_MODE,
         payload: mode,
     }
+};
+
+export const godMode = () => {
+    return {
+        type: GOD_MODE,
+    };
 };
 
 export const signOut = () => {

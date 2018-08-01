@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import Header from "./Header";
-import { changeAuthorizationMode, signOut, loginFailed } from "../../shared/user/UserActions";
+import { changeAuthorizationMode, signOut, loginFailed, godMode } from "../../shared/user/UserActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -20,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         loginFailed: () => {
             dispatch(loginFailed());
+        },
+        godMode: () => {
+            dispatch(godMode());
         },
     };
 };

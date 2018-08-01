@@ -13,8 +13,9 @@ class TripDetails extends React.Component {
         const tripActivities = this.props.tripDetails.data;
         // console.log(tripActivities);
         const authenticated = this.props.user.authenticated;
+        const godMode = this.props.user.godMode;
 
-        if (authenticated) {
+        if (godMode || authenticated) {
             return (
                 <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
                     {tripActivities.map(activity => {

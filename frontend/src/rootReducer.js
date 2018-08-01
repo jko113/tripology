@@ -9,17 +9,19 @@ import { initialState } from "./shared/initialState/InitialState";
 
 const rootReducer = (state, action) => {
     if (action.type === SIGN_OUT) {
-        return signoutReducer(state, action);
+        state = signoutReducer(state, action);
     }
 
-    return combineReducers({
-        allTrips: allTripsReducer,
-        currentTrip: TripReducer,
-        tripDetails: TripDetailsReducer,
-        allTripsByUser: allTripsByUserReducer,
-        user: userReducer,           
-    })(state, action);
+    return combinedReducer(state, action);
 };
+
+const combinedReducer = combineReducers({
+    allTrips: allTripsReducer,
+    currentTrip: TripReducer,
+    tripDetails: TripDetailsReducer,
+    allTripsByUser: allTripsByUserReducer,
+    user: userReducer,           
+});
 
 const signoutReducer = (state, action) => {
 

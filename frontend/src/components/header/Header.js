@@ -112,7 +112,12 @@ class Header extends React.Component {
                             // }}
                         >Home</Link>
                     </div>
-                    <div className="link-item app-flex">
+                    <div
+                        className="link-item app-flex"
+                        onClick={() => {
+                            this.props.godMode();
+                        }}
+                    >
                         <Link to="/allTrips">God Mode</Link>
                     </div>
                 </div>

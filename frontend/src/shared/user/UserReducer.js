@@ -7,6 +7,7 @@ import {
     LOG_IN,
     CREATE_NEW_USER,
     CREATE_NEW_USER_FAILED,
+    GOD_MODE,
 } from "./UserActions";
 
 import { initialState } from "../../shared/initialState/InitialState"; 
@@ -43,7 +44,7 @@ export const userReducer = (
             return Object.assign({}, state, {
                 authorizationMode: action.payload,
                 errorMessage: undefined,
-        });
+            });
         case GET_USER_ID:
             return {
                 ...state,
@@ -77,6 +78,11 @@ export const userReducer = (
                 username: "",
                 password: "",
                 errorMessage: action.errorMessage,
+            };
+        case GOD_MODE:
+            return {
+                ...state,
+                godMode: true,
             };
         default:
             return state;

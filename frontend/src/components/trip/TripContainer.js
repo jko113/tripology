@@ -5,6 +5,7 @@ import { getOneTrip } from "./TripActions";
 const mapStateToProps = (state) => {
     return {
         currentTrip: state.currentTrip,
+        user: state.user,
     };
 };
 

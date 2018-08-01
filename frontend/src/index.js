@@ -14,8 +14,11 @@ const store = createStore(
     applyMiddleware(thunk)
 );
 
+const root = document.getElementById("root");
+root.classList.add("root");
+
 ReactDOM.render(
     (<Provider store={store}>
     <App />
-    </Provider>), document.getElementById("root"));
+    </Provider>), root);
 registerServiceWorker();

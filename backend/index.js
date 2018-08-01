@@ -70,6 +70,8 @@ app.post("/signin", (req, res) => {
 app.post("/createnewuser", (req, res) => {
     db.createNewUser(req.body.username, req.body.password)
         .then(result => {
+            // console.log(JSON.stringify(result) + "result");
+            // result["usernameAvailable"] = true,
             // console.log(result);
             res.json(result);
         })

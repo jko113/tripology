@@ -7,90 +7,119 @@ class Header extends React.Component {
         //console.log(this.props.match.params);
     }
 
-    checkIfSigningIn = () => {
-        // console.log(this.props.user.authorizationMode !== "signin");
-        if (this.props.user.authorizationMode !== "signin") {
-            return (
-                <li
-                    onClick={() => {
-                        // console.log("onClick: ", this.props);
-                        this.props.changeAuthorizationMode("signin")
-                    }}
-                >
-                    <Link
-                        to={`/signin`}
-                    >Sign In
-                    </Link>
-                </li>
-            );
-        } else return null;
+    getAuthorizationModeButton = (mode) => {
+        // console.log(mode, "mode")
+        let formattedMode = "";
+        // console.log(formattedMode, "formattedMode")
+
+        switch (mode) {
+            case "signin":
+                formattedMode = "Sign In";
+                break;
+            case "signup":
+                formattedMode = "Sign Up";
+                break;
+            default:
+                return null;
+        }
+
+        return (
+            <div
+                className="link-item app-flex app-small-margin"
+                onClick={() => {
+                    this.props.changeAuthorizationMode(mode)
+                }}
+            >
+                <Link
+                    to={`/${mode}`}
+                >{formattedMode}
+                </Link>
+            </div>
+        );
     };
 
-    checkIfSigningUp = () => {
-        if (this.props.user.authorizationMode !== "signup") {
-            return (
-                <li
-                    onClick={() =>
-                        this.props.changeAuthorizationMode("signup")
-                    }
+    getUnauthenticatedUserLinks = () => {
+
+        /**** THIS ALLOWS FOR TOGGLING OF BUTTONS */
+
+        // const authMode = this.props.user.authorizationMode;
+
+        // if (authMode === "signin") {
+        //     return this.getAuthorizationModeButton("signup");
+        // } else if (authMode === "signup") {
+        //     return this.getAuthorizationModeButton("signin");
+        // } else {
+        //     return (
+        //     <div className="app-flex">
+        //         {this.getAuthorizationModeButton("signin")}
+        //         {this.getAuthorizationModeButton("signup")}
+        //     </div>);
+        // }
+
+        /**** THIS LEAVES BOTH BUTTONS DISPLAYING WHILE UNAUTHENTICATED */
+
+        return (
+            <div className="app-flex app-margin-top">
+                {this.getAuthorizationModeButton("signin")}
+                {this.getAuthorizationModeButton("signup")}
+            </div>);
+    };
+
+    getAuthenticatedUserLinks = () => {
+        return (
+            <div className="app-flex app-margin-top">
+                <div className="link-item app-flex app-small-margin">
+                    <Link to={`/allTripsByUser/${this.props.user.userId}`}>{this.props.user.username}'s Trips</Link>
+                </div>
+                <div
+                    className="link-item app-flex app-small-margin"
+                    onClick={() => {
+                        this.props.signOut();
+                    }}
                 >
-                    <Link
-                        to={`/signup`}
-                    >Sign Up (To Do)
-                    </Link>
-                </li>
-            );
-        } else return null;
+                    <Link to={`/signout`}>Sign Out</Link>
+                </div>
+            </div>
+        );
     };
 
     createLinks = () => {
         if (!this.props.user.authenticated) {
-            return (
-                <div>
-                    {this.checkIfSigningIn()}
-                    {this.checkIfSigningUp()}
-                </div>
-            );
+            return this.getUnauthenticatedUserLinks();
         } else {
-            return (
-                <div>
-                    <li>
-                        <Link to={`/allTripsByUser/${this.props.user.userId}`}>Your Trips</Link>
-                    </li>
-                    <li
-                        onClick={() => {
-                            this.props.signOut();
-                        }}
-                    >
-                        <Link to={`/signout`}>Sign Out</Link>
-                    </li>
-                </div>
-            );
+            return this.getAuthenticatedUserLinks();
         }
     };
 
     render() {
         return (
-            <div>
-                <ul>
-                    <li
+            // <div className="app-flex">
+            <div className="app-header app-flex app-flex-column full-width app-margin-top">
+                <div className="app-flex app-flex-space-between full-width app-small-margin-bottom app-small-padding-sides">
+                    <div
+                        className="link-item app-flex"
                         onClick={ () => {
-                            const authMode = this.props.user.authorizationMode;
-                            if (authMode) {
+                            // const authMode = this.props.user.authorizationMode;
+                            // if (authMode) {
                                 this.props.changeAuthorizationMode("");
-                            }
+                            // }
                         }}
                     >
-                        <Link to="/">Home</Link>
-                    </li>
-                    <li>
-                        <Link to="/allTrips">All Trips (God Mode)</Link>
-                    </li>
-                </ul>
+                        <Link
+                            to="/"
+                            // onClick={ () => {
+                            //     this.props.changeAuthorizationMode("");
+                            // }}
+                        >Home</Link>
+                    </div>
+                    <div className="link-item app-flex">
+                        <Link to="/allTrips">God Mode</Link>
+                    </div>
+                </div>
                 
-                <ul>
-                    {this.createLinks()}
-                </ul>
+                {/* <div> */}
+                {this.createLinks()}
+                {/* </div> */}
             </div>
         );
     }

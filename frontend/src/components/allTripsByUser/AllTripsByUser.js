@@ -1,33 +1,39 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { SingleTrip } from "../../shared/trip/SingleTrip";
 
 class AllTripsByUser extends React.Component {
     componentDidMount() {
-        const tripProps = this.props;
-        // console.log("all trip props: ", this.props);
+        const props = this.props;
+        const tripProps = props.allTripsByUser.data;
+        // console.log("all trip props: ", props);
         // console.log(tripProps.match.params);
-        this.props.getAllTripsByUser(tripProps.match.params.id);
+        if (!tripProps.length) {
+            props.getAllTripsByUser(props.match.params.id);
+        }
     }
 
+    getTrips = (tripsArray) => {
+        if (tripsArray.length) {
+            return tripsArray.map((trip) => {
+                return <SingleTrip key={trip.trip_id} trip={trip} />
+            })
+        } else {
+            return (
+                <div>No trips yet. Add one?</div>
+            );
+        }
+    };
+
     render() {
-        console.log("all trips props", this.props);
+        // console.log("all trips props", this.props);
         const authenticated = this.props.user.authenticated;
 
         if (authenticated) {
             const allTripsByUser = this.props.allTripsByUser.data;
     
             return (
-                <div>
-                {allTripsByUser.map((trip) => {
-                    return (
-                        <Link
-                            to={`/trip/${trip.trip_id}`}
-                            key={trip.trip_id}
-                        >
-                            {trip.title}
-                        </Link>
-                    );
-                })}
+                <div className="app-flex">
+                    {this.getTrips(allTripsByUser)}
                 </div>
             );
         } else {

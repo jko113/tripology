@@ -24,6 +24,7 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(logIn(username, password));
         },
         createNewUser: (username, password) => {
+            // console.log("called createnewuser")
             dispatch(createNewUser(username, password));
         },
     };

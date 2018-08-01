@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import { SingleTrip } from "../../shared/trip/SingleTrip";
 
 class AllTrips extends React.Component {
     componentDidMount() {
@@ -7,21 +7,14 @@ class AllTrips extends React.Component {
     }
 
     render() {
-
+        
         const allTrips = this.props.allTrips.data;
 
         return (
-            <div>
-            {allTrips.map((trip) => {
-                return (
-                    <Link
-                        to={`/trip/${trip.trip_id}`}
-                        key={trip.trip_id}
-                    >
-                        {trip.title}
-                    </Link>
-                );
-            })}
+            <div className="app-flex app-flex-column">
+                {allTrips.map((trip) => {
+                    return <SingleTrip key={trip.trip_id} trip={trip} />
+                })}
             </div>
         );
     }

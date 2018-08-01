@@ -1,5 +1,166 @@
+html, body {
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+}
+
+* {
+  box-sizing: inherit;
+  font-family: 'Raleway', sans-serif;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+  color: rgb(28,28,28);
+}
+
+.app-logo {
+  font-size: 4rem;
+}
+
+.h1 {
+  font-size: 2rem;
+}
+
+.h2 {
+  font-size: 1.2rem;
+}
+
+.root {
+  height: 100%;
+  width: 100%;
+}
+
+.error {
+  position: relative;
+}
+
+.full-container {
+  background-image: url(./images/5.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+}
+
+.app-body {
+  flex-basis: 1;
+}
+
+.app-header {
+  flex-basis: 1;
+}
+
+.app-big-margin-top {
+  margin-top: 100px;
+}
+
+.app-big-padding-top {
+  padding-top: 100px;
+}
+
+.app-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app-padding {
+  padding: 20px;
+}
+
+.app-small-padding {
+  padding: 10px;
+}
+
+.app-small-padding-sides {
+  padding: 0 10px;
+}
+
+.app-padding-bottom {
+  padding-bottom: 20px;
+}
+
+.app-padding-top {
+  padding-top: 20px;
+}
+
+.app-margin-top {
+  margin-top: 20px;
+}
+
+.app-margin {
+  margin: 20px;
+}
+
+.app-small-margin {
+  margin: 10px;
+}
+
+.app-small-margin-top {
+  margin-top: 10px;
+}
+
+.app-small-margin-bottom {
+  margin-bottom: 10px;
+}
+
+.app-tiny-margin-bottom {
+  margin-bottom: 5px;
+}
+
+.app-margin-bottom {
+  margin-bottom: 20px;
+}
+
+.app-flex-space-between {
+  justify-content: space-between;
+}
+
+.app-flex-start {
+  align-items: flex-start
+}
+
+.full-width {
+  width: 100%;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.app-flex-column {
+  flex-direction: column;
+}
+
+.link-item {
+  background: #D6E2EE;
+  /* border: 1px solid rgb(28,28,28); */
+  padding: 10px;
+  width: 100px;
+  /* flex: 1 1 100%; */
+  /* margin: 0 10px; */
+}
+
+.app-trip {
+  background: #CDB6AF;
+  padding: 20px;
+  margin: 15px;
+  width: 200px;
+}
+
+.app-trip-card {
+  background: #D6E2EE;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.contrast {
+  background-color: #CDB6AF;
 }

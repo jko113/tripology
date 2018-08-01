@@ -5,6 +5,7 @@ import { getTripDetails } from "./TripDetailsActions";
 const mapStateToProps = (state) => {
     return {
         tripDetails: state.tripDetails,
+        user: state.user,
     };
 };
 

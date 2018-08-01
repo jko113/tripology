@@ -13,6 +13,9 @@ export const allTripsReducer = (state = initialState, action) => {
         case GET_ALL_TRIPS:
             return Object.assign({}, state, {data: action.payload});
         default:
-            return state;
+            return {
+                ...state,
+                data: [],
+            };
     }
 };

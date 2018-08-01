@@ -6,6 +6,7 @@ import {
     UPDATE_PASSWORD,
     LOG_IN,
     CREATE_NEW_USER,
+    CREATE_NEW_USER_FAILED,
 } from "./UserActions";
 
 const initialState = {
@@ -39,12 +40,15 @@ export const userReducer = (
                 ...state,
                 authenticated: action.isAuthenticated,
                 userId: action.userId,
-                username: "",
+                // username: "",
                 password: "",
                 errorMessage: undefined,
             };
         case CHANGE_AUTHORIZATION_MODE:
-            return Object.assign({}, state, {authorizationMode: action.payload});
+            return Object.assign({}, state, {
+                authorizationMode: action.payload,
+                errorMessage: undefined,
+        });
         case GET_USER_ID:
             return {
                 ...state,
@@ -65,6 +69,16 @@ export const userReducer = (
                 ...state,
                 authenticated: action.isAuthenticated,
                 userId: action.userId,
+                // username: "",
+                password: "",
+                errorMessage: action.errorMessage,
+                authorizationMode: action.authorizationMode,
+            };
+        case CREATE_NEW_USER_FAILED:
+            return {
+                ...state,
+                authenticated: false,
+                userId: undefined,
                 username: "",
                 password: "",
                 errorMessage: action.errorMessage,

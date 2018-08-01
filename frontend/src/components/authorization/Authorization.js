@@ -2,85 +2,92 @@ import React from "react";
 
 class Authorization extends React.Component {
 
+    getAuthInputFields = (mode) => {
+
+        let formattedMode = "";
+        let correctFunction = "";
+        let correctMessage = "";
+
+        switch (mode) {
+            case "signin":
+                formattedMode = "Sign In";
+                correctFunction = this.props.logIn;
+                correctMessage = "Log In";
+                break;
+            case "signup":
+                formattedMode = "Sign Up";
+                correctFunction = this.props.createNewUser;
+                correctMessage = "Submit";
+                break;
+            default:
+                return null;
+        }
+
+        return (
+                <div className="app-flex app-flex-column">
+                    <div className="h1">{formattedMode}</div>
+                    <div className="app-flex">
+                        <input
+                            className="app-small-margin app-small-padding"
+                            key="username"
+                            placeholder="username"
+                            value={this.props.user.username}
+                            onChange={ (e) =>
+                                this.props.updateUsername(e.target.value)
+                            }
+                        />
+                        <input
+                            className="app-small-margin app-small-padding"
+                            key="password"
+                            placeholder="password"
+                            value={this.props.user.password}
+                            onChange={ (e) =>
+                                this.props.updatePassword(e.target.value)}
+                        />
+                    </div>
+                    <div
+                        className="link-item app-flex app-small-margin-top"
+                        onClick={() => {
+                            correctFunction(
+                                this.props.user.username,
+                                this.props.user.password
+                            );
+                        }}
+                    >
+                        {correctMessage}
+                    </div>
+                    <div className="error">
+                        {this.props.user.errorMessage}
+                    </div>
+                </div>
+        );
+    };
+
     render () {
-        // console.log("auth props: ", this.props);
+
+        const authMode = this.props.user.authorizationMode;
+        
         // not authenticated
         if (!this.props.user.authenticated) {
-
-            if (this.props.user.authorizationMode === "signin") {
+            if (authMode) {
                 return (
-                    <div>
-                        <h1>Sign In</h1>
-                        <input
-                            key="username"
-                            value={this.props.user.username}
-                            onChange={ (e) =>
-                                this.props.updateUsername(e.target.value)
-                            }
-                        />
-                        <input
-                            key="password"
-                            value={this.props.user.password}
-                            onChange={ (e) =>
-                                this.props.updatePassword(e.target.value)}
-                        />
-                        <button
-                            onClick={() => {
-                                this.props.logIn(
-                                    this.props.user.username,
-                                    this.props.user.password
-                                );
-                            }}
-                        >
-                            Log In
-                        </button>
-                        <div>
-                            {this.props.user.errorMessage}
-                        </div>
-                    </div>
-                );
-            } else if (this.props.user.authorizationMode === "signup") {
-                return (
-                    <div>
-                        <h1>Signing Up</h1>
-                        <input
-                            key="username"
-                            value={this.props.user.username}
-                            onChange={ (e) =>
-                                this.props.updateUsername(e.target.value)
-                            }
-                        />
-                        <input
-                            key="password"
-                            value={this.props.user.password}
-                            onChange={ (e) =>
-                                this.props.updatePassword(e.target.value)}
-                        />
-                        <button
-                            onClick={() => {
-                                this.props.createNewUser(
-                                    this.props.user.username,
-                                    this.props.user.password
-                                );
-                                // console.log("submitted create user request");
-                            }}
-                        >
-                            Log In
-                        </button>
-                        <div>
-                            {this.props.user.errorMessage}
-                        </div>
+                    // <div className="app-flex">
+                    <div className="">
+                        {this.getAuthInputFields(authMode)}
                     </div>
                 );
             } else {
-                return null;
+                // return null;
+                return <div className="app-flex app-flex-center">Please sign in or create an account.</div>;
             }
         }
+        
         // authenticated
         else {
-            return (
-                <div>Logged in successfully.</div>
-            );
+            return null;
+            // return (
+            //     <div>Logged in successfully.</div>
+            // );
         }
     }
     

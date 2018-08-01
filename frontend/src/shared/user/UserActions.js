@@ -8,6 +8,7 @@ export const UPDATE_USERNAME = "UPDATE_USERNAME";
 export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
 export const LOG_IN = "LOG_IN";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
+export const CREATE_NEW_USER_FAILED = "CREATE_NEW_USER_FAILED";
 
 export const updateUsername = (typedValue) => {
     return {
@@ -24,12 +25,28 @@ export const updatePassword = (typedValue) => {
 };
 
 export const createNewUser = (username, password) => {
+    console.log("got to action");
     return async (dispatch) => {
         axios.post(`http://localhost:5000/createnewuser`, {
             username,
             password,
         }).then(result => {
-            console.log(result);
+            console.log("resultdata:",result.data);
+            if (result.data.user_id) {
+                console.log("action: ", result)
+                dispatch({
+                    type: CREATE_NEW_USER,
+                    userId: result.data.user_id,
+                    isAuthenticated: true,
+                    authorizationMode: "",
+                    errorMessage: undefined,
+                });
+            } else {
+                dispatch({
+                    type: CREATE_NEW_USER_FAILED,
+                    errorMessage: "Username contains non-alphanumeric characters or is already taken."
+                });
+            }
         }).catch(error => {
             console.error(error);
         })
@@ -61,7 +78,7 @@ export const logIn = (username, password) => {
                     isAuthenticated: false,
                     userId: undefined,
                     authorizationMode: "signin",
-                    errorMessage: "Not an authorized user."
+                    errorMessage: "User credentials invalid."
                 });
             }
         }).catch(error => {

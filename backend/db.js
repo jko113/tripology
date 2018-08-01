@@ -35,9 +35,12 @@ function checkUserExistenceByUsername(username) {
 function createNewUser(username, password) {
     return checkUserExistenceByUsername(username)
         .then(result => {
+            const isValid = validateUsername(username);
+            console.log(isValid);
             const alreadyExists = result.exists;
-            if (alreadyExists) {
-                // console.log("already exists");
+            
+            if (alreadyExists || !isValid) {
+                console.log("already exists",isValid);
                 return {
                     usernameAvailable: false,
                 };
@@ -50,8 +53,22 @@ function createNewUser(username, password) {
         })
 }
 
+function validateUsername(username) {
+    console.log("calling validate");
+    const letters = /^[0-9a-zA-Z]+$/;
+    if (username.match(letters)) {
+        console.log("accepted");
+        // alert('Your registration number have accepted : you can try another');
+        return true;
+    } else {
+        console.log("not accepted");
+// alert('Please input alphanumeric characters only');
+        return false;
+    }
+}
+
 function addUserToDatabase(username, password) {
-    return db.query("INSERT INTO users (username, password) VALUES ($1, $2)", [username, password]);
+    return db.one("INSERT INTO users (username, password) VALUES ($1, $2) RETURNING user_id", [username, password]);
 }
 
 module.exports = {

@@ -4,7 +4,7 @@ import React from "react";
 class TripDetails extends React.Component {
 
     componentDidMount() {
-        console.log("trip details user props", this.props.user);
+        // console.log("trip details user props", this.props.user);
         this.props.getTripDetails(this.props.match.params.id);
     }
 

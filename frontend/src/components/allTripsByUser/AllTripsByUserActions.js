@@ -1,11 +1,12 @@
 import axios from "axios";
+import { rootUrl } from "../../shared/URL/rootUrl";
 
 export const GET_ALL_TRIPS_BY_USER = "GET_ALL_TRIPS_BY_USER";
 
 export const getAllTripsByUser = (userId) => {
     return (dispatch) => {
         axios({
-            url: `http://localhost:5000/allTripsByUser/${userId}`,
+            url: `${rootUrl}/allTripsByUser/${userId}`,
             method: 'get'
         }).then((result) => {
             dispatch({

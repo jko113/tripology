@@ -36,11 +36,11 @@ function createNewUser(username, password) {
     return checkUserExistenceByUsername(username)
         .then(result => {
             const isValid = validateUsername(username);
-            console.log(isValid);
+            // console.log(isValid);
             const alreadyExists = result.exists;
             
             if (alreadyExists || !isValid) {
-                console.log("already exists",isValid);
+                // console.log("already exists",isValid);
                 return {
                     usernameAvailable: false,
                 };
@@ -54,15 +54,13 @@ function createNewUser(username, password) {
 }
 
 function validateUsername(username) {
-    console.log("calling validate");
+    // console.log("calling validate");
     const letters = /^[0-9a-zA-Z]+$/;
     if (username.match(letters)) {
-        console.log("accepted");
-        // alert('Your registration number have accepted : you can try another');
+        // console.log("accepted");
         return true;
     } else {
-        console.log("not accepted");
-// alert('Please input alphanumeric characters only');
+        // console.log("not accepted");
         return false;
     }
 }

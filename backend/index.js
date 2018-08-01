@@ -23,7 +23,7 @@ app.get("/allTrips", (req, res) => {
 
 app.get("/allTripsByUser/:id", (req, res) => {
     const userId = req.params.id;
-    console.log(userId);
+    // console.log(userId);
     db.getAllTripsByUser(userId)
         .then(data => {
             res.json(data);
@@ -51,13 +51,13 @@ app.post("/signout", (req, res) => {
 });
 
 app.post("/signin", (req, res) => {
-    console.log("reqbody: ", req.body);
+    // console.log("reqbody: ", req.body);
     const username = req.body.username;
     const password = req.body.password;
     db.checkUserExistence(username, password)
         .then(result => {
-            console.log(typeof result);
-            console.log("result: ", result);
+            // console.log(typeof result);
+            // console.log("result: ", result);
             if (result) {
                 result["token"] = "a token";
             }

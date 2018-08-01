@@ -1,4 +1,5 @@
 import axios from "axios";
+import { rootUrl } from "../../shared/URL/rootUrl"; 
 
 export const CHANGE_AUTHORIZATION_MODE = "CHANGE_AUTHORIZATION_MODE";
 export const SIGN_OUT = "SIGN_OUT";
@@ -25,15 +26,15 @@ export const updatePassword = (typedValue) => {
 };
 
 export const createNewUser = (username, password) => {
-    console.log("got to action");
+    // console.log("got to action");
     return async (dispatch) => {
-        axios.post(`http://localhost:5000/createnewuser`, {
+        axios.post(`${rootUrl}/createnewuser`, {
             username,
             password,
         }).then(result => {
-            console.log("resultdata:",result.data);
+            // console.log("resultdata:",result.data);
             if (result.data.user_id) {
-                console.log("action: ", result)
+                // console.log("action: ", result)
                 dispatch({
                     type: CREATE_NEW_USER,
                     userId: result.data.user_id,
@@ -56,7 +57,7 @@ export const createNewUser = (username, password) => {
 export const logIn = (username, password) => {
 
     return async (dispatch) => {
-        axios.post(`http://localhost:5000/signin`, {
+        axios.post(`${rootUrl}/signin`, {
             username,
             password
         }).then(result => {

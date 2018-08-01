@@ -10,7 +10,7 @@
 
 # production
 /build
-#/frontend/build
+/frontend/build
 /frontend/build_old
 
 # misc

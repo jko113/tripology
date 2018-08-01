@@ -9,12 +9,7 @@ import {
     CREATE_NEW_USER_FAILED,
 } from "./UserActions";
 
-const initialState = {
-    authorizationMode: "",
-    username: "",
-    password: "",
-    authenticated: false,
-};
+import { initialState } from "../../shared/initialState/InitialState"; 
 
 export const userReducer = (
     state = initialState,

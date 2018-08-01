@@ -1,10 +1,12 @@
 import { connect } from "react-redux";
 import Header from "./Header";
-import { changeAuthorizationMode, signOut } from "../../shared/user/UserActions";
+import { changeAuthorizationMode, signOut, loginFailed } from "../../shared/user/UserActions";
 
 const mapStateToProps = (state) => {
     return {
         user: state.user,
+        // currentTrip: state.currentTrip,
+        // allTripsByUser: state.allTripsByUser,
     };
 };
 
@@ -15,6 +17,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         signOut: () => {
             dispatch(signOut());
+        },
+        loginFailed: () => {
+            dispatch(loginFailed());
         },
     };
 };

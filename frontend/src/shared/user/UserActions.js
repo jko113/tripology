@@ -8,6 +8,7 @@ export const GET_USER_ID = "GET_USER_ID";
 export const UPDATE_USERNAME = "UPDATE_USERNAME";
 export const UPDATE_PASSWORD = "UPDATE_PASSWORD";
 export const LOG_IN = "LOG_IN";
+export const LOG_IN_FAILED = "LOG_IN_FAILED";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const CREATE_NEW_USER_FAILED = "CREATE_NEW_USER_FAILED";
 
@@ -74,8 +75,15 @@ export const logIn = (username, password) => {
                 //     isAuthenticated: false,
                 //     userId: undefined,
                 // });
+                // dispatch({
+                //     type: SIGN_OUT,
+                //     isAuthenticated: false,
+                //     userId: undefined,
+                //     authorizationMode: "signin",
+                //     errorMessage: "User credentials invalid."
+                // });
                 dispatch({
-                    type: SIGN_OUT,
+                    type: LOG_IN_FAILED,
                     isAuthenticated: false,
                     userId: undefined,
                     authorizationMode: "signin",
@@ -103,6 +111,13 @@ export const changeAuthorizationMode = (mode) => {
 export const signOut = () => {
     return {
         type: SIGN_OUT,
+        // payload: mode,
+    }
+};
+
+export const loginFailed = () => {
+    return {
+        type: LOG_IN_FAILED,
         // payload: mode,
     }
 };

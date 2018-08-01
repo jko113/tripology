@@ -56,7 +56,7 @@ class Authorization extends React.Component {
                     >
                         {correctMessage}
                     </div>
-                    <div className="error">
+                    <div className="error app-margin-top">
                         {this.props.user.errorMessage}
                     </div>
                 </div>
@@ -66,14 +66,22 @@ class Authorization extends React.Component {
     render () {
 
         const authMode = this.props.user.authorizationMode;
+        const path = this.props.match.path;
+        // console.log("render auth:", this.props);
+        // console.log("path:", path);
         
         // not authenticated
         if (!this.props.user.authenticated) {
             if (authMode) {
                 return (
-                    // <div className="app-flex">
                     <div className="">
                         {this.getAuthInputFields(authMode)}
+                    </div>
+                );
+            } else if (path.toLowerCase() === "/signup" || path.toLowerCase() === "/signin") {
+                return (
+                    <div className="">
+                        {this.getAuthInputFields(path.slice(1).toLowerCase())}
                     </div>
                 );
             } else {

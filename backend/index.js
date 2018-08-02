@@ -50,7 +50,7 @@ app.post("/signout", (req, res) => {
     });
 });
 
-app.post("/signin", (req, res) => {
+app.post("/api/signin", (req, res) => {
     console.log("reqbody: ", req.body);
     const username = req.body.username;
     const password = req.body.password;

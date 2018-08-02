@@ -60,7 +60,7 @@ export const logIn = (username, password) => {
 
     return async (dispatch) => {
         console.log("dispatching login:", rootUrl);
-        axios.post(`${rootUrl}/signin`, {
+        axios.post(`${rootUrl}/api/signin`, {
             username,
             password
         }).then(result => {

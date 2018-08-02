@@ -12,6 +12,7 @@
 /build
 /frontend/build
 /frontend/build_old
+/frontend/src
 
 # misc
 .DS_Store
@@ -21,6 +22,7 @@
 .env.production.local
 .env
 _old/
+# /frontend/src/shared/URL/rootUrl.js
 
 npm-debug.log*
 yarn-debug.log*

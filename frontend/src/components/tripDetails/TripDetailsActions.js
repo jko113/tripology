@@ -6,7 +6,7 @@ export const GET_TRIP_DETAILS = "GET_TRIP_DETAILS";
 export const getTripDetails = (id) => {
     return (dispatch) => {
         axios({
-            url: `${rootUrl}/tripdetails/${id}`,
+            url: `${rootUrl}/api/tripdetails/${id}`,
             method: "get"
         }).then(result => {
             dispatch({

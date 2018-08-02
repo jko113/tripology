@@ -21,7 +21,7 @@ app.use(cors())
 //         })
 // });
 
-app.get("/allTripsByUser/:id", (req, res) => {
+app.get("/api/allTripsByUser/:id", (req, res) => {
     const userId = req.params.id;
     // console.log(userId);
     db.getAllTripsByUser(userId)
@@ -30,21 +30,21 @@ app.get("/allTripsByUser/:id", (req, res) => {
         })
 });
 
-app.get("/trip/:id", (req, res) => {
+app.get("/api/trip/:id", (req, res) => {
     db.getOneTrip(req.params.id)
         .then(data => {
             res.json(data);
         })
 });
 
-app.get("/tripdetails/:id", (req, res) => {
+app.get("/api/tripdetails/:id", (req, res) => {
     db.getTripDetails(req.params.id)
         .then(data => {
             res.json(data);
         })
 });
 
-app.post("/signout", (req, res) => {
+app.post("/api/signout", (req, res) => {
     res.json({
         signout: true,
     });
@@ -67,7 +67,7 @@ app.post("/api/signin", (req, res) => {
         })
 });
 
-app.post("/createnewuser", (req, res) => {
+app.post("/api/createnewuser", (req, res) => {
     db.createNewUser(req.body.username, req.body.password)
         .then(result => {
             // console.log(JSON.stringify(result) + "result");
@@ -78,7 +78,7 @@ app.post("/createnewuser", (req, res) => {
         .catch(error => console.error);
 });
 
-app.post("/newTrip", (req, res) => {
+app.post("/api/newTrip", (req, res) => {
     const {
         userInfo,
         title,

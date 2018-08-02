@@ -6,7 +6,7 @@ export const GET_ALL_TRIPS_BY_USER = "GET_ALL_TRIPS_BY_USER";
 export const getAllTripsByUser = (userId) => {
     return (dispatch) => {
         axios({
-            url: `${rootUrl}/allTripsByUser/${userId}`,
+            url: `${rootUrl}/api/allTripsByUser/${userId}`,
             method: 'get'
         }).then((result) => {
             dispatch({

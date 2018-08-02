@@ -7,7 +7,7 @@ export const getOneTrip = (id) => {
     return (dispatch) => {
         // console.log(id);
         axios({
-            url: `${rootUrl}/trip/${id}`,
+            url: `${rootUrl}/api/trip/${id}`,
             method: "get"
         }).then(result => {
             dispatch({

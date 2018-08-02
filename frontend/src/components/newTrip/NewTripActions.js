@@ -49,7 +49,7 @@ export const createNewTrip = (tripDetails) => {
 
     // if trip info form is filled out, make the API call
     return async (dispatch) => {
-        axios.post(`${rootUrl}/newTrip`, {
+        axios.post(`${rootUrl}/api/newTrip`, {
             tripDetails,
         }).then(result => {
             console.log(result);

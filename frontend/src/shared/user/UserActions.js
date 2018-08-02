@@ -30,7 +30,7 @@ export const updatePassword = (typedValue) => {
 export const createNewUser = (username, password) => {
     // console.log("got to action");
     return async (dispatch) => {
-        axios.post(`${rootUrl}/createnewuser`, {
+        axios.post(`${rootUrl}/api/createnewuser`, {
             username,
             password,
         }).then(result => {

@@ -1,7 +1,7 @@
-let rootUrl = "http://localhost:5001";
+let theUrl = "http://localhost:5001";
 
 if (window.location.hostname !== "localhost") {
-    rootUrl = "";
+    theUrl = "";
 }
 
-export const rootUrl;
+export const rootUrl = theUrl;

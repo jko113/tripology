@@ -59,6 +59,7 @@ export const createNewUser = (username, password) => {
 export const logIn = (username, password) => {
 
     return async (dispatch) => {
+        console.log("dispatching login:", rootUrl);
         axios.post(`${rootUrl}/signin`, {
             username,
             password

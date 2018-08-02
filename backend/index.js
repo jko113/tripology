@@ -14,12 +14,12 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
-app.get("/allTrips", (req, res) => {
-    db.getAllTrips()
-        .then(data => {
-            res.json(data);
-        })
-});
+// app.get("/allTrips", (req, res) => {
+//     db.getAllTrips()
+//         .then(data => {
+//             res.json(data);
+//         })
+// });
 
 app.get("/allTripsByUser/:id", (req, res) => {
     const userId = req.params.id;
@@ -76,6 +76,55 @@ app.post("/createnewuser", (req, res) => {
             res.json(result);
         })
         .catch(error => console.error);
+});
+
+app.post("/newTrip", (req, res) => {
+    const {
+        userInfo,
+        title,
+        description,
+        startDate,
+        endDate,
+    } = req.body.tripDetails;
+
+    // console.log(title);
+    // res.json("got it");
+
+    db.addTrip(
+        userInfo.userId,
+        title,
+        description,
+        startDate,
+        endDate,
+    ).then(result => {
+        if (result) {
+            // add additional fields for currentTrip
+            result["user_id"] = userInfo.userId;
+            result["title"] = title;
+            result["description"] = description;
+            result["start_date"] = new Date(startDate);
+            result["end_date"] = new Date(endDate);
+            res.json(result);
+        } else {
+            res.json({
+                error: "An error occurred. The trip was not added successfully."
+            });
+        }
+    }).catch(error => {
+        res.json(error);
+    })
+
+    // { tripDetails: 
+    //     { title: 'asdf',
+    //       description: 'asdf',
+    //       startDate: '2018-08-03',
+    //       endDate: '2018-08-04',
+    //       userInfo: 
+    //        { authorizationMode: '',
+    //          username: 'ca',
+    //          password: '',
+    //          authenticated: true,
+    //          userId: 3 } } }
 });
 
 app.listen(port, () => {

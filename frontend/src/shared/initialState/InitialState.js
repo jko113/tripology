@@ -1,6 +1,14 @@
+// export const initialState = {
+//     authorizationMode: "",
+//     username: "",
+//     password: "",
+//     authenticated: false,
+// };
+
 export const initialState = {
     authorizationMode: "",
-    username: "",
+    username: "ca",
     password: "",
-    authenticated: false,
+    authenticated: true,
+    userId: 3,
 };

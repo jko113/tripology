@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { ConnectedAllTrips as AllTrips } from "./components/allTrips/AllTripsContainer"
+// import { ConnectedAllTrips as AllTrips } from "./components/allTrips/AllTripsContainer"
 import { ConnectedAllTripsByUser as AllTripsByUser } from "./components/allTripsByUser/AllTripsByUserContainer"
 import { ConnectedTrip as Trip } from "./components/trip/TripContainer"
+import { ConnectedNewTrip as NewTrip } from "./components/newTrip/NewTripContainer";
 import { ConnectedTripDetails as TripDetails } from "./components/tripDetails/TripDetailsContainer"
 // import Signin from "./components/signin/SignIn"
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -22,7 +23,7 @@ class App extends Component {
 
           {/* <div className="app-flex full-width full-height app-body"> */}
           <div className="full-width full-height app-body app-big-margin-top">
-            <Route path="/allTrips" component={AllTrips} />
+            {/* <Route path="/allTrips" component={AllTrips} /> */}
             <Route path="/allTripsByUser/:id" component={AllTripsByUser} />
             <Route path="/trip/:id" component={Trip} />
             <Route path="/tripdetails/:id" component={TripDetails} />
@@ -30,6 +31,7 @@ class App extends Component {
             <Route path="/signin" component={Authorization} />
             <Route path="/" exact={true} component={Home} />
             <Route path="/signout" component={Home}/>
+            <Route path="/newTrip" component={NewTrip}/>
           </div>
 
         </div>

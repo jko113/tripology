@@ -8,9 +8,9 @@ const cn = {
 }
 const db = pgp(cn);
 
-function getAllTrips() {
-    return db.any("SELECT * FROM trips;");
-}
+// function getAllTrips() {
+//     return db.any("SELECT * FROM trips;");
+// }
 
 function getAllTripsByUser(user_id) {
     return db.any("SELECT * FROM trips WHERE user_id = $1;", [user_id]);
@@ -69,11 +69,16 @@ function addUserToDatabase(username, password) {
     return db.one("INSERT INTO users (username, password) VALUES ($1, $2) RETURNING user_id", [username, password]);
 }
 
+function addTrip(userId, title, description, startDate, endDate) {
+    return db.one("INSERT INTO trips (user_id, title, description, start_date, end_date) VALUES ($1, $2, $3, $4, $5) RETURNING trip_id", [userId, title, description, startDate, endDate]);
+}
+
 module.exports = {
-    getAllTrips,
+    // getAllTrips,
     getOneTrip,
     getTripDetails,
     checkUserExistence,
     getAllTripsByUser,
     createNewUser,
+    addTrip,
 };

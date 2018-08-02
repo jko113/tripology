@@ -1,6 +1,13 @@
 import { connect } from "react-redux";
 import Header from "./Header";
-import { changeAuthorizationMode, signOut, loginFailed, godMode } from "../../shared/user/UserActions";
+import {
+    changeAuthorizationMode,
+    signOut,
+    loginFailed,
+    /*godMode, */
+} from "../../shared/user/UserActions";
+
+import { createNewTrip, } from "../../components/newTrip/NewTripActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -21,9 +28,12 @@ const mapDispatchToProps = (dispatch) => {
         loginFailed: () => {
             dispatch(loginFailed());
         },
-        godMode: () => {
-            dispatch(godMode());
+        createNewTrip: (tripDetails) => {
+            dispatch(createNewTrip(tripDetails));
         },
+        // godMode: () => {
+        //     dispatch(godMode());
+        // },
     };
 };
 

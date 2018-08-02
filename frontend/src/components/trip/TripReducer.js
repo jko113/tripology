@@ -23,6 +23,7 @@ export const allTripsReducer = (state = initialState, action) => {
 */
 
 import { GET_TRIP } from "./TripActions";
+import { CREATE_NEW_TRIP } from "../../components/newTrip/NewTripActions";
 
 const initialState = {
     data: {},
@@ -39,6 +40,10 @@ export const TripReducer = (
     switch (action.type) {
         case GET_TRIP:
             return Object.assign({}, state, {data: action.payload});
+        case CREATE_NEW_TRIP:
+            return {
+                data: action.payload,
+            };
         default:
             return state;
     }

@@ -12,9 +12,9 @@ class Trip extends React.Component {
         //console.log(this.props.currentTrip.data);
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
-        const godMode = this.props.user.godMode;
+        // const godMode = this.props.user.godMode;
 
-        if (godMode || authenticated) {
+        if (/*godMode ||*/ authenticated) {
             return (
                 <div className="app-padding app-margin app-trip-card app-flex app-flex-column">
                     <div className="h1 app-margin-bottom">

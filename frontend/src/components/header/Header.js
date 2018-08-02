@@ -92,6 +92,9 @@ class Header extends React.Component {
     };
 
     render() {
+
+        const newTrip = this.props.user.authenticated ? "": "hidden";
+
         return (
             // <div className="app-flex">
             <div className="app-header app-flex app-flex-column full-width app-margin-top">
@@ -113,18 +116,15 @@ class Header extends React.Component {
                         >Home</Link>
                     </div>
                     <div
-                        className="link-item app-flex"
-                        onClick={() => {
-                            this.props.godMode();
-                        }}
+                        className={`link-item app-flex ${newTrip}`}
+                        // onClick={() => {
+                        //     this.props.createNewTrip({});
+                        // }}
                     >
-                        <Link to="/allTrips">God Mode</Link>
+                        <Link to="/newTrip">New Trip</Link>
                     </div>
                 </div>
-                
-                {/* <div> */}
                 {this.createLinks()}
-                {/* </div> */}
             </div>
         );
     }

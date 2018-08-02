@@ -16,6 +16,14 @@ body {
   color: rgb(28,28,28);
 }
 
+.hidden {
+  visibility: hidden;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
 .app-logo {
   font-size: 4rem;
 }
@@ -58,14 +66,26 @@ body {
   margin-top: 100px;
 }
 
+.app-tiny-margin-top {
+  margin-top: 5px;
+}
+
 .app-big-padding-top {
   padding-top: 100px;
+}
+
+.app-margin-right {
+  margin-right: 20px;
 }
 
 .app-flex {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.app-flex-wrap {
+  flex-wrap: wrap;
 }
 
 .app-padding {
@@ -90,6 +110,10 @@ body {
 
 .app-margin-top {
   margin-top: 20px;
+}
+
+.app-bigger-margin-top {
+  margin-top: 30px;
 }
 
 .app-margin {
@@ -154,6 +178,19 @@ body {
 
 .app-trip-card {
   background: #D6E2EE;
+}
+
+.app-new-trip-card {
+  background: #CDB6AF;
+}
+
+.app-new-trip-title {
+  width: 300px;
+}
+
+.app-new-trip-description {
+  width: 300px;
+  height: 100px;
 }
 
 a {

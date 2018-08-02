@@ -27,9 +27,9 @@ class AllTripsByUser extends React.Component {
     render() {
         // console.log("all trips props", this.props);
         const authenticated = this.props.user.authenticated;
-        const godMode = this.props.user.godMode;
+        // const godMode = this.props.user.godMode;
 
-        if (godMode || authenticated) {
+        if (/*godMode ||*/ authenticated) {
             const allTripsByUser = this.props.allTripsByUser.data;
     
             return (

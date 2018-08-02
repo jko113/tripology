@@ -51,7 +51,7 @@ app.post("/signout", (req, res) => {
 });
 
 app.post("/signin", (req, res) => {
-    // console.log("reqbody: ", req.body);
+    console.log("reqbody: ", req.body);
     const username = req.body.username;
     const password = req.body.password;
     db.checkUserExistence(username, password)

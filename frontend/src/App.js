@@ -5,7 +5,7 @@ import { ConnectedTrip as Trip } from "./components/trip/TripContainer"
 import { ConnectedNewTrip as NewTrip } from "./components/newTrip/NewTripContainer";
 import { ConnectedTripDetails as TripDetails } from "./components/tripDetails/TripDetailsContainer"
 // import Signin from "./components/signin/SignIn"
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { HashRouter as Router, Route } from "react-router-dom";
 // import NavBar from "./components/navbar/NavBar";
 // import { ConnectedSignOut as SignOut } from "./components/signin/SignOut";
 import { ConnectedHeader as Header} from "./components/header/HeaderContainer";

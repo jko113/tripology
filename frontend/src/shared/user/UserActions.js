@@ -64,7 +64,8 @@ export const logIn = (username, password) => {
             username,
             password
         }).then(result => {
-            if (result.data) {
+            console.log(result);
+            if (result.data.exists) {
                 const userInfo = result.data;
                 dispatch({
                     type: LOG_IN,
@@ -84,6 +85,7 @@ export const logIn = (username, password) => {
                 //     authorizationMode: "signin",
                 //     errorMessage: "User credentials invalid."
                 // });
+                console.log(result, "failed");
                 dispatch({
                     type: LOG_IN_FAILED,
                     isAuthenticated: false,

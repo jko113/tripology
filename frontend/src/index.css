@@ -16,6 +16,16 @@ body {
   color: rgb(28,28,28);
 }
 
+.mainbackground {
+  background-image: url(./images/5.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  height: 100%;
+  width: 100%;
+}
+
 .hidden {
   visibility: hidden;
 }
@@ -45,14 +55,15 @@ body {
   position: relative;
 }
 
-.full-container {
-  background-image: url(./images/5.jpg);
+/* .full-container { */
+  /* background-image: url(./images/5.jpg);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   height: 100%;
-  width: 100%;
-}
+  width: 100%; */
+/* } */
 
 .app-body {
   flex-basis: 1;
@@ -173,7 +184,8 @@ body {
   background: #CDB6AF;
   padding: 20px;
   margin: 15px;
-  width: 200px;
+  width: 500px;
+  height: 150px;
 }
 
 .app-trip-card {

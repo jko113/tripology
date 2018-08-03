@@ -10,6 +10,8 @@ import { HashRouter as Router, Route } from "react-router-dom";
 // import { ConnectedSignOut as SignOut } from "./components/signin/SignOut";
 import { ConnectedHeader as Header} from "./components/header/HeaderContainer";
 import { ConnectedAuthorization as Authorization } from './components/authorization/AuthorizationContainer';
+// import { SignUp } from "./components/SignUp/SignUp";
+// import { SignIn } from "./components/SignIn/SignIn";
 import Home from "./components/home/Home";
 
 class App extends Component {

@@ -57,11 +57,15 @@ app.post("/api/signin", (req, res) => {
     db.checkUserExistence(username, password)
         .then(result => {
             // console.log(typeof result);
-            // console.log("result: ", result);
+            console.log("result: ", result);
             if (result) {
                 result["token"] = "a token";
+                res.json(result);
+            } else {
+                res.json({
+                    error: "Username does not exist."
+                });
             }
-            res.json(result);
         }).catch(error => {
             console.error(error);
         })

@@ -7,8 +7,10 @@ import {
     CREATE_NEW_TRIP_FAILED,
 } from "./NewTripActions";
 
+import { JUST_CREATED_TRIP } from "../../components/trip/TripActions";
+
 import {
-    MAX,
+    // MAX,
     MIN,
     formatDate,
 } from "./NewTrip";
@@ -22,6 +24,7 @@ const initialState = {
     // endDate: "",
     userHasInputStart: false,
     userHasInputEnd: false,
+    justCreatedTrip: false,
 };
 
 export const newTripReducer = (
@@ -43,7 +46,13 @@ export const newTripReducer = (
                 // startDate: state.startDate,
                 // endDate: state.endDate,
                 errorMessage: undefined,
+                justCreatedTrip: true,
             });
+        case JUST_CREATED_TRIP:
+            return {
+                ...state,
+                justCreatedTrip: false,
+            };
         case UPDATE_TITLE:
             return {
                 ...state,

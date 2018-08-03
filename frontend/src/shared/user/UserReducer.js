@@ -7,6 +7,7 @@ import {
     LOG_IN,
     CREATE_NEW_USER,
     CREATE_NEW_USER_FAILED,
+    LOG_IN_FAILED,
     // GOD_MODE,
 } from "./UserActions";
 
@@ -41,6 +42,14 @@ export const userReducer = (
                 errorMessage: undefined,
                 authorizationMode: "",
             };
+        case LOG_IN_FAILED:
+            return Object.assign({}, state, {
+                errorMessage: action.errorMessage,
+                authenticated: action.isAuthenticated || false,
+                userId: undefined,
+                authorizationMode: action.authorizationMode,
+                errorMessage: "User credentials invalid."
+            });
         case CHANGE_AUTHORIZATION_MODE:
             return Object.assign({}, state, {
                 authorizationMode: action.payload,

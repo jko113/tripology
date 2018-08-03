@@ -16,27 +16,35 @@ class TripDetails extends React.Component {
         // const godMode = this.props.user.godMode;
 
         if (/*godMode ||*/ authenticated) {
-            return (
-                <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
-                    {tripActivities.map(activity => {
-                        return (
-                            <div
-                                key={activity.activity_id}
-                                className="app-small-margin-top"
-                            >
+            if (tripActivities) {
+                return (
+                    <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
+                        {tripActivities.map(activity => {
+                            return (
                                 <div
-                                    className="h2 app-tiny-margin-bottom"
+                                    key={activity.activity_id}
+                                    className="app-small-margin-top"
                                 >
-                                    {activity.title}
+                                    <div
+                                        className="h2 app-tiny-margin-bottom"
+                                    >
+                                        {activity.title}
+                                    </div>
+                                    <div
+                                        className="app-small-margin-bottom"
+                                    >{activity.description}</div>
                                 </div>
-                                <div
-                                    className="app-small-margin-bottom"
-                                >{activity.description}</div>
-                            </div>
-                        );
-                    })}
-                </div>
-            );
+                            );
+                        })}
+                    </div>
+                );
+            } else {
+                return (
+                    <div>
+                        No trip activities yet. Add one?
+                    </div>
+                );
+            }
         } else return null;
     }
 };

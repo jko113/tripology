@@ -7,8 +7,8 @@
 
 export const initialState = {
     authorizationMode: "",
-    username: "ca",
+    username: "what",
     password: "",
     authenticated: true,
-    userId: 3,
+    userId: 32,
 };

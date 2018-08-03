@@ -46,7 +46,7 @@ class Authorization extends React.Component {
                         />
                     </div>
                     <div
-                        className="link-item app-flex app-small-margin-top"
+                        className="pointer link-item app-flex app-small-margin-top"
                         onClick={() => {
                             correctFunction(
                                 this.props.user.username,
@@ -67,11 +67,13 @@ class Authorization extends React.Component {
 
         const authMode = this.props.user.authorizationMode;
         const path = this.props.match.path;
+        // const mode = this.props.mode;
         // console.log("render auth:", this.props);
         // console.log("path:", path);
         
         // not authenticated
         if (!this.props.user.authenticated) {
+            // console.log("unauth users props", this.props);
             if (authMode) {
                 return (
                     <div className="">

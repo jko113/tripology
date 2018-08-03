@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 export const MAX = new Date("2019-12-31");
 export const MIN = new Date();
@@ -28,6 +29,8 @@ class NewTrip extends React.Component {
     };
 
     render() {
+        const authenticated = this.props.user.authenticated;
+        const justCreatedTrip = this.props.newTrip.justCreatedTrip;
         const createNewTrip = this.props.createNewTrip;
         const newTrip = this.props.newTrip;
         const userInfo = this.props.user;
@@ -37,89 +40,94 @@ class NewTrip extends React.Component {
         // const userHasInputStart = this.props.newTrip.userHasInputStart;
         // const userHasInputEnd = this.props.newTrip.userHasInputEnd;
 
-        // console.log(userHasInput)
+        // console.log(this.props, "NewTrip component props")
 
-        return (
-            <div
-                className="app-flex app-flex-column app-new-trip-card app-margin"
-                // className="app-flex"
-                // onClick={() => {
-                //     console.log(this.props);
-                // }}
-            >
-                <div className="app-margin-bottom app-padding-top">This is a new trip form.</div>
+        if (authenticated && !justCreatedTrip) {
+            return (
                 <div
-                    className="app-flex app-flex-wrap app-flex-start"
+                    className="app-flex app-flex-column app-new-trip-card app-margin"
+                    // className="app-flex"
+                    // onClick={() => {
+                    //     console.log(this.props);
+                    // }}
                 >
+                    <div className="app-margin-bottom app-padding-top">This is a new trip form.</div>
                     <div
-                        className="app-flex app-flex-column app-margin-right"
+                        className="app-flex app-flex-wrap app-flex-start"
                     >
-                        <input
-                            key="title"
-                            className="app-new-trip-title"
-                            value={newTrip.title}
-                            placeholder="Title"
-                            onChange={(e) => {
-                                this.props.updateTitle(e.target.value);
-                            }}
-                        />
-                        <textarea
-                            key="description"
-                            className="app-new-trip-description app-tiny-margin-top"
-                            value={newTrip.description}
-                            placeholder="Description"
-                            onChange={(e) => {
-                                this.props.updateDescription(e.target.value);
-                            }}
-                        />
+                        <div
+                            className="app-flex app-flex-column app-margin-right"
+                        >
+                            <input
+                                key="title"
+                                className="app-new-trip-title"
+                                value={newTrip.title}
+                                placeholder="Title"
+                                onChange={(e) => {
+                                    this.props.updateTitle(e.target.value);
+                                }}
+                            />
+                            <textarea
+                                key="description"
+                                className="app-new-trip-description app-tiny-margin-top"
+                                value={newTrip.description}
+                                placeholder="Description"
+                                onChange={(e) => {
+                                    this.props.updateDescription(e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="app-flex app-flex-column">
+                            <input
+                                key="start-date"
+                                value={
+                                    this.displayDate(1, this.props.newTrip.startDate, "start")
+                                }
+                                type="date"
+                                onChange={(e) => {
+                                    this.props.updateDate(e.target.value, "start");
+                                }}
+                            />
+                            <input
+                                className="app-tiny-margin-top"
+                                key="end-date"
+                                value={
+                                    this.displayDate(2, this.props.newTrip.endDate, "end")
+                                }
+                                type="date"
+                                onChange={(e) => {
+                                    this.props.updateDate(e.target.value, "end");
+                                }}
+                            />
+                        </div>
                     </div>
-                    <div className="app-flex app-flex-column">
-                        <input
-                            key="start-date"
-                            value={
-                                this.displayDate(1, this.props.newTrip.startDate, "start")
-                            }
-                            type="date"
-                            onChange={(e) => {
-                                this.props.updateDate(e.target.value, "start");
-                            }}
-                        />
-                        <input
-                            className="app-tiny-margin-top"
-                            key="end-date"
-                            value={
-                                this.displayDate(2, this.props.newTrip.endDate, "end")
-                            }
-                            type="date"
-                            onChange={(e) => {
-                                this.props.updateDate(e.target.value, "end");
-                            }}
-                        />
+                    
+                    <div
+                        className="link-item app-flex pointer app-bigger-margin-top"
+                        onClick={() => {
+                            createNewTrip({
+                                title: newTrip.title,
+                                description: newTrip.description,
+                                startDate: newTrip.startDate,
+                                endDate: newTrip.endDate,
+                                userInfo: userInfo,
+                            });
+                        }}
+                    >
+                        Submit
+                    </div>
+                    <div
+                        className={`app-margin-top app-margin-bottom ${errorClass}`}
+                    >
+                        {errorText}
                     </div>
                 </div>
-                
-                <div
-                    className="link-item app-flex pointer app-bigger-margin-top"
-                    onClick={() => {
-                        createNewTrip({
-                            title: newTrip.title,
-                            description: newTrip.description,
-                            startDate: newTrip.startDate,
-                            endDate: newTrip.endDate,
-                            userInfo: userInfo,
-                        });
-                    }}
-                >
-                    Submit
-                </div>
-                <div
-                    className={`app-margin-top app-margin-bottom ${errorClass}`}
-                >
-                    {errorText}
-                </div>
-            </div>
-        );
-    }
+            );
+        } else if (justCreatedTrip) {
+            const tripId = this.props.currentTrip.data.trip_id;
+            return <Redirect to={`/trip/${tripId}`} />
+        } else {return null;}
+    } 
 }
 
 export default NewTrip;

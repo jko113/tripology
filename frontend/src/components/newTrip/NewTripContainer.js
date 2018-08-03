@@ -11,6 +11,7 @@ const mapStateToProps = (state) => {
     return {
         newTrip: state.newTrip,
         user: state.user,
+        currentTrip: state.currentTrip,
     };
 };
 

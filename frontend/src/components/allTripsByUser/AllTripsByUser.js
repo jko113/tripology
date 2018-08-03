@@ -1,5 +1,6 @@
 import React from "react";
 import { SingleTrip } from "../../shared/trip/SingleTrip";
+import { Link } from "react-router-dom";
 
 class AllTripsByUser extends React.Component {
     componentDidMount() {
@@ -18,8 +19,13 @@ class AllTripsByUser extends React.Component {
                 return <SingleTrip key={trip.trip_id} trip={trip} />
             })
         } else {
+            console.log("no trips array - add one?");
+            // return "No trips yet. Add one?"
+            // return <div>No trips yet. Add one?</div>
             return (
-                <div>No trips yet. Add one?</div>
+                <div>
+                    No trips yet. <Link to="/newTrip">Add one?</Link>
+                </div>
             );
         }
     };
@@ -31,9 +37,11 @@ class AllTripsByUser extends React.Component {
 
         if (/*godMode ||*/ authenticated) {
             const allTripsByUser = this.props.allTripsByUser.data;
-    
+            const userName = this.props.user.username;
+            // console.log(this.props, "all trips props");
             return (
-                <div className="app-flex">
+                <div className="app-flex app-flex-column">
+                    <div className="h1 app-margin-bottom">{userName}'s Trips</div>
                     {this.getTrips(allTripsByUser)}
                 </div>
             );

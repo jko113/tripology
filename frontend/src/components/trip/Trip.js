@@ -16,21 +16,24 @@ class Trip extends React.Component {
         // }
     }
 
+    componentWillMount() {
+        const justCreatedTrip = this.props.newTrip.justCreatedTrip;
+
+        if (justCreatedTrip) {
+            // console.log("just created and rendering Trip");
+            this.props.resetJustCreatedTrip();
+        }
+    }
+
     render() {
         //console.log(this.props.currentTrip.data);
         console.log(this.props, "current trip props");
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
-        const justCreatedTrip = this.props.newTrip.justCreatedTrip;
         // const godMode = this.props.user.godMode;
         const userId = this.props.user.userId;
 
         if (/*godMode ||*/ authenticated) {
-
-            if (justCreatedTrip) {
-                console.log("just created and rendering Trip");
-                this.props.resetJustCreatedTrip();
-            }
 
             return (
                 <div className="app-flex app-flex-column">

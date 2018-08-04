@@ -1,33 +1,34 @@
 import {
-    CREATE_NEW_TRIP,
-    UPDATE_TITLE,
-    UPDATE_START_DATE,
-    UPDATE_END_DATE,
-    UPDATE_DESCRIPTION,
-    CREATE_NEW_TRIP_FAILED,
-} from "./NewTripActions";
+    CREATE_NEW_ACTIVITY,
+    UPDATE_ACTIVITY_TITLE,
+    UPDATE_ACTIVITY_START_DATE,
+    UPDATE_ACTIVITY_END_DATE,
+    UPDATE_ACTIVITY_DESCRIPTION,
+    CREATE_NEW_ACTIVITY_FAILED,
+    JUST_CREATED_ACTIVITY,
+} from "./NewActivityActions";
 
-import { JUST_CREATED_TRIP } from "../../components/trip/TripActions";
+// import { JUST_CREATED_ACTIVITY } from "../../components/tripDetails/TripDetailsActions";
 
 import {
     // MAX,
     MIN,
     formatDate,
-} from "./NewTrip";
+} from "../../components/newTrip/NewTrip";
 
-export const initialState = {
+const initialState = {
     title: "",
     description: "",
     startDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60)),
-    endDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60*2)),
+    endDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60)),
     // startDate: "",
     // endDate: "",
     userHasInputStart: false,
     userHasInputEnd: false,
-    justCreatedTrip: false,
+    justCreatedActivity: false,
 };
 
-export const newTripReducer = (
+export const newActivityReducer = (
     state = initialState,
     action,
 ) => {
@@ -36,7 +37,7 @@ export const newTripReducer = (
     }
 
     switch (action.type) {
-        case CREATE_NEW_TRIP:
+        case CREATE_NEW_ACTIVITY:
             // return {
             //     // ...state,
             //     // tripData: action.payload,
@@ -46,43 +47,47 @@ export const newTripReducer = (
                 // startDate: state.startDate,
                 // endDate: state.endDate,
                 errorMessage: undefined,
-                justCreatedTrip: true,
+                justCreatedActivity: true,
+                activityId: action.activityId,
             });
-        case JUST_CREATED_TRIP:
+        case JUST_CREATED_ACTIVITY:
             return {
                 ...state,
-                justCreatedTrip: false,
+                justCreatedActivity: false,
             };
-        case UPDATE_TITLE:
+        case UPDATE_ACTIVITY_TITLE:
             return {
                 ...state,
                 title: action.payload,
                 // errorMessage: undefined,
             };
-        case UPDATE_DESCRIPTION:
+        case UPDATE_ACTIVITY_DESCRIPTION:
             return {
                 ...state,
                 description: action.payload,
                 // errorMessage: undefined,
             };
-        case UPDATE_START_DATE:
+        case UPDATE_ACTIVITY_START_DATE:
             return {
                 ...state,
                 startDate: action.payload,
                 userHasInputStart: true,
             };
-        case UPDATE_END_DATE:
+        case UPDATE_ACTIVITY_END_DATE:
             return {
                 ...state,
                 endDate: action.payload,
                 userHasInputEnd: true,
             };
-        case CREATE_NEW_TRIP_FAILED:
+        case CREATE_NEW_ACTIVITY_FAILED:
             return {
                 ...state,
                 errorMessage: action.errorMessage,
             };
         default:
-            return state;
+            return {
+                ...state,
+                justCreatedActivity: false,
+            };
     }
 };

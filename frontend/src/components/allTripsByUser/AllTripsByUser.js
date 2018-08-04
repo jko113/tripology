@@ -24,7 +24,13 @@ class AllTripsByUser extends React.Component {
             // return <div>No trips yet. Add one?</div>
             return (
                 <div>
-                    No trips yet. <Link to="/newTrip">Add one?</Link>
+                    No trips yet.&nbsp;
+                    <div className="inline">
+                        <Link
+                            className="app-add-first"
+                            to="/newTrip"
+                        >Add one?</Link>
+                    </div>
                 </div>
             );
         }
@@ -39,6 +45,7 @@ class AllTripsByUser extends React.Component {
             const allTripsByUser = this.props.allTripsByUser.data;
             const userName = this.props.user.username;
             // console.log(this.props, "all trips props");
+            // console.log(tripsButtonText, "tripsButtonText");
             return (
                 <div className="app-flex app-flex-column">
                     <div className="h1 app-margin-bottom">{userName}'s Trips</div>

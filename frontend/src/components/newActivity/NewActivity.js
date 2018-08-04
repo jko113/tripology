@@ -11,18 +11,18 @@ export const formatDate = (date) => {
     ].join('-');
 };
 
-class NewTrip extends React.Component {
+class NewActivity extends React.Component {
 
     // innerFormatDate = formatDate;
 
-    displayDate = (numDays, date, mode) => {
-        // console.log(this.props.newTrip);
+    displayDate = (date, mode) => {
+        // console.log(date, "date");
 
         if (
-            (!this.props.newTrip.userHasInputStart && mode === "start") ||
-            (!this.props.newTrip.userHasInputEnd && mode === "end")
+            (!this.props.newActivity.userHasInputStart && mode === "start") ||
+            (!this.props.newActivity.userHasInputEnd && mode === "end")
         ) {
-            return formatDate(new Date(MIN.getTime() + 1000*24*60*60*numDays));
+            return formatDate(new Date(MIN.getTime() + 1000*24*60*60));
         } else {
             return date;
         }
@@ -30,19 +30,26 @@ class NewTrip extends React.Component {
 
     render() {
         const authenticated = this.props.user.authenticated;
-        const justCreatedTrip = this.props.newTrip.justCreatedTrip;
-        const createNewTrip = this.props.createNewTrip;
-        const newTrip = this.props.newTrip;
+        const justCreatedActivity = this.props.newActivity.justCreatedActivity;
+        const createNewActivity = this.props.createNewActivity;
+        const newActivity = this.props.newActivity;
         const userInfo = this.props.user;
-        const error = this.props.newTrip.errorMessage;
+        const currentTrip = this.props.currentTrip.data;
+        const error = this.props.newActivity.errorMessage;
         const errorText = error ? error: "hidden";
         const errorClass = error ? "": "hidden";
         // const userHasInputStart = this.props.newTrip.userHasInputStart;
         // const userHasInputEnd = this.props.newTrip.userHasInputEnd;
+        // const userHasInput = this.props.newActivity.userHasInput;
 
         // console.log(this.props, "NewTrip component props")
+        // console.log("currentTrip", Object.keys(currentTrip).length)
 
-        if (authenticated && !justCreatedTrip) {
+        if (!Object.keys(currentTrip).length) {
+            return <Redirect to="/" />
+        }
+
+        if (authenticated && !justCreatedActivity) {
             return (
                 <div
                     className="app-flex app-flex-column app-new-trip-card app-margin"
@@ -51,7 +58,7 @@ class NewTrip extends React.Component {
                     //     console.log(this.props);
                     // }}
                 >
-                    <div className="app-margin-bottom app-padding-top h2">Add New Trip</div>
+                    <div className="app-margin-bottom app-padding-top h2">Add New Activity</div>
                     <div
                         className="app-flex app-flex-wrap app-flex-start"
                     >
@@ -61,7 +68,7 @@ class NewTrip extends React.Component {
                             <input
                                 key="title"
                                 className="app-new-trip-title"
-                                value={newTrip.title}
+                                value={newActivity.title}
                                 placeholder="Title"
                                 onChange={(e) => {
                                     this.props.updateTitle(e.target.value);
@@ -70,7 +77,7 @@ class NewTrip extends React.Component {
                             <textarea
                                 key="description"
                                 className="app-new-trip-description app-tiny-margin-top"
-                                value={newTrip.description}
+                                value={newActivity.description}
                                 placeholder="Description"
                                 onChange={(e) => {
                                     this.props.updateDescription(e.target.value);
@@ -81,7 +88,7 @@ class NewTrip extends React.Component {
                             <input
                                 key="start-date"
                                 value={
-                                    this.displayDate(1, this.props.newTrip.startDate, "start")
+                                    this.displayDate(this.props.newActivity.startDate, "start")
                                 }
                                 type="date"
                                 onChange={(e) => {
@@ -89,10 +96,9 @@ class NewTrip extends React.Component {
                                 }}
                             />
                             <input
-                                className="app-tiny-margin-top"
                                 key="end-date"
                                 value={
-                                    this.displayDate(2, this.props.newTrip.endDate, "end")
+                                    this.displayDate(this.props.newActivity.endDate, "end")
                                 }
                                 type="date"
                                 onChange={(e) => {
@@ -105,12 +111,14 @@ class NewTrip extends React.Component {
                     <div
                         className="link-item app-flex pointer app-bigger-margin-top"
                         onClick={() => {
-                            createNewTrip({
-                                title: newTrip.title,
-                                description: newTrip.description,
-                                startDate: newTrip.startDate,
-                                endDate: newTrip.endDate,
+                            console.log("created new activity", newActivity)
+                            createNewActivity({
+                                title: newActivity.title,
+                                description: newActivity.description,
+                                startDate: newActivity.startDate,
+                                endDate: newActivity.endDate,
                                 userInfo: userInfo,
+                                currentTrip: currentTrip,
                             });
                         }}
                     >
@@ -123,11 +131,12 @@ class NewTrip extends React.Component {
                     </div>
                 </div>
             );
-        } else if (justCreatedTrip) {
+        } else if (justCreatedActivity) {
             const tripId = this.props.currentTrip.data.trip_id;
-            return <Redirect to={`/trip/${tripId}`} />
+            return <Redirect to={`/tripdetails/${tripId}`} />
+            // console.log(this.props, "just created activity"); return null;
         } else {return null;}
     } 
 }
 
-export default NewTrip;
+export default NewActivity;

@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { ConnectedAllTripsByUser as AllTripsByUser } from "./components/allTripsByUser/AllTripsByUserContainer"
 import { ConnectedTrip as Trip } from "./components/trip/TripContainer"
 import { ConnectedNewTrip as NewTrip } from "./components/newTrip/NewTripContainer";
+import { ConnectedNewActivity as NewActivity } from "./components/newActivity/NewActivityContainer";
 import { ConnectedTripDetails as TripDetails } from "./components/tripDetails/TripDetailsContainer"
 // import Signin from "./components/signin/SignIn"
 import { HashRouter as Router, Route } from "react-router-dom";
@@ -34,6 +35,7 @@ class App extends Component {
             <Route path="/" exact={true} component={Home} />
             <Route path="/signout" component={Home}/>
             <Route path="/newTrip" component={NewTrip}/>
+            <Route path="/newActivity" component={NewActivity}/>
           </div>
 
         </div>

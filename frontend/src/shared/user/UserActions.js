@@ -28,8 +28,18 @@ export const updatePassword = (typedValue) => {
 };
 
 export const createNewUser = (username, password) => {
+
     // console.log("got to action");
     return async (dispatch) => {
+
+        // early return if invalid username/password combination
+        if (username.length > 11) {
+            return dispatch({
+                type: CREATE_NEW_USER_FAILED,
+                errorMessage: "Username must be 11 characters or less.",
+            });
+        }
+
         axios.post(`${rootUrl}/api/createnewuser`, {
             username,
             password,

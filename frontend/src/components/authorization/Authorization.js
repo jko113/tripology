@@ -46,7 +46,8 @@ class Authorization extends React.Component {
                         />
                     </div>
                     <div
-                        className="pointer link-item app-flex app-small-margin-top"
+                        // className="pointer link-item app-flex app-small-margin-top"
+                        className="link-item app-flex app-small-margin-top"
                         onClick={() => {
                             correctFunction(
                                 this.props.user.username,

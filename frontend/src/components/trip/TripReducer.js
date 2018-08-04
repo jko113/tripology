@@ -24,7 +24,7 @@ export const allTripsReducer = (state = initialState, action) => {
 
 import {
     GET_TRIP,
-    JUST_CREATED_TRIP,
+    // JUST_CREATED_TRIP,
 } from "./TripActions";
 import { CREATE_NEW_TRIP } from "../../components/newTrip/NewTripActions";
 
@@ -51,14 +51,14 @@ export const TripReducer = (
             return {
                 data: action.payload,
             };
-        case JUST_CREATED_TRIP:
+        // case JUST_CREATED_TRIP:
         //     console.log("got to the JUST_CREATED_TRIP reducer");
         //     console.log("state", state);
         //     return {
         //         ...state,
         //         justCreatedTrip: false,
         //     };
-            return state;
+            // return state;
         default:
             return state;
     }

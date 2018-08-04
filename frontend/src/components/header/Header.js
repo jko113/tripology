@@ -25,7 +25,7 @@ class Header extends React.Component {
 
         return (
             <div
-                className="link-item app-flex app-small-margin"
+                className="link-item-bigger app-flex app-small-margin"
                 onClick={() => {
                     this.props.changeAuthorizationMode(mode)
                 }}
@@ -66,13 +66,19 @@ class Header extends React.Component {
     };
 
     getAuthenticatedUserLinks = () => {
+        const username = this.props.user.username;
+        const MAX_CHARACTER_LENGTH = 11;
+        const tripsButtonText = username.length > MAX_CHARACTER_LENGTH ? "My Trips" : username + "'s Trips";
+        console.log(username.length);
+
         return (
             <div className="app-flex app-margin-top">
-                <div className="link-item app-flex app-small-margin">
-                    <Link to={`/allTripsByUser/${this.props.user.userId}`}>{this.props.user.username}'s Trips</Link>
+                <div className="link-item-bigger app-flex app-small-margin">
+                    <Link to={`/allTripsByUser/${this.props.user.userId}`}>{tripsButtonText}</Link>
+                    {/* <Link to={`/allTripsByUser/${this.props.user.userId}`}>My Trips</Link> */}
                 </div>
                 <div
-                    className="link-item app-flex app-small-margin"
+                    className="link-item-bigger app-flex app-small-margin"
                     onClick={() => {
                         this.props.signOut();
                     }}
@@ -100,7 +106,7 @@ class Header extends React.Component {
             <div className="app-header app-flex app-flex-column full-width app-margin-top">
                 <div className="app-flex app-flex-space-between full-width app-small-margin-bottom app-small-padding-sides">
                     <div
-                        className="link-item app-flex"
+                        className="pointer link-item app-flex"
                         onClick={ () => {
                             // const authMode = this.props.user.authorizationMode;
                             // if (authMode) {
@@ -110,6 +116,7 @@ class Header extends React.Component {
                     >
                         <Link
                             to="/"
+                            // className="pointer"
                             // onClick={ () => {
                             //     this.props.changeAuthorizationMode("");
                             // }}

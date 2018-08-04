@@ -51,13 +51,13 @@ app.post("/api/signout", (req, res) => {
 });
 
 app.post("/api/signin", (req, res) => {
-    console.log("reqbody: ", req.body);
+    // console.log("reqbody: ", req.body);
     const username = req.body.username;
     const password = req.body.password;
     db.checkUserExistence(username, password)
         .then(result => {
             // console.log(typeof result);
-            console.log("result: ", result);
+            // console.log("result: ", result);
             if (result) {
                 result["token"] = "a token";
                 res.json(result);
@@ -117,18 +117,43 @@ app.post("/api/newTrip", (req, res) => {
     }).catch(error => {
         res.json(error);
     })
+});
 
-    // { tripDetails: 
-    //     { title: 'asdf',
-    //       description: 'asdf',
-    //       startDate: '2018-08-03',
-    //       endDate: '2018-08-04',
-    //       userInfo: 
-    //        { authorizationMode: '',
-    //          username: 'ca',
-    //          password: '',
-    //          authenticated: true,
-    //          userId: 3 } } }
+app.post("/api/newActivity", (req, res) => {
+    // console.log("req.body",req.body);
+    activityDetails = req.body.activityDetails;
+    // console.log("activityDet keys", Object.keys(activityDetails));
+    tripDetails = activityDetails.currentTrip;
+    // console.log(tripDetails);
+    const {
+        title,
+        description,
+        startDate,
+        endDate,
+    } = activityDetails;
+    const {
+        trip_id,
+    } = tripDetails;
+    // const trip_id = 1;
+    const cost = 50;
+    const location = "home";
+    const contactId = 1;
+    const categoryId = 1;
+    
+    db.addActivity(
+        title,
+        description,
+        cost,
+        location,
+        trip_id,
+        startDate,
+        endDate,
+        contactId,
+        categoryId,
+    ).then(result => {
+        console.log("result",result);
+        res.json(result);
+    }).catch(error => console.error);
 });
 
 app.listen(port, () => {

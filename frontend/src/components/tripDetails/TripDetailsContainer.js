@@ -1,6 +1,8 @@
 import { connect } from "react-redux";
 import TripDetails from "./TripDetails";
-import { getTripDetails } from "./TripDetailsActions";
+import { getTripDetails,
+    // justCreatedActivity,
+} from "./TripDetailsActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -14,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
         getTripDetails: (id) => {
             dispatch(getTripDetails(id));
         },
+        // justCreatedActivity: () => {
+        //     dispatch(justCreatedActivity());
+        // },
     };
 };
 

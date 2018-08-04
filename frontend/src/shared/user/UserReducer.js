@@ -48,7 +48,7 @@ export const userReducer = (
                 authenticated: action.isAuthenticated || false,
                 userId: undefined,
                 authorizationMode: action.authorizationMode,
-                errorMessage: "User credentials invalid."
+                // errorMessage: "User credentials invalid."
             });
         case CHANGE_AUTHORIZATION_MODE:
             return Object.assign({}, state, {

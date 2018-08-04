@@ -159,6 +159,10 @@ body {
   align-items: flex-start
 }
 
+.app-flex-align-self-center {
+  align-self: center;
+}
+
 .full-width {
   width: 100%;
 }
@@ -176,8 +180,16 @@ body {
   /* border: 1px solid rgb(28,28,28); */
   padding: 10px;
   width: 100px;
+  /* cursor: pointer; */
   /* flex: 1 1 100%; */
   /* margin: 0 10px; */
+}
+
+.link-item-bigger {
+  background: #D6E2EE;
+  padding: 10px;
+  width: 200px;
+  /* cursor: pointer; */
 }
 
 .app-trip {
@@ -186,10 +198,13 @@ body {
   margin: 15px;
   width: 500px;
   height: 150px;
+  /* cursor: pointer; */
+
 }
 
 .app-trip-card {
   background: #D6E2EE;
+  /* cursor: pointer; */
 }
 
 .app-new-trip-card {
@@ -198,6 +213,10 @@ body {
 
 .app-new-trip-title {
   width: 300px;
+}
+
+.inline {
+  display: inline;
 }
 
 .app-new-trip-description {
@@ -212,4 +231,9 @@ a {
 
 .contrast {
   background-color: #CDB6AF;
+}
+
+.app-add-first {
+  color: blue !important;
+  cursor: pointer;
 }

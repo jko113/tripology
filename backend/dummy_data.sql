@@ -6,7 +6,7 @@ INSERT INTO users (username, password) VALUES
 INSERT INTO trips (title, user_id, description, start_date, end_date) VALUES
 ('Spain', 1, 'A romantic second honeymoon in the great Spanish nation!', '2018-06-15', '2018-06-25'),
 ('Ireland', 2, 'Practicing English -- European style! Then, on to see Westlife!!!!! **** !!!', '2018-09-13', '2018-10-01'),
-('Cambodia', 3, 'There''s lots of pretty things to see in Cambodia!', '2018-11-04', '2018-11-11');
+('Cambodia', 3, 'There''s lots of pretty things to see in Cambodia!', '2017-11-04', '2020-11-11');
 
 INSERT INTO categories (title) VALUES
 ('morning'),

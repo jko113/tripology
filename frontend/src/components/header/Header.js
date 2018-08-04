@@ -24,17 +24,18 @@ class Header extends React.Component {
         }
 
         return (
-            <div
-                className="link-item-bigger app-flex app-small-margin"
-                onClick={() => {
-                    this.props.changeAuthorizationMode(mode)
-                }}
-            >
+            // <div
+            
+            // >
                 <Link
+                    className="link-item-bigger app-flex app-small-margin"
+                    onClick={() => {
+                        this.props.changeAuthorizationMode(mode)
+                    }}
                     to={`/${mode}`}
                 >{formattedMode}
                 </Link>
-            </div>
+            // </div>
         );
     };
 
@@ -69,21 +70,26 @@ class Header extends React.Component {
         const username = this.props.user.username;
         const MAX_CHARACTER_LENGTH = 11;
         const tripsButtonText = username.length > MAX_CHARACTER_LENGTH ? "My Trips" : username + "'s Trips";
-        console.log(username.length);
+        // console.log(username.length);
 
         return (
             <div className="app-flex app-margin-top">
-                <div className="link-item-bigger app-flex app-small-margin">
-                    <Link to={`/allTripsByUser/${this.props.user.userId}`}>{tripsButtonText}</Link>
+                {/* <div className="link-item-bigger app-flex app-small-margin"> */}
+                <div>
+                    <Link
+                        className="link-item-bigger app-flex app-small-margin"
+                        to={`/allTripsByUser/${this.props.user.userId}`}>{tripsButtonText}
+                    </Link>
                     {/* <Link to={`/allTripsByUser/${this.props.user.userId}`}>My Trips</Link> */}
                 </div>
-                <div
-                    className="link-item-bigger app-flex app-small-margin"
-                    onClick={() => {
-                        this.props.signOut();
-                    }}
-                >
-                    <Link to={`/signout`}>Sign Out</Link>
+                <div>
+                    <Link
+                        className="link-item-bigger app-flex app-small-margin"
+                        onClick={() => {
+                            this.props.signOut();
+                        }}
+                        to={`/signout`}
+                    >Sign Out</Link>
                 </div>
             </div>
         );
@@ -105,16 +111,15 @@ class Header extends React.Component {
             // <div className="app-flex">
             <div className="app-header app-flex app-flex-column full-width app-margin-top">
                 <div className="app-flex app-flex-space-between full-width app-small-margin-bottom app-small-padding-sides">
-                    <div
-                        className="pointer link-item app-flex"
-                        onClick={ () => {
-                            // const authMode = this.props.user.authorizationMode;
-                            // if (authMode) {
-                                this.props.changeAuthorizationMode("");
-                            // }
-                        }}
-                    >
+                    <div>
                         <Link
+                            className="pointer link-item app-flex"
+                            onClick={ () => {
+                                // const authMode = this.props.user.authorizationMode;
+                                // if (authMode) {
+                                    this.props.changeAuthorizationMode("");
+                                // }
+                            }}
                             to="/"
                             // className="pointer"
                             // onClick={ () => {
@@ -123,12 +128,15 @@ class Header extends React.Component {
                         >Home</Link>
                     </div>
                     <div
-                        className={`link-item app-flex ${newTrip}`}
+                        
                         // onClick={() => {
                         //     this.props.createNewTrip({});
                         // }}
                     >
-                        <Link to="/newTrip">New Trip</Link>
+                        <Link
+                            className={`link-item app-flex ${newTrip}`}
+                            to="/newTrip">New Trip
+                        </Link>
                     </div>
                 </div>
                 {this.createLinks()}

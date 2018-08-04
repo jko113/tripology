@@ -21,7 +21,7 @@ class TripDetails extends React.Component {
     render() {
         //console.log(this.props.currentTrip.data);
         const tripActivities = this.props.tripDetails.data;
-        console.log(tripActivities, "tripActivities");
+        // console.log(tripActivities, "tripActivities");
         const authenticated = this.props.user.authenticated;
         // const godMode = this.props.user.godMode;
 

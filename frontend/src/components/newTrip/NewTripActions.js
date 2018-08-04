@@ -2,6 +2,7 @@ import axios from "axios";
 import { rootUrl } from "../../shared/URL/rootUrl";
 // import MAX from "./NewTrip";
 // import MIN from "./NewTrip";
+import { getLocalDate } from "../../shared/date/Date";
 
 export const CREATE_NEW_TRIP = "CREATE_NEW_TRIP";
 export const UPDATE_TITLE = "UPDATE_TITLE";
@@ -10,8 +11,8 @@ export const UPDATE_START_DATE = "UPDATE_START_DATE";
 export const UPDATE_END_DATE = "UPDATE_END_DATE";
 export const CREATE_NEW_TRIP_FAILED = "CREATE_NEW_TRIP_FAILED";
 
-const MAX = new Date("2019-12-31");
-const MIN = new Date();
+const MAX = getLocalDate(new Date("2019-12-31"));
+const MIN = getLocalDate(new Date());
 
 export const createNewTrip = (tripDetails) => {
 
@@ -26,10 +27,16 @@ export const createNewTrip = (tripDetails) => {
     }
     
     // else
-    const startDate = new Date(tripDetails.startDate);
-    const endDate = new Date(tripDetails.endDate);
+    // const startDate = getLocalDate(new Date(tripDetails.startDate));
+    // const endDate = getLocalDate(new Date(tripDetails.endDate));
+    const startDate = getLocalDate(new Date(tripDetails.startDate));
+    const endDate = getLocalDate(new Date(tripDetails.endDate));
     // console.log(startDate);
      if (startDate < MIN || endDate < MIN) {
+         console.log(startDate, "startDate");
+         console.log(endDate, "endDate");
+         console.log(MIN, "MIN");
+         console.log(MAX, "MAX");
         // console.log("startDate < min", MIN, startDate);
         return {
             type: CREATE_NEW_TRIP_FAILED,

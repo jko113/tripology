@@ -19,7 +19,7 @@ class AllTripsByUser extends React.Component {
                 return <SingleTrip key={trip.trip_id} trip={trip} />
             })
         } else {
-            console.log("no trips array - add one?");
+            // console.log("no trips array - add one?");
             // return "No trips yet. Add one?"
             // return <div>No trips yet. Add one?</div>
             return (

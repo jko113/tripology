@@ -1,8 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { getLocalDate } from "../../shared/date/Date";
 
-export const MAX = new Date("2019-12-31");
-export const MIN = new Date();
+export const MAX = getLocalDate(new Date("2019-12-31"));
+export const MIN = getLocalDate(new Date());
 export const formatDate = (date) => {
     return [
         date.getFullYear(),
@@ -22,7 +23,7 @@ class NewTrip extends React.Component {
             (!this.props.newTrip.userHasInputStart && mode === "start") ||
             (!this.props.newTrip.userHasInputEnd && mode === "end")
         ) {
-            return formatDate(new Date(MIN.getTime() + 1000*24*60*60*numDays));
+            return formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60*numDays)));
         } else {
             return date;
         }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { rootUrl } from "../../shared/URL/rootUrl";
 import { formatDate } from "./NewActivity";
+import { getLocalDate } from "../../shared/date/Date";
 // import MAX from "./NewTrip";
 // import MIN from "./NewTrip";
 
@@ -8,26 +9,35 @@ export const CREATE_NEW_ACTIVITY = "CREATE_NEW_ACTIVITY";
 export const UPDATE_ACTIVITY_TITLE = "UPDATE_ACTIVITY_TITLE";
 export const UPDATE_ACTIVITY_DESCRIPTION = "UPDATE_ACTIVITY_DESCRIPTION";
 export const UPDATE_ACTIVITY_START_DATE = "UPDATE_ACTIVITY_START_DATE";
+export const UPDATE_ACTIVITY_COST = "UPDATE_ACTIVITY_COST";
 export const UPDATE_ACTIVITY_END_DATE = "UPDATE_ACTIVITY_END_DATE";
 export const CREATE_NEW_ACTIVITY_FAILED = "CREATE_NEW_ACTIVITY_FAILED";
 export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY";
 
-const MAX = new Date("2019-12-31");
-const MIN = new Date();
+const MAX = getLocalDate(new Date("2019-12-31"));
+const MIN = getLocalDate(new Date());
+
 
 export const createNewActivity = (activityDetails) => {
+    
+    const startDate = getLocalDate(new Date(activityDetails.startDate));
+    const endDate = getLocalDate(new Date(activityDetails.endDate));
+    const tripStartDate = getLocalDate(new Date(activityDetails.currentTrip.start_date));
+    const tripEndDate = getLocalDate(new Date(activityDetails.currentTrip.end_date));
 
-    const startDate = new Date(activityDetails.startDate);
-    const endDate = new Date(activityDetails.endDate);
+    // console.log(activityDetails, "activitydetails");
 
-    console.log(activityDetails, "activitydetails");
-
-    const tripStartDate = new Date(activityDetails.currentTrip.start_date);
-    const tripEndDate = new Date(activityDetails.currentTrip.end_date);
+    // const tripEndDate = new Date(activityDetails.currentTrip.end_date);
 
     // check if activity form contains valid information
     // if not, display error
-    if (!activityDetails.title || !activityDetails.description || !activityDetails.startDate || !activityDetails.endDate) {
+    if (
+        !activityDetails.title ||
+        !activityDetails.description ||
+        !activityDetails.startDate ||
+        !activityDetails.endDate ||
+        !activityDetails.cost
+    ) {
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
             // errorMessage: "Please enter title and description.",
@@ -39,6 +49,10 @@ export const createNewActivity = (activityDetails) => {
         (startDate < tripStartDate) ||
         (endDate > tripEndDate)
     ) {
+        console.log(startDate, "startDate");
+        console.log(endDate, "endDate");
+        console.log(tripStartDate, "tripStartDate");
+        console.log(tripEndDate, "tripEndDate");
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
             errorMessage: `Trip activity dates (${formatDate(startDate)} and ${formatDate(endDate)}) must be within trip dates of ${formatDate(tripStartDate)} and ${formatDate(tripEndDate)}.`
@@ -121,4 +135,11 @@ export const updateDate = (dateValue, mode) => {
     //     userHasInput: true,
     //     payload: dateValue,
     // };
+};
+
+export const updateCost = (typedValue) => {
+    return {
+        type: UPDATE_ACTIVITY_COST,
+        payload: typedValue,
+    };
 };

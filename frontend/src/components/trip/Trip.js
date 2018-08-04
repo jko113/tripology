@@ -27,7 +27,7 @@ class Trip extends React.Component {
 
     render() {
         //console.log(this.props.currentTrip.data);
-        console.log(this.props, "current trip props");
+        // console.log(this.props, "current trip props");
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
         // const godMode = this.props.user.godMode;
@@ -52,24 +52,20 @@ class Trip extends React.Component {
                             End Date: {this._formatDate(currentTrip.end_date)}
                         </div>
                         <div className="app-flex">
-                            <div className="link-item contrast app-flex app-margin-top app-margin-right">
-                                <Link
-                                    to={`/tripdetails/${currentTrip.trip_id}`}
-                                    className="contrast"
-                                >
-                                    
-                                    More
-                                </Link>
-                            </div>
-                            <div className="link-item contrast app-flex app-margin-top">
-                                <Link
-                                    to={`/allTripsByUser/${userId}`}
-                                    className="contrast"
-                                >
-                                    
-                                    Back
-                                </Link>
-                            </div>
+                            <Link
+                                to={`/tripdetails/${currentTrip.trip_id}`}
+                                className="link-item contrast app-flex app-margin-top app-margin-right"
+                            >
+                                
+                                More
+                            </Link>
+                            <Link
+                                to={`/allTripsByUser/${userId}`}
+                                className="link-item contrast app-flex app-margin-top"
+                            >
+                                
+                                Back
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,9 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { getLocalDate } from "../../shared/date/Date";
 
-export const MAX = new Date("2019-12-31");
-export const MIN = new Date();
+export const MAX = getLocalDate(new Date("2019-12-31"));
+export const MIN = getLocalDate(new Date());
 export const formatDate = (date) => {
     return [
         date.getFullYear(),
@@ -22,9 +23,17 @@ class NewActivity extends React.Component {
             (!this.props.newActivity.userHasInputStart && mode === "start") ||
             (!this.props.newActivity.userHasInputEnd && mode === "end")
         ) {
-            return formatDate(new Date(MIN.getTime() + 1000*24*60*60));
+            return formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60)));
         } else {
             return date;
+        }
+    };
+
+    displayCost = (cost) => {
+        if (!this.props.newActivity.userHasInputCost) {
+            return "";
+        } else {
+            return cost;
         }
     };
 
@@ -58,7 +67,9 @@ class NewActivity extends React.Component {
                     //     console.log(this.props);
                     // }}
                 >
-                    <div className="app-margin-bottom app-padding-top h2">Add New Activity</div>
+                    <div className="app-margin-bottom app-padding-top h2">
+                        Add New Activity
+                    </div>
                     <div
                         className="app-flex app-flex-wrap app-flex-start"
                     >
@@ -97,6 +108,7 @@ class NewActivity extends React.Component {
                             />
                             <input
                                 key="end-date"
+                                className="app-tiny-margin-top"
                                 value={
                                     this.displayDate(this.props.newActivity.endDate, "end")
                                 }
@@ -109,9 +121,22 @@ class NewActivity extends React.Component {
                     </div>
                     
                     <div
+                        className="cost"
+                    >
+                        <input
+                            value={this.displayCost(this.props.newActivity.cost)}
+                            onChange={(e) => {
+                                this.props.updateCost(e.target.value);
+                            }}
+                            placeholder="Cost"
+                            type="number"
+                        />
+                    </div>
+                    
+                    <div
                         className="link-item app-flex pointer app-bigger-margin-top"
                         onClick={() => {
-                            console.log("created new activity", newActivity)
+                            // console.log("attempted to submit new activity", newActivity)
                             createNewActivity({
                                 title: newActivity.title,
                                 description: newActivity.description,
@@ -119,6 +144,7 @@ class NewActivity extends React.Component {
                                 endDate: newActivity.endDate,
                                 userInfo: userInfo,
                                 currentTrip: currentTrip,
+                                cost: newActivity.cost,
                             });
                         }}
                     >

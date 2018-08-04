@@ -1,4 +1,5 @@
 import React from "react";
+import Home from "../home/Home";
 
 class Authorization extends React.Component {
 
@@ -47,7 +48,7 @@ class Authorization extends React.Component {
                     </div>
                     <div
                         // className="pointer link-item app-flex app-small-margin-top"
-                        className="link-item app-flex app-small-margin-top"
+                        className="link-item app-flex app-small-margin-top pointer"
                         onClick={() => {
                             correctFunction(
                                 this.props.user.username,
@@ -95,7 +96,8 @@ class Authorization extends React.Component {
         
         // authenticated
         else {
-            return null;
+            // console.log(this.props);
+            return <Home userData={this.props} />;
             // return (
             //     <div>Logged in successfully.</div>
             // );

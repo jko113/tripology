@@ -69,12 +69,12 @@ export const createNewUser = (username, password) => {
 export const logIn = (username, password) => {
 
     return async (dispatch) => {
-        console.log("dispatching login:", rootUrl);
+        // console.log("dispatching login:", rootUrl);
         axios.post(`${rootUrl}/api/signin`, {
             username,
             password
         }).then(result => {
-            console.log(result);
+            // console.log(result);
             if (result.data.exists) {
                 const userInfo = result.data;
                 dispatch({
@@ -95,7 +95,7 @@ export const logIn = (username, password) => {
                 //     authorizationMode: "signin",
                 //     errorMessage: "User credentials invalid."
                 // });
-                console.log(result, "failed");
+                // console.log(result, "failed");
                 dispatch({
                     type: LOG_IN_FAILED,
                     isAuthenticated: false,

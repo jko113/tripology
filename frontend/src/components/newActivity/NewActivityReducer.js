@@ -4,9 +4,14 @@ import {
     UPDATE_ACTIVITY_START_DATE,
     UPDATE_ACTIVITY_END_DATE,
     UPDATE_ACTIVITY_DESCRIPTION,
+    UPDATE_ACTIVITY_COST,
     CREATE_NEW_ACTIVITY_FAILED,
     JUST_CREATED_ACTIVITY,
+    // tripStartDate,
+    // tripEndDate,
 } from "./NewActivityActions";
+
+import { getLocalDate } from "../../shared/date/Date";
 
 // import { JUST_CREATED_ACTIVITY } from "../../components/tripDetails/TripDetailsActions";
 
@@ -19,13 +24,15 @@ import {
 const initialState = {
     title: "",
     description: "",
-    startDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60)),
-    endDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60)),
-    // startDate: "",
-    // endDate: "",
+    startDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
+    endDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
+    // startDate: tripStartDate,
+    // endDate: tripEndDate,
     userHasInputStart: false,
     userHasInputEnd: false,
+    userHasInputCost: false,
     justCreatedActivity: false,
+    cost: "",
 };
 
 export const newActivityReducer = (
@@ -84,10 +91,13 @@ export const newActivityReducer = (
                 ...state,
                 errorMessage: action.errorMessage,
             };
-        default:
+        case UPDATE_ACTIVITY_COST:
             return {
                 ...state,
-                justCreatedActivity: false,
+                cost: action.payload,
+                userHasInputCost: true,
             };
+        default:
+            return initialState;
     }
 };

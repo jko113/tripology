@@ -54,6 +54,9 @@ export const userReducer = (
             return Object.assign({}, state, {
                 authorizationMode: action.payload,
                 errorMessage: undefined,
+                // username: action.username,
+                password: "",
+                username: "",
             });
         case GET_USER_ID:
             return {

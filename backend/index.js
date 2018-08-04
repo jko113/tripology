@@ -120,7 +120,7 @@ app.post("/api/newTrip", (req, res) => {
 });
 
 app.post("/api/newActivity", (req, res) => {
-    // console.log("req.body",req.body);
+    console.log("req.body",req.body);
     activityDetails = req.body.activityDetails;
     // console.log("activityDet keys", Object.keys(activityDetails));
     tripDetails = activityDetails.currentTrip;
@@ -130,12 +130,13 @@ app.post("/api/newActivity", (req, res) => {
         description,
         startDate,
         endDate,
+        cost,
     } = activityDetails;
     const {
         trip_id,
     } = tripDetails;
     // const trip_id = 1;
-    const cost = 50;
+    // const cost = 50;
     const location = "home";
     const contactId = 1;
     const categoryId = 1;

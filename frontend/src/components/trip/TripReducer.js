@@ -43,7 +43,7 @@ export const TripReducer = (
     switch (action.type) {
         case GET_TRIP:
             // return Object.assign({}, state, {data: action.payload});
-            console.log(action);
+            // console.log(action);
             return {
                 data: action.payload,
             };

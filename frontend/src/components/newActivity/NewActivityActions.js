@@ -11,6 +11,7 @@ export const UPDATE_ACTIVITY_DESCRIPTION = "UPDATE_ACTIVITY_DESCRIPTION";
 export const UPDATE_ACTIVITY_START_DATE = "UPDATE_ACTIVITY_START_DATE";
 export const UPDATE_ACTIVITY_COST = "UPDATE_ACTIVITY_COST";
 export const UPDATE_ACTIVITY_END_DATE = "UPDATE_ACTIVITY_END_DATE";
+export const UPDATE_ACTIVITY_LOCATION = "UPDATE_ACTIVITY_LOCATION";
 export const CREATE_NEW_ACTIVITY_FAILED = "CREATE_NEW_ACTIVITY_FAILED";
 export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY";
 
@@ -37,7 +38,8 @@ export const createNewActivity = (activityDetails) => {
         !activityDetails.description ||
         !activityDetails.startDate ||
         !activityDetails.endDate ||
-        !activityDetails.cost
+        !activityDetails.cost ||
+        !activityDetails.location
     ) {
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
@@ -114,6 +116,13 @@ export const updateTitle = (typedValue) => {
 export const updateDescription = (typedValue) => {
     return {
         type: UPDATE_ACTIVITY_DESCRIPTION,
+        payload: typedValue,
+    };
+};
+
+export const updateLocation = (typedValue) => {
+    return {
+        type: UPDATE_ACTIVITY_LOCATION,
         payload: typedValue,
     };
 };

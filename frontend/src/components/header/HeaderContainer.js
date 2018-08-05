@@ -19,8 +19,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        changeAuthorizationMode: (mode) => {
-            dispatch(changeAuthorizationMode(mode));
+        changeAuthorizationMode: (mode, auth) => {
+            dispatch(changeAuthorizationMode(mode, auth));
         },
         signOut: () => {
             dispatch(signOut());

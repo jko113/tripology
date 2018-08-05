@@ -30,10 +30,10 @@ class Trip extends React.Component {
         // console.log(this.props, "current trip props");
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
-        // const godMode = this.props.user.godMode;
         const userId = this.props.user.userId;
 
-        if (/*godMode ||*/ authenticated) {
+        if (authenticated && Object.keys(currentTrip).length) {
+            // console.log(currentTrip, "currentTrip");
 
             return (
                 <div className="app-flex app-flex-column">
@@ -67,9 +67,18 @@ class Trip extends React.Component {
                                 Back
                             </Link>
                         </div>
+                        <div
+                            className="pointer link-item contrast app-flex app-small-margin-top"
+                            onClick={(e) => {
+                                console.log(this.props);
+                                this.props.deleteTrip(currentTrip.trip_id);
+                            }}
+                        >Delete</div>
                     </div>
                 </div>
             );
+        } else if (authenticated) {
+            return <Redirect to={`/allTripsByUser/${userId}`} />
         } else {
             return <Redirect to="/signin" />;
         }

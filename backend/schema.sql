@@ -31,7 +31,7 @@ CREATE TABLE trip_activities (
     description varchar(100),
     cost float,
     location varchar(50),
-    trip_id integer REFERENCES trips(trip_id),
+    trip_id integer REFERENCES trips(trip_id)  ON DELETE CASCADE,
     start_date timestamp,
     end_date timestamp,
     contact_id integer REFERENCES contacts(contact_id),

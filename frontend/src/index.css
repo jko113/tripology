@@ -237,3 +237,8 @@ a {
   color: blue !important;
   cursor: pointer;
 }
+
+.app-new-activity-cost {
+  /* align-self: flex-start; */
+  width: 300px;
+}

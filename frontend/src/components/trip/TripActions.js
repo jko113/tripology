@@ -4,6 +4,7 @@ import { rootUrl } from "../../shared/URL/rootUrl";
 
 export const GET_TRIP = "GET_TRIP";
 export const JUST_CREATED_TRIP = "JUST_CREATED_TRIP";
+export const DELETE_TRIP = "DELETE_TRIP";
 
 export const getOneTrip = (id) => {
     return (dispatch) => {
@@ -23,6 +24,20 @@ export const getOneTrip = (id) => {
             })
         }).catch(error => console.error)
     }
+};
+
+export const deleteTrip = (tripId) => {
+    return (dispatch) => {
+        axios.post(`${rootUrl}/api/deleteTrip`, {
+            tripId,
+        }).then(result => {
+            // console.log(result);
+            dispatch({
+                type: DELETE_TRIP,
+            });
+        }).catch(error => console.error);
+
+    };
 };
 
 export const resetJustCreatedTrip = () => {

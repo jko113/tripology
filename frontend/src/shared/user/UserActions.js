@@ -115,10 +115,11 @@ export const logIn = (username, password) => {
     // };
 };
 
-export const changeAuthorizationMode = (mode) => {
+export const changeAuthorizationMode = (mode, auth) => {
     return {
         type: CHANGE_AUTHORIZATION_MODE,
         payload: mode,
+        auth: auth,
     }
 };
 

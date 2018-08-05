@@ -55,8 +55,8 @@ export const userReducer = (
                 authorizationMode: action.payload,
                 errorMessage: undefined,
                 // username: action.username,
-                password: "",
-                username: "",
+                password: action.auth ? state.password: "",
+                username: action.auth ? state.username: "",
             });
         case GET_USER_ID:
             return {

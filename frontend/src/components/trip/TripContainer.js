@@ -3,6 +3,7 @@ import Trip from "./Trip";
 import {
     getOneTrip,
     resetJustCreatedTrip,
+    deleteTrip,
 } from "./TripActions";
 
 const mapStateToProps = (state) => {
@@ -21,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
         resetJustCreatedTrip: () => {
             // console.log("dispatched 'just created trip' method");
             dispatch(resetJustCreatedTrip());
+        },
+        deleteTrip: (tripId) => {
+            dispatch(deleteTrip(tripId));
         },
     };
 };

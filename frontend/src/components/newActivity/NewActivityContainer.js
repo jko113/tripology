@@ -7,6 +7,7 @@ import {
     updateDescription,
     updateDate,
     updateCost,
+    updateLocation,
 } from "./NewActivityActions";
 
 const mapStateToProps = (state) => {
@@ -34,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateCost: (typedValue) => {
             dispatch(updateCost(typedValue));
+        },
+        updateLocation: (typedValue) => {
+            dispatch(updateLocation(typedValue));
         },
         getOneTrip: (id) => {
             dispatch(getOneTrip(id));

@@ -30,7 +30,7 @@ class Header extends React.Component {
                 <Link
                     className="link-item-bigger app-flex app-small-margin"
                     onClick={() => {
-                        this.props.changeAuthorizationMode(mode)
+                        this.props.changeAuthorizationMode(mode, false);
                     }}
                     to={`/${mode}`}
                 >{formattedMode}
@@ -106,6 +106,7 @@ class Header extends React.Component {
     render() {
 
         const newTrip = this.props.user.authenticated ? "": "hidden";
+        const loggedIn = this.props.user.authenticated ? true: false;
 
         return (
             // <div className="app-flex">
@@ -117,7 +118,7 @@ class Header extends React.Component {
                             onClick={ () => {
                                 // const authMode = this.props.user.authorizationMode;
                                 // if (authMode) {
-                                    this.props.changeAuthorizationMode("");
+                                    this.props.changeAuthorizationMode("", loggedIn);
                                 // }
                             }}
                             to="/"

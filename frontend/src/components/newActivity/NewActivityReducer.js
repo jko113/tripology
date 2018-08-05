@@ -7,6 +7,7 @@ import {
     UPDATE_ACTIVITY_COST,
     CREATE_NEW_ACTIVITY_FAILED,
     JUST_CREATED_ACTIVITY,
+    UPDATE_ACTIVITY_LOCATION,
     // tripStartDate,
     // tripEndDate,
 } from "./NewActivityActions";
@@ -27,6 +28,7 @@ import {
 const initialState = {
     title: "",
     description: "",
+    location: "",
     startDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
     endDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
     // startDate: tripStartDate,
@@ -100,6 +102,11 @@ export const newActivityReducer = (
                 ...state,
                 cost: action.payload,
                 userHasInputCost: true,
+            };
+        case UPDATE_ACTIVITY_LOCATION:
+            return {
+                ...state,
+                location: action.payload,
             };
         case GET_TRIP_DETAILS:
             return {

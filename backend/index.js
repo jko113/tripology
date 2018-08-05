@@ -61,6 +61,15 @@ app.post("/api/deleteActivity", (req, res) => {
         }).catch(err => console.error);
 });
 
+app.post("/api/deleteTrip", (req, res) => {
+    console.log("deletetrip req.body", req.body);
+    db.deleteTrip(req.body.tripId)
+        .then(result => {
+            console.log("deletion result", result);
+            res.json(result)
+        }).catch(err => console.error);
+});
+
 app.post("/api/signin", (req, res) => {
     // console.log("reqbody: ", req.body);
     const username = req.body.username;
@@ -139,6 +148,7 @@ app.post("/api/newActivity", (req, res) => {
     const {
         title,
         description,
+        location,
         startDate,
         endDate,
         cost,
@@ -148,7 +158,7 @@ app.post("/api/newActivity", (req, res) => {
     } = tripDetails;
     // const trip_id = 1;
     // const cost = 50;
-    const location = "home";
+    // const location = "home";
     const contactId = 1;
     const categoryId = 1;
     

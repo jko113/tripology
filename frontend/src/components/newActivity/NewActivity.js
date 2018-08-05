@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import { getLocalDate } from "../../shared/date/Date";
 
 export const MAX = getLocalDate(new Date("2019-12-31"));
@@ -67,10 +67,6 @@ class NewActivity extends React.Component {
             return (
                 <div
                     className="app-flex app-flex-column app-new-trip-card app-margin"
-                    // className="app-flex"
-                    // onClick={() => {
-                    //     console.log(this.props);
-                    // }}
                 >
                     <div className="app-margin-bottom app-padding-top h2">
                         Add New Activity
@@ -99,6 +95,24 @@ class NewActivity extends React.Component {
                                     this.props.updateDescription(e.target.value);
                                 }}
                             />
+                            <input
+                                className="app-new-trip-title app-tiny-margin-top"
+                                value={this.displayCost(this.props.newActivity.cost)}
+                                onChange={(e) => {
+                                    this.props.updateCost(e.target.value);
+                                }}
+                                placeholder="Cost"
+                                type="number"
+                            />
+                            <input
+                                className="app-new-trip-title app-tiny-margin-top"
+                                value={newActivity.location}
+                                onChange={(e) => {
+                                    this.props.updateLocation(e.target.value);
+                                }}
+                                placeholder="Location"
+                                type="text"
+                            />
                         </div>
                         <div className="app-flex app-flex-column">
                             <input
@@ -125,35 +139,39 @@ class NewActivity extends React.Component {
                         </div>
                     </div>
                     
-                    <div
-                        className="cost"
-                    >
-                        <input
-                            value={this.displayCost(this.props.newActivity.cost)}
-                            onChange={(e) => {
-                                this.props.updateCost(e.target.value);
-                            }}
-                            placeholder="Cost"
-                            type="number"
-                        />
-                    </div>
+                    {/* <div
+                        className="cost app-flex app-flex-wrap app-flex-start"
+                    > */}
+                    {/* </div> */}
                     
-                    <div
-                        className="link-item app-flex pointer app-bigger-margin-top"
-                        onClick={() => {
-                            // console.log("attempted to submit new activity", newActivity)
-                            createNewActivity({
-                                title: newActivity.title,
-                                description: newActivity.description,
-                                startDate: newActivity.startDate,
-                                endDate: newActivity.endDate,
-                                userInfo: userInfo,
-                                currentTrip: currentTrip,
-                                cost: newActivity.cost,
-                            });
-                        }}
-                    >
-                        Submit
+                    <div className="app-flex">
+                        <div
+                            className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
+                            onClick={() => {
+                                // console.log("attempted to submit new activity", newActivity)
+                                createNewActivity({
+                                    title: newActivity.title,
+                                    description: newActivity.description,
+                                    startDate: newActivity.startDate,
+                                    endDate: newActivity.endDate,
+                                    userInfo: userInfo,
+                                    currentTrip: currentTrip,
+                                    cost: newActivity.cost,
+                                    location: newActivity.location,
+                                });
+                            }}
+                        >
+                            Submit
+                        </div>
+                        <Link
+                            to={`/trip/${currentTrip.trip_id}`}
+                            className="link-item app-flex pointer app-bigger-margin-top"
+                            onClick={(e) => {
+                                console.log(currentTrip);
+                            }}
+                        >
+                            Back
+                        </Link>
                     </div>
                     <div
                         className={`app-margin-top app-margin-bottom ${errorClass}`}

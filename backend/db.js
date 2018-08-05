@@ -82,6 +82,10 @@ function deleteActivity(activityId) {
     return db.one("DELETE FROM trip_activities WHERE activity_id = $1 RETURNING activity_id", [activityId]);
 }
 
+function deleteTrip(tripId) {
+    return db.one("DELETE FROM trips WHERE trip_id = $1 RETURNING trip_id", [tripId]);
+}
+
 module.exports = {
     // getAllTrips,
     getOneTrip,
@@ -92,4 +96,5 @@ module.exports = {
     addTrip,
     addActivity,
     deleteActivity,
+    deleteTrip,
 };

@@ -24,6 +24,7 @@ export const createNewActivity = (activityDetails) => {
     const endDate = getLocalDate(new Date(activityDetails.endDate));
     const tripStartDate = getLocalDate(new Date(activityDetails.currentTrip.start_date));
     const tripEndDate = getLocalDate(new Date(activityDetails.currentTrip.end_date));
+    const tripId = activityDetails.currentTrip.trip_id;
 
     // console.log(activityDetails, "activitydetails");
 
@@ -91,6 +92,7 @@ export const createNewActivity = (activityDetails) => {
                     type: CREATE_NEW_ACTIVITY,
                     payload: result.data,
                     activityId: activityId,
+                    tripId: tripId,
                 });
             } else {
                 dispatch({

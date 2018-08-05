@@ -43,6 +43,7 @@ class NewActivity extends React.Component {
         const createNewActivity = this.props.createNewActivity;
         const newActivity = this.props.newActivity;
         const userInfo = this.props.user;
+        const tripDetails = this.props.tripDetails;
         const currentTrip = this.props.currentTrip.data;
         const error = this.props.newActivity.errorMessage;
         const errorText = error ? error: "hidden";
@@ -54,8 +55,12 @@ class NewActivity extends React.Component {
         // console.log(this.props, "NewTrip component props")
         // console.log("currentTrip", Object.keys(currentTrip).length)
 
-        if (!Object.keys(currentTrip).length) {
-            return <Redirect to="/" />
+        if (!Object.keys(currentTrip).length && tripDetails && tripDetails.data && tripDetails.data.length) {
+            // console.log("no current trip for you         ", this.props.tripDetails.data[0].trip_id);
+            const tripId = this.props.tripDetails.data[0].trip_id;
+            this.props.getOneTrip(tripId);
+            // this.props.getOneTrip
+            // return <Redirect to="/" />
         }
 
         if (authenticated && !justCreatedActivity) {

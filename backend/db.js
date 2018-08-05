@@ -78,6 +78,10 @@ function addActivity(title, description, cost, location, trip_id, startDate, end
     return db.one("INSERT INTO trip_activities (title, description, cost, location, trip_id, start_date, end_date, contact_id, category_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING activity_id", [title, description, cost, location, trip_id, startDate, endDate, contact_id, category_id]);
 }
 
+function deleteActivity(activityId) {
+    return db.one("DELETE FROM trip_activities WHERE activity_id = $1 RETURNING activity_id", [activityId]);
+}
+
 module.exports = {
     // getAllTrips,
     getOneTrip,
@@ -87,4 +91,5 @@ module.exports = {
     createNewUser,
     addTrip,
     addActivity,
+    deleteActivity,
 };

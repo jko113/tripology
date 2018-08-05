@@ -1,5 +1,6 @@
 import { connect } from "react-redux";
 import NewActivity from "./NewActivity";
+import { getOneTrip } from "../trip/TripActions";
 import {
     createNewActivity,
     updateTitle,
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => {
         newActivity: state.newActivity,
         user: state.user,
         currentTrip: state.currentTrip,
+        tripDetails: state.tripDetails,
     };
 };
 
@@ -32,6 +34,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateCost: (typedValue) => {
             dispatch(updateCost(typedValue));
+        },
+        getOneTrip: (id) => {
+            dispatch(getOneTrip(id));
         },
     };
 };

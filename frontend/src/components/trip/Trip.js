@@ -6,7 +6,7 @@ class Trip extends React.Component {
     componentDidMount() {
         const authenticated = this.props.user.authenticated;
         // console.log(this.props.match.params, "params");
-        // console.log(this.props, "trip props");
+        // console.log(this.props, "trip props hey");
         if (authenticated) {
             this.props.getOneTrip(this.props.match.params.id);
         }

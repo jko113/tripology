@@ -38,8 +38,10 @@ app.get("/api/trip/:id", (req, res) => {
 });
 
 app.get("/api/tripdetails/:id", (req, res) => {
+    // console.log("tripdetails req.params", req.params);
     db.getTripDetails(req.params.id)
         .then(data => {
+            // console.log(data);
             res.json(data);
         })
 });
@@ -48,6 +50,15 @@ app.post("/api/signout", (req, res) => {
     res.json({
         signout: true,
     });
+});
+
+app.post("/api/deleteActivity", (req, res) => {
+    // console.log(req.body, "delete acti req.body");
+    db.deleteActivity(req.body.activityId)
+        .then(result => {
+            // console.log("deletion result", result);
+            res.json(result)
+        }).catch(err => console.error);
 });
 
 app.post("/api/signin", (req, res) => {
@@ -120,7 +131,7 @@ app.post("/api/newTrip", (req, res) => {
 });
 
 app.post("/api/newActivity", (req, res) => {
-    console.log("req.body",req.body);
+    // console.log("req.body new activity",req.body);
     activityDetails = req.body.activityDetails;
     // console.log("activityDet keys", Object.keys(activityDetails));
     tripDetails = activityDetails.currentTrip;
@@ -152,7 +163,7 @@ app.post("/api/newActivity", (req, res) => {
         contactId,
         categoryId,
     ).then(result => {
-        console.log("result",result);
+        // console.log("result",result);
         res.json(result);
     }).catch(error => console.error);
 });

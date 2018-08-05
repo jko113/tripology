@@ -11,6 +11,9 @@ import {
     // tripEndDate,
 } from "./NewActivityActions";
 
+import { GET_TRIP_DETAILS } from "../tripDetails/TripDetailsActions";
+import { GET_TRIP } from "../trip/TripActions";
+
 import { getLocalDate } from "../../shared/date/Date";
 
 // import { JUST_CREATED_ACTIVITY } from "../../components/tripDetails/TripDetailsActions";
@@ -46,7 +49,7 @@ export const newActivityReducer = (
     switch (action.type) {
         case CREATE_NEW_ACTIVITY:
             // return {
-            //     // ...state,
+            //     // ...state, 
             //     // tripData: action.payload,
             //     errorMessage: undefined,
             // };
@@ -56,6 +59,7 @@ export const newActivityReducer = (
                 errorMessage: undefined,
                 justCreatedActivity: true,
                 activityId: action.activityId,
+                tripId: action.tripId,
             });
         case JUST_CREATED_ACTIVITY:
             return {
@@ -97,7 +101,15 @@ export const newActivityReducer = (
                 cost: action.payload,
                 userHasInputCost: true,
             };
-        default:
+        case GET_TRIP_DETAILS:
+            return {
+                ...initialState,
+                justCreatedActivity: false,
+            };
+        case GET_TRIP:
             return initialState;
+        default:
+            // return initialState;
+            return state;
     }
 };

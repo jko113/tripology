@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 class TripDetails extends React.Component {
 
     componentDidMount() {
-        // console.log("trip details user props", this.props.user);
-        this.props.getTripDetails(this.props.match.params.id);
+        // console.log("trip details user props", this.props);
+        if (this.props.user.authenticated) {
+            this.props.getTripDetails(this.props.match.params.id);
+        }
         // this.props.justCreatedActivity();
     }
 
@@ -21,7 +23,7 @@ class TripDetails extends React.Component {
     render() {
         //console.log(this.props.currentTrip.data);
         const tripActivities = this.props.tripDetails.data;
-        // console.log(tripActivities, "tripActivities");
+        // console.log(tripActivities, "tripActivities")       ;
         const authenticated = this.props.user.authenticated;
         // const godMode = this.props.user.godMode;
 
@@ -33,16 +35,27 @@ class TripDetails extends React.Component {
                             return (
                                 <div
                                     key={activity.activity_id}
-                                    className="app-small-margin-top"
+                                    className="app-small-margin-top app-flex app-flex-space-between full-width"
                                 >
-                                    <div
-                                        className="h2 app-tiny-margin-bottom"
-                                    >
-                                        {activity.title}
+                                    <div className="">
+                                        <div
+                                            className="h2 app-tiny-margin-bottom"
+                                        >
+                                            {activity.title}
+                                        </div>
+                                        <div
+                                            className="app-small-margin-bottom"
+                                        >{activity.description}</div>
                                     </div>
                                     <div
-                                        className="app-small-margin-bottom"
-                                    >{activity.description}</div>
+                                        className="link-item contrast app-flex pointer"
+                                        onClick={(e) => {
+                                            // console.log(activity.activity_id);
+                                            this.props.deleteActivity(activity.activity_id, tripActivities);
+                                        }}
+                                    >
+                                        Delete
+                                    </div>
                                 </div>
                             );
                         })}
@@ -56,7 +69,7 @@ class TripDetails extends React.Component {
             } else {
                 return (
                     // <div>
-                    //     No trip activities yet. Add one?
+                    //     No trip activities yet.   Add one?
                     // </div>
                     <div className="app-flex">
                         No trips activities yet.&nbsp;
@@ -66,7 +79,11 @@ class TripDetails extends React.Component {
                     </div>
                 );
             }
-        } else return null;
+        } else
+        {
+            return <Redirect to="/signin" />
+        }
+        //  return null;
     }
 };
 

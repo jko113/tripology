@@ -1,6 +1,7 @@
 import { connect } from "react-redux";
 import TripDetails from "./TripDetails";
 import { getTripDetails,
+    deleteActivity,
     // justCreatedActivity,
 } from "./TripDetailsActions";
 
@@ -19,6 +20,9 @@ const mapDispatchToProps = (dispatch) => {
         // justCreatedActivity: () => {
         //     dispatch(justCreatedActivity());
         // },
+        deleteActivity: (activityId, activitiesArray) => {
+            dispatch(deleteActivity(activityId, activitiesArray));
+        },
     };
 };
 

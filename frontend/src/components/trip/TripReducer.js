@@ -57,7 +57,9 @@ export const TripReducer = (
             // return {
             //     data: action.payload,
             // }
-            return initialState;
+            return Object.assign({}, state, {
+                data: {},
+            });
         // case JUST_CREATED_TRIP:
         //     console.log("got to the JUST_CREATED_TRIP reducer");
         //     console.log("state", state);

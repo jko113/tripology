@@ -9,6 +9,7 @@ const mapStateToProps = (state) => {
     return {
         tripDetails: state.tripDetails,
         user: state.user,
+        currentTrip: state.currentTrip,
     };
 };
 

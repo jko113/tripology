@@ -31,8 +31,10 @@ class Trip extends React.Component {
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
         const userId = this.props.user.userId;
+        // const justDeletedTrip = this.props.justDeletedTrip;
 
-        if (authenticated && Object.keys(currentTrip).length) {
+        // if (authenticated && Object.keys(currentTrip).length) {
+        if (authenticated) {
             // console.log(currentTrip, "currentTrip");
 
             return (
@@ -70,16 +72,20 @@ class Trip extends React.Component {
                         <div
                             className="pointer link-item contrast app-flex app-small-margin-top"
                             onClick={(e) => {
-                                console.log(this.props);
+                                // console.log("props",this.props);
+                                this.props.history.push(`/allTripsByUser/${this.props.user.userId}`)
                                 this.props.deleteTrip(currentTrip.trip_id);
                             }}
                         >Delete</div>
                     </div>
                 </div>
             );
-        } else if (authenticated) {
-            return <Redirect to={`/allTripsByUser/${userId}`} />
-        } else {
+        }
+        // else if (justDeletedTrip) {
+        //     console.log("authenticated but no currentTrip");
+        //     // return <Redirect to={`/allTripsByUser/${userId}`} />
+        // } 
+        else {
             return <Redirect to="/signin" />;
         }
     }

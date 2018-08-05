@@ -31,10 +31,11 @@ export const deleteTrip = (tripId) => {
         axios.post(`${rootUrl}/api/deleteTrip`, {
             tripId,
         }).then(result => {
-            // console.log(result);
+            console.log(tripId);
             dispatch({
                 type: DELETE_TRIP,
-            });
+                tripId: tripId,
+            })
         }).catch(error => console.error);
 
     };

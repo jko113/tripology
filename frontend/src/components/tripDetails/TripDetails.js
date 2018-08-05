@@ -81,11 +81,22 @@ class TripDetails extends React.Component {
                 );
             } else {
                 return (
-                    <div className="app-flex">
-                        No trips activities yet.&nbsp;
-                        <div className="inline">
-                            {this.getAdder("Add one?")}
+                    <div className="app-flex app-flex-column">
+                        <div className="app-flex">
+                            No trips activities yet.&nbsp;
+                            <div className="inline">
+                                {this.getAdder("Add one?")}
+                            </div>
                         </div>
+                        <Link
+                            className="link-item app-flex app-margin-top"
+                            to={`/trip/${this.props.currentTrip.data.trip_id}`}
+                            // onClick={e => {
+                            //     console.log(this.props, "activiy props");
+                            // }}
+                        >
+                            Back
+                        </Link>
                     </div>
                 );
             }

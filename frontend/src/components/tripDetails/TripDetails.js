@@ -63,6 +63,7 @@ class TripDetails extends React.Component {
     render() {
         const tripActivities = this.props.tripDetails.data;
         const authenticated = this.props.user.authenticated;
+        const userId = this.props.user.userId;
 
         if (authenticated) {
             if (tripActivities && tripActivities.length) {
@@ -72,10 +73,16 @@ class TripDetails extends React.Component {
                             // console.log(activity, "activity");
                             return this.getTrip(activity, tripActivities);
                         })}
-                        <div
-                            className="app-flex-align-self-center app-margin-top app-margin-bottom"
-                        >
-                            {this.getAdder("Add another?")}
+                        <div className="app-flex app-flex-column app-flex-align-self-center">
+                            <div
+                                className="app-margin-top app-small-margin-bottom"
+                            >
+                                {this.getAdder("Add another?")}
+                            </div>
+                            <Link
+                                className="link-item contrast app-flex"
+                                to={`/allTripsByUser/${userId}`}
+                            >Back</Link>
                         </div>
                     </div>
                 );

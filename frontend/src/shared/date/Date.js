@@ -1,6 +1,11 @@
 export const getLocalDate = (date) => {
     let returnDate;
-    const offset = new Date().getTimezoneOffset();
+    let offset;
+    if (!date) {
+        offset = new Date().getTimezoneOffset();
+    } else {
+        offset = new Date(date).getTimezoneOffset();
+    }
     // let isString = false;
     const positiveOffset = offset >= 0 ? true: false;
 
@@ -24,4 +29,12 @@ export const getLocalDate = (date) => {
     //     returnDate.setTime(returnDate.getTime() - offset*60*1000);
 
     return returnDate;
+};
+
+export const formatDate = (date) => {
+    return [
+        date.getFullYear(),
+        ('0' + (date.getMonth() + 1)).slice(-2),
+        ('0' + date.getDate()).slice(-2)
+    ].join('-');
 };

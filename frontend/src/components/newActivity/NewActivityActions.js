@@ -1,7 +1,9 @@
 import axios from "axios";
 import { rootUrl } from "../../shared/URL/rootUrl";
-import { formatDate } from "./NewActivity";
-import { getLocalDate } from "../../shared/date/Date";
+import {
+    getLocalDate,
+    formatDate,
+} from "../../shared/date/Date";
 // import MAX from "./NewTrip";
 // import MIN from "./NewTrip";
 

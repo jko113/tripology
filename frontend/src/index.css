@@ -143,6 +143,10 @@ body {
   margin-bottom: 10px;
 }
 
+.app-small-margin-right {
+  margin-right: 10px;
+}
+
 .app-tiny-margin-bottom {
   margin-bottom: 5px;
 }
@@ -163,8 +167,20 @@ body {
   align-self: center;
 }
 
+/* .app-flex-align-self-end {
+  align-self: flex-end;
+} */
+
+.right {
+  margin-left: auto;
+}
+
 .full-width {
   width: 100%;
+}
+
+.inherit-width {
+  width: inherit;
 }
 
 .full-height {
@@ -241,4 +257,8 @@ a {
 .app-new-activity-cost {
   /* align-self: flex-start; */
   width: 300px;
+}
+
+.app-no-top-margin {
+  margin-top: 0;
 }

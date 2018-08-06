@@ -1,16 +1,12 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
-import { getLocalDate } from "../../shared/date/Date";
+import {
+    getLocalDate,
+    formatDate,
+} from "../../shared/date/Date";
 
 export const MAX = getLocalDate(new Date("2019-12-31"));
 export const MIN = getLocalDate(new Date());
-export const formatDate = (date) => {
-    return [
-        date.getFullYear(),
-        ('0' + (date.getMonth() + 1)).slice(-2),
-        ('0' + date.getDate()).slice(-2)
-    ].join('-');
-};
 
 class NewActivity extends React.Component {
 
@@ -65,118 +61,125 @@ class NewActivity extends React.Component {
 
         if (authenticated && !justCreatedActivity) {
             return (
-                <div
-                    className="app-flex app-flex-column app-new-trip-card app-margin"
-                >
-                    <div className="app-margin-bottom app-padding-top h2">
-                        Add New Activity
+                <div className="app-flex app-flex-column app-margin app-no-top-margin">
+                    <div
+                        className="app-flex-align-self-center h1 app-margin-bottom"
+                    >
+                    {currentTrip.title}
                     </div>
                     <div
-                        className="app-flex app-flex-wrap app-flex-start"
+                        className="app-flex app-flex-column app-new-trip-card full-width"
                     >
+                        <div className="app-margin-bottom app-padding-top h2">
+                            Add New Activity
+                        </div>
                         <div
-                            className="app-flex app-flex-column app-margin-right"
+                            className="app-flex app-flex-wrap app-flex-start"
                         >
-                            <input
-                                key="title"
-                                className="app-new-trip-title"
-                                value={newActivity.title}
-                                placeholder="Title"
-                                onChange={(e) => {
-                                    this.props.updateTitle(e.target.value);
-                                }}
-                            />
-                            <textarea
-                                key="description"
-                                className="app-new-trip-description app-tiny-margin-top"
-                                value={newActivity.description}
-                                placeholder="Description"
-                                onChange={(e) => {
-                                    this.props.updateDescription(e.target.value);
-                                }}
-                            />
-                            <input
-                                className="app-new-trip-title app-tiny-margin-top"
-                                value={this.displayCost(this.props.newActivity.cost)}
-                                onChange={(e) => {
-                                    this.props.updateCost(e.target.value);
-                                }}
-                                placeholder="Cost"
-                                type="number"
-                            />
-                            <input
-                                className="app-new-trip-title app-tiny-margin-top"
-                                value={newActivity.location}
-                                onChange={(e) => {
-                                    this.props.updateLocation(e.target.value);
-                                }}
-                                placeholder="Location"
-                                type="text"
-                            />
+                            <div
+                                className="app-flex app-flex-column app-margin-right"
+                            >
+                                <input
+                                    key="title"
+                                    className="app-new-trip-title"
+                                    value={newActivity.title}
+                                    placeholder="Title"
+                                    onChange={(e) => {
+                                        this.props.updateTitle(e.target.value);
+                                    }}
+                                />
+                                <textarea
+                                    key="description"
+                                    className="app-new-trip-description app-tiny-margin-top"
+                                    value={newActivity.description}
+                                    placeholder="Description"
+                                    onChange={(e) => {
+                                        this.props.updateDescription(e.target.value);
+                                    }}
+                                />
+                                <input
+                                    className="app-new-trip-title app-tiny-margin-top"
+                                    value={this.displayCost(this.props.newActivity.cost)}
+                                    onChange={(e) => {
+                                        this.props.updateCost(e.target.value);
+                                    }}
+                                    placeholder="Cost"
+                                    type="number"
+                                />
+                                <input
+                                    className="app-new-trip-title app-tiny-margin-top"
+                                    value={newActivity.location}
+                                    onChange={(e) => {
+                                        this.props.updateLocation(e.target.value);
+                                    }}
+                                    placeholder="Location"
+                                    type="text"
+                                />
+                            </div>
+                            <div className="app-flex app-flex-column">
+                                <input
+                                    key="start-date"
+                                    value={
+                                        this.displayDate(this.props.newActivity.startDate, "start")
+                                    }
+                                    type="date"
+                                    onChange={(e) => {
+                                        this.props.updateDate(e.target.value, "start");
+                                    }}
+                                />
+                                <input
+                                    key="end-date"
+                                    className="app-tiny-margin-top"
+                                    value={
+                                        this.displayDate(this.props.newActivity.endDate, "end")
+                                    }
+                                    type="date"
+                                    onChange={(e) => {
+                                        this.props.updateDate(e.target.value, "end");
+                                    }}
+                                />
+                            </div>
                         </div>
-                        <div className="app-flex app-flex-column">
-                            <input
-                                key="start-date"
-                                value={
-                                    this.displayDate(this.props.newActivity.startDate, "start")
-                                }
-                                type="date"
-                                onChange={(e) => {
-                                    this.props.updateDate(e.target.value, "start");
+                        
+                        {/* <div
+                            className="cost app-flex app-flex-wrap app-flex-start"
+                        > */}
+                        {/* </div> */}
+                        
+                        <div className="app-flex">
+                            <div
+                                className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
+                                onClick={() => {
+                                    // console.log("attempted to submit new activity", newActivity)
+                                    createNewActivity({
+                                        title: newActivity.title,
+                                        description: newActivity.description,
+                                        startDate: newActivity.startDate,
+                                        endDate: newActivity.endDate,
+                                        userInfo: userInfo,
+                                        currentTrip: currentTrip,
+                                        cost: newActivity.cost,
+                                        location: newActivity.location,
+                                    });
                                 }}
-                            />
-                            <input
-                                key="end-date"
-                                className="app-tiny-margin-top"
-                                value={
-                                    this.displayDate(this.props.newActivity.endDate, "end")
-                                }
-                                type="date"
-                                onChange={(e) => {
-                                    this.props.updateDate(e.target.value, "end");
-                                }}
-                            />
+                            >
+                                Submit
+                            </div>
+                            <Link
+                                to={`/tripdetails/${currentTrip.trip_id}`}
+                                className="link-item app-flex pointer app-bigger-margin-top"
+                                // onClick={(e) => {
+                                //     console.log(currentTrip);
+                                // }}
+                            >
+                                Back
+                            </Link>
                         </div>
-                    </div>
-                    
-                    {/* <div
-                        className="cost app-flex app-flex-wrap app-flex-start"
-                    > */}
-                    {/* </div> */}
-                    
-                    <div className="app-flex">
                         <div
-                            className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
-                            onClick={() => {
-                                // console.log("attempted to submit new activity", newActivity)
-                                createNewActivity({
-                                    title: newActivity.title,
-                                    description: newActivity.description,
-                                    startDate: newActivity.startDate,
-                                    endDate: newActivity.endDate,
-                                    userInfo: userInfo,
-                                    currentTrip: currentTrip,
-                                    cost: newActivity.cost,
-                                    location: newActivity.location,
-                                });
-                            }}
+                            className={`app-margin-top app-margin-bottom ${errorClass}`}
                         >
-                            Submit
+                            {errorText}
                         </div>
-                        <Link
-                            to={`/trip/${currentTrip.trip_id}`}
-                            className="link-item app-flex pointer app-bigger-margin-top"
-                            onClick={(e) => {
-                                console.log(currentTrip);
-                            }}
-                        >
-                            Back
-                        </Link>
-                    </div>
-                    <div
-                        className={`app-margin-top app-margin-bottom ${errorClass}`}
-                    >
-                        {errorText}
                     </div>
                 </div>
             );

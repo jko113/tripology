@@ -1,5 +1,9 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
+import {
+    getLocalDate,
+    formatDate,
+} from "../../shared/date/Date";
 
 class TripDetails extends React.Component {
 
@@ -20,13 +24,31 @@ class TripDetails extends React.Component {
         );
     };
 
+    biaoti = (currentTrip) => {
+        // console.log(currentTrip);
+        return (
+            <div
+                className="app-flex app-flex-column"
+            >
+                <div
+                    className="h1 app-small-margin-bottom"
+                >{currentTrip.title}
+                </div>
+                <div
+                    className="h2 app-small-margin-bottom"
+                >{currentTrip.start_date}&nbsp;to&nbsp;{currentTrip.end_date}
+                </div>
+            </div>
+        );
+    };
+
     getTrip = (activity, tripActivities) => {
         return (
             <div
                 key={activity.activity_id}
                 className="app-small-margin-top app-flex app-flex-space-between full-width"
             >
-                <div className="app-small-margin-bottom">
+                <div className="app-small-margin-bottom app-small-margin-right">
                     <div
                         className="h2 app-tiny-margin-bottom"
                     >
@@ -60,29 +82,121 @@ class TripDetails extends React.Component {
         );
     };
 
+    getFilterDate = () => {
+        return this.props.tripDetails.filterDate;
+    };
+
+    getTripStartDate = () => {
+        return this.props.currentTrip.data.start_date;
+    };
+
+    getTripEndDate = () => {
+        return this.props.currentTrip.data.end_date;
+    };
+
+    getTripDetailsDate = () => {
+        // console.log(this.props, "trip deets props") ;
+        const filterDate = this.getFilterDate();
+        // const currentTripStartDate = this.getTripStartDate(); 
+
+        // if (filterDate) {
+        //     return filterDate;
+        // } else if (currentTripStartDate) {
+        //     return "";
+        // }
+
+        return (filterDate) ? filterDate: "";
+    };
+
+    checkInTheZone = (a, b, c) => {
+        return (
+            a >= b &&
+            a <= c
+        ) ? true: false;
+    };
+
+    filterTrips = (activitiesArray) => {
+        const filterDate = getLocalDate(new Date(this.getFilterDate()));
+        const currentTripStartDate = getLocalDate(new Date(this.getTripStartDate())); 
+        const currentTripEndDate = getLocalDate(new Date(this.getTripEndDate()));
+
+        const inTheZone = this.checkInTheZone(
+            filterDate,
+            currentTripStartDate,
+            currentTripEndDate
+        );
+        
+        const returnArray = (inTheZone) ?
+            activitiesArray.filter(a => {
+
+                const activityStartDate = getLocalDate(new Date(a.start_date)); 
+                const activityEndDate = getLocalDate(new Date(a.end_date));        
+
+                return (
+                    this.checkInTheZone(filterDate, activityStartDate, activityEndDate)
+                );
+            }):
+            activitiesArray.map(a => a);
+
+        return returnArray.length != 0 ? returnArray: activitiesArray;
+    };
+
     render() {
         const tripActivities = this.props.tripDetails.data;
+        const filteredTripActivities = this.filterTrips(tripActivities);
         const authenticated = this.props.user.authenticated;
         const userId = this.props.user.userId;
-
+        const currentTrip = this.props.currentTrip.data;
+        
         if (authenticated) {
-            if (tripActivities && tripActivities.length) {
+            // console.log(this.props);
+            // if (tripActivities && tripActivities.length) {
+            if (filteredTripActivities && filteredTripActivities.length) {
+                
                 return (
-                    <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
-                        {tripActivities.map(activity => {
-                            // console.log(activity, "activity");
-                            return this.getTrip(activity, tripActivities);
-                        })}
-                        <div className="app-flex app-flex-column app-flex-align-self-center">
-                            <div
-                                className="app-margin-top app-small-margin-bottom"
-                            >
-                                {this.getAdder("Add another?")}
+                    // <div className="app-flex app-flex-column h1 app-margin-bottom">
+                    <div className="app-flex app-flex-column">
+                        {this.biaoti(currentTrip)}
+                        <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
+                            {/* <div className="app-flex app-flex-align-self-center full-width"> */}
+                            <div className="app-small-margin-bottom app-flex full-width app-flex-space-between">
+                                <div
+                                    className="hidden"
+                                >Show All</div>
+                                <div
+                                    // className="app-flex-align-self-center"
+                                >
+                                    Filter by date:&nbsp;&nbsp;
+                                    <input
+                                        type="date"
+                                        value={this.getTripDetailsDate()}
+                                        onChange={(e) => {
+                                            this.props.changeFilterDate(e.target.value);
+                                        }}
+                                    ></input>
+                                </div>
+                                <div
+                                    className="pointer"
+                                    onClick={(e) => {
+                                        this.props.changeFilterDate("");
+                                    }}
+                                >Show All</div>
                             </div>
-                            <Link
-                                className="link-item contrast app-flex"
-                                to={`/allTripsByUser/${userId}`}
-                            >Back</Link>
+                            {filteredTripActivities.map(activity => {
+                                // console.log(activity, "activity");
+                                return this.getTrip(activity, tripActivities);
+                            })}
+                            <div className="app-flex app-flex-column app-flex-align-self-center">
+                                <div
+                                    className="app-margin-top app-small-margin-bottom"
+                                >
+                                    {this.getAdder("Add another?")}
+                                </div>
+                                <Link
+                                    className="link-item contrast app-flex"
+                                    to={`/allTripsByUser/${userId}`}
+                                >Back</Link>
+                            </div>
                         </div>
                     </div>
                 );
@@ -90,7 +204,7 @@ class TripDetails extends React.Component {
                 return (
                     <div className="app-flex app-flex-column">
                         <div className="app-flex">
-                            No trips activities yet.&nbsp;
+                            No trip activities yet.&nbsp;
                             <div className="inline">
                                 {this.getAdder("Add one?")}
                             </div>

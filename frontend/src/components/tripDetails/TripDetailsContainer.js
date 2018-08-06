@@ -2,6 +2,8 @@ import { connect } from "react-redux";
 import TripDetails from "./TripDetails";
 import { getTripDetails,
     deleteActivity,
+    // changeVisibilityFilter,
+    changeFilterDate,
     // justCreatedActivity,
 } from "./TripDetailsActions";
 
@@ -23,6 +25,12 @@ const mapDispatchToProps = (dispatch) => {
         // },
         deleteActivity: (activityId, activitiesArray) => {
             dispatch(deleteActivity(activityId, activitiesArray));
+        },
+        // changeVisibilityFilter: (mode) => {
+        //     dispatch(changeVisibilityFilter(mode));
+        // },
+        changeFilterDate: (typedValue) => {
+            dispatch(changeFilterDate(typedValue));
         },
     };
 };

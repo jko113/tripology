@@ -4,6 +4,8 @@ import { rootUrl } from "../../shared/URL/rootUrl";
 export const GET_TRIP_DETAILS = "GET_TRIP_DETAILS";
 // export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY" ;
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
+// export const CHANGE_VISIBILITY_FILTER = "CHANGE_VISIBILITY_FILTER";
+export const CHANGE_FILTER_DATE = "CHANGE_FILTER_DATE";
 
 export const getTripDetails = (id) => {
     return (dispatch) => {
@@ -51,6 +53,20 @@ export const deleteActivity = (activityId, activitiesArray) => {
             //         console.error(error)
             //     });
         }).catch(error => console.error);
+    };
+};
+
+// export const changeVisibilityFilter = (mode) => {
+//     return {
+//         type: CHANGE_VISIBILITY_FILTER,
+//         payload: mode,
+//     };
+// };
+
+export const changeFilterDate = (enteredValue) => {
+    return {
+        type: CHANGE_FILTER_DATE,
+        payload: enteredValue,
     };
 };
 

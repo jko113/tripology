@@ -63,9 +63,14 @@ class NewActivity extends React.Component {
             return (
                 <div className="app-flex app-flex-column app-margin app-no-top-margin">
                     <div
-                        className="app-flex-align-self-center h1 app-margin-bottom"
+                        className="app-flex-align-self-center h1 app-small-margin-bottom"
                     >
-                    {currentTrip.title}
+                        {currentTrip.title}
+                    </div>
+                    <div
+                        className="h2 app-flex-align-self-center app-margin-bottom"
+                    >
+                        {currentTrip.start_date}&nbsp;to&nbsp;{currentTrip.end_date}
                     </div>
                     <div
                         className="app-flex app-flex-column app-new-trip-card full-width"

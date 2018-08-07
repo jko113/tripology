@@ -41,7 +41,7 @@ function validateExistingUserPassword(user_id, username, password) {
                 // return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 AND password = $2 GROUP BY user_id;", [username, decrypted]);
                 return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 GROUP BY user_id;", [username]);
             } else {
-                console.error("incorrect password");
+                // console.error("incorrect password");
                 return false;
             }
         })

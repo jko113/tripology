@@ -2,17 +2,14 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import {
     getLocalDate,
-    // formatDate,
 } from "../../shared/date/Date";
 
 class TripDetails extends React.Component {
 
     componentDidMount() {
-        // console.log("trip details user props", this.props);
         if (this.props.user.authenticated) {
             this.props.getTripDetails(this.props.match.params.id);
         }
-        // this.props.justCreatedActivity();
     }
 
     getAdder = (buttonText) => {
@@ -25,7 +22,6 @@ class TripDetails extends React.Component {
     };
 
     biaoti = (currentTrip) => {
-        // console.log(currentTrip);
         return (
             <div
                 className="app-flex app-flex-column"
@@ -40,6 +36,16 @@ class TripDetails extends React.Component {
                 </div>
             </div>
         );
+    };
+
+    getBody = (filteredArray, fullArray) => {
+        if (filteredArray && !filteredArray.length) {
+            return <div className="app-small-margin-top">No trip activities scheduled for the specified date.</div>;
+        } else {
+            return filteredArray.map(activity => {
+                return this.getTrip(activity, fullArray);
+            });
+        }
     };
 
     getTrip = (activity, tripActivities) => {
@@ -95,16 +101,7 @@ class TripDetails extends React.Component {
     };
 
     getTripDetailsDate = () => {
-        // console.log(this.props, "trip deets props") ;
         const filterDate = this.getFilterDate();
-        // const currentTripStartDate = this.getTripStartDate(); 
-
-        // if (filterDate) {
-        //     return filterDate;
-        // } else if (currentTripStartDate) {
-        //     return "";
-        // }
-
         return (filterDate) ? filterDate: "";
     };
 
@@ -116,29 +113,26 @@ class TripDetails extends React.Component {
     };
 
     filterTrips = (activitiesArray) => {
+
+        if (!this.getFilterDate()) {
+            return activitiesArray;
+        }
+
         const filterDate = getLocalDate(new Date(this.getFilterDate()));
-        const currentTripStartDate = getLocalDate(new Date(this.getTripStartDate())); 
-        const currentTripEndDate = getLocalDate(new Date(this.getTripEndDate()));
-
-        const inTheZone = this.checkInTheZone(
-            filterDate,
-            currentTripStartDate,
-            currentTripEndDate
-        );
+        const returnArray = [];
         
-        const returnArray = (inTheZone) ?
-            activitiesArray.filter(a => {
+        activitiesArray.forEach(a => {
+            const activityStartDate = getLocalDate(new Date(a.start_date)); 
+            const activityEndDate = getLocalDate(new Date(a.end_date));
 
-                const activityStartDate = getLocalDate(new Date(a.start_date)); 
-                const activityEndDate = getLocalDate(new Date(a.end_date));        
+            if (this.checkInTheZone(filterDate, activityStartDate, activityEndDate)) {
+                returnArray.push(a);
+            }
+        });
 
-                return (
-                    this.checkInTheZone(filterDate, activityStartDate, activityEndDate)
-                );
-            }):
-            activitiesArray.map(a => a);
-
-        return returnArray.length !== 0 ? returnArray: activitiesArray;
+        return returnArray.length !== 0 ?
+            returnArray:
+            [];
     };
 
     render() {
@@ -149,22 +143,17 @@ class TripDetails extends React.Component {
         const currentTrip = this.props.currentTrip.data;
         
         if (authenticated) {
-            // console.log(this.props);
-            // if (tripActivities && tripActivities.length) {
-            if (filteredTripActivities && filteredTripActivities.length) {
+            if (filteredTripActivities) {
                 
                 return (
-                    // <div className="app-flex app-flex-column h1 app-margin-bottom">
                     <div className="app-flex app-flex-column">
                         {this.biaoti(currentTrip)}
                         <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
-                            {/* <div className="app-flex app-flex-align-self-center full-width"> */}
                             <div className="app-small-margin-bottom app-flex full-width app-flex-space-between">
                                 <div
                                     className="hidden"
                                 >Show All</div>
                                 <div
-                                    // className="app-flex-align-self-center"
                                 >
                                     Filter by date:&nbsp;&nbsp;
                                     <input
@@ -182,15 +171,12 @@ class TripDetails extends React.Component {
                                     }}
                                 >Show All</div>
                             </div>
-                            {filteredTripActivities.map(activity => {
-                                // console.log(activity, "activity");
-                                return this.getTrip(activity, tripActivities);
-                            })}
+                                {this.getBody(filteredTripActivities, tripActivities)}
                             <div className="app-flex app-flex-column app-flex-align-self-center">
                                 <div
                                     className="app-margin-top app-small-margin-bottom"
                                 >
-                                    {this.getAdder("Add another?")}
+                                    {this.getAdder("Add activity?")}
                                 </div>
                                 <Link
                                     className="link-item contrast app-flex"
@@ -212,9 +198,6 @@ class TripDetails extends React.Component {
                         <Link
                             className="link-item app-flex app-margin-top"
                             to={`/trip/${this.props.currentTrip.data.trip_id}`}
-                            // onClick={e => {
-                            //     console.log(this.props, "activiy props");
-                            // }}
                         >
                             Back
                         </Link>

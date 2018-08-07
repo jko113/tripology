@@ -79,7 +79,10 @@ class TripDetails extends React.Component {
                 <div
                     className="link-item contrast app-flex pointer"
                     onClick={(e) => {
-                        this.props.deleteActivity(activity.activity_id, tripActivities);
+                        const confirmed = window.confirm(`Are you sure you want to delete the activity "${activity.title}"?`);
+                        if (confirmed) {
+                            this.props.deleteActivity(activity.activity_id, tripActivities);
+                        }
                     }}
                 >
                     Delete
@@ -143,7 +146,7 @@ class TripDetails extends React.Component {
         const currentTrip = this.props.currentTrip.data;
         
         if (authenticated) {
-            if (filteredTripActivities) {
+            if (filteredTripActivities && tripActivities.length) {
                 
                 return (
                     <div className="app-flex app-flex-column">
@@ -165,7 +168,7 @@ class TripDetails extends React.Component {
                                     ></input>
                                 </div>
                                 <div
-                                    className="pointer"
+                                    className="pointer app-margin-left"
                                     onClick={(e) => {
                                         this.props.changeFilterDate("");
                                     }}
@@ -190,14 +193,14 @@ class TripDetails extends React.Component {
                 return (
                     <div className="app-flex app-flex-column">
                         <div className="app-flex">
-                            No trip activities yet.&nbsp;
+                            No trip activities for {currentTrip.title} yet.&nbsp;
                             <div className="inline">
                                 {this.getAdder("Add one?")}
                             </div>
                         </div>
                         <Link
                             className="link-item app-flex app-margin-top"
-                            to={`/trip/${this.props.currentTrip.data.trip_id}`}
+                            to={`/trip/${currentTrip.trip_id}`}
                         >
                             Back
                         </Link>

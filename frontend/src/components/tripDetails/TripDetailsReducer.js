@@ -7,7 +7,7 @@ import {
 
 const initialState = {
     data: [],
-    visibilityFilter: "SHOW_ALL",
+    // visibilityFilter: "SHOW_ALL",
     filterDate: "",
 };
 
@@ -22,6 +22,7 @@ export const TripDetailsReducer = (
     switch (action.type) {
         case GET_TRIP_DETAILS:
             return Object.assign({}, state, {
+                filterDate: "",
                 data: action.payload
             });
         case DELETE_ACTIVITY:

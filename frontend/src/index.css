@@ -89,6 +89,10 @@ body {
   margin-right: 20px;
 }
 
+.app-margin-left {
+  margin-left: 20px;
+}
+
 .app-flex {
   display: flex;
   justify-content: center;

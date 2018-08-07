@@ -73,19 +73,17 @@ class Trip extends React.Component {
                             className="pointer link-item contrast app-flex app-small-margin-top"
                             onClick={(e) => {
                                 // console.log("props",this.props);
-                                this.props.history.push(`/allTripsByUser/${this.props.user.userId}`)
-                                this.props.deleteTrip(currentTrip.trip_id);
+                                const confirmed = window.confirm(`Are you sure you with to delete the trip "${currentTrip.title}" and all its associated activities?`);
+                                if (confirmed) {
+                                    this.props.history.push(`/allTripsByUser/${this.props.user.userId}`)
+                                    this.props.deleteTrip(currentTrip.trip_id);
+                                }
                             }}
                         >Delete</div>
                     </div>
                 </div>
             );
-        }
-        // else if (justDeletedTrip) {
-        //     console.log("authenticated but no currentTrip");
-        //     // return <Redirect to={`/allTripsByUser/${userId}`} />
-        // } 
-        else {
+        } else {
             return <Redirect to="/signin" />;
         }
     }

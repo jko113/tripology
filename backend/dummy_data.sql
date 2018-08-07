@@ -1,7 +1,7 @@
 INSERT INTO users (username, password) VALUES
-('sp', 'sp'),
-('ir', 'ir'),
-('ca', 'ca');
+('sp', '357012cf2dd6bd52509f417a26a464c7'),
+('ir', '74659aaba7082101e19a7ec47ffd915e'),
+('ca', 'f33fb7ef702048a90d6df1a0ab4852aa');
 
 INSERT INTO trips (title, user_id, description, start_date, end_date) VALUES
 ('Spain', 1, 'A romantic second honeymoon in the great Spanish nation!', '2018-06-15', '2018-06-25'),

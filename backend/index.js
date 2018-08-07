@@ -14,6 +14,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
+// const simplecrypt = require("simplecrypt");
+// const sc = simplecrypt();
+
 // app.get("/allTrips", (req, res) => {
 //     db.getAllTrips()
 //         .then(data => {
@@ -62,36 +65,48 @@ app.post("/api/deleteActivity", (req, res) => {
 });
 
 app.post("/api/deleteTrip", (req, res) => {
-    console.log("deletetrip req.body", req.body);
+    // console.log("deletetrip req.body", req.body);
     db.deleteTrip(req.body.tripId)
         .then(result => {
-            console.log("deletion result", result);
+            // console.log("deletion result", result);
             res.json(result)
         }).catch(err => console.error);
 });
 
 app.post("/api/signin", (req, res) => {
-    // console.log("reqbody: ", req.body);
     const username = req.body.username;
     const password = req.body.password;
-    db.checkUserExistence(username, password)
+    db.checkUserExistenceByUsername(username)
         .then(result => {
-            // console.log(typeof result);
-            // console.log("result: ", result);
-            if (result) {
-                result["token"] = "a token";
-                res.json(result);
+            // console.log(result, "result1");
+            if (result && result.exists) {
+                db.validateExistingUserPassword(result.user_id, username, password)
+                    .then(result => {
+                        // console.log(result, "result3");
+                        if (result) {
+                            result["token"] = "a token";
+                            res.json(result);
+                        } else {
+                            // incorrect password, no?
+                            res.json({
+                                error: "Username does not exist."
+                            });
+                        }
+                    }).catch(error => {
+                        console.error(error);
+                    })
             } else {
                 res.json({
                     error: "Username does not exist."
                 });
+                // return false;
             }
-        }).catch(error => {
-            console.error(error);
-        })
+        }).catch(error => console.error);
+
 });
 
 app.post("/api/createnewuser", (req, res) => {
+
     db.createNewUser(req.body.username, req.body.password)
         .then(result => {
             // console.log(JSON.stringify(result) + "result");
@@ -110,9 +125,6 @@ app.post("/api/newTrip", (req, res) => {
         startDate,
         endDate,
     } = req.body.tripDetails;
-
-    // console.log(title);
-    // res.json("got it");
 
     db.addTrip(
         userInfo.userId,

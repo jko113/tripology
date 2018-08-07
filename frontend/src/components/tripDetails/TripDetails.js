@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import {
     getLocalDate,
-    formatDate,
+    // formatDate,
 } from "../../shared/date/Date";
 
 class TripDetails extends React.Component {
@@ -138,7 +138,7 @@ class TripDetails extends React.Component {
             }):
             activitiesArray.map(a => a);
 
-        return returnArray.length != 0 ? returnArray: activitiesArray;
+        return returnArray.length !== 0 ? returnArray: activitiesArray;
     };
 
     render() {

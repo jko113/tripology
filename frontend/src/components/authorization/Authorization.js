@@ -29,21 +29,23 @@ class Authorization extends React.Component {
                     <div className="h1">{formattedMode}</div>
                     <div className="app-flex">
                         <input
+                            type="text"
                             className="app-small-margin app-small-padding"
                             key="username"
-                            placeholder="username"
+                            placeholder="username (12 max)"
                             value={this.props.user.username}
                             onChange={ (e) =>
-                                this.props.updateUsername(e.target.value)
+                                this.props.updateUsername(e.target.value.slice(0,12))
                             }
                         />
                         <input
+                            type="password"
                             className="app-small-margin app-small-padding"
                             key="password"
-                            placeholder="password"
+                            placeholder="password (12 max)"
                             value={this.props.user.password}
                             onChange={ (e) =>
-                                this.props.updatePassword(e.target.value)}
+                                this.props.updatePassword(e.target.value.slice(0,12))}
                         />
                     </div>
                     <div

@@ -8,6 +8,13 @@ const cn = {
 }
 const db = pgp(cn);
 
+const user1 = {
+    password: process.env.ENCRYPT_PASSWORD,
+    salt: process.env.ENCRYPT_SALT,
+};
+const simplecrypt = require("simplecrypt");
+const sc = simplecrypt(user1);
+
 // function getAllTrips() {
 //     return db.any("SELECT * FROM trips;");
 // }
@@ -24,43 +31,59 @@ function getTripDetails(trip_id) {
     return db.any("SELECT * FROM trip_activities WHERE trip_id = $1;", [trip_id]);
 }
 
-function checkUserExistence(username, password) {
-    return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 AND password = $2 GROUP BY user_id;", [username, password]);
+function validateExistingUserPassword(user_id, username, password) {
+
+    return getPassword(user_id)
+        .then(result => {
+
+            let decrypted = sc.decrypt(result.password);
+            if (decrypted === password) {
+                // return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 AND password = $2 GROUP BY user_id;", [username, decrypted]);
+                return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 GROUP BY user_id;", [username]);
+            } else {
+                console.error("incorrect password");
+                return false;
+            }
+        })
+        .catch(error => console.error);
 }
 
+function getPassword(user_id) {
+    return db.one("SELECT password FROM users WHERE user_id = $1", [user_id]);
+};
+
 function checkUserExistenceByUsername(username) {
-    return db.oneOrNone("SELECT COUNT(user_id) = 1 AS exists FROM users WHERE username ILIKE $1;", [username]);
+    return db.oneOrNone("SELECT user_id, COUNT(user_id) = 1 AS exists FROM users WHERE username ILIKE $1 GROUP BY user_id", [username]);
 }
 
 function createNewUser(username, password) {
+
+    let encryptedPassword = sc.encrypt(password);
+
     return checkUserExistenceByUsername(username)
         .then(result => {
-            const isValid = validateUsername(username);
-            // console.log(isValid);
-            const alreadyExists = result.exists;
-            
-            if (alreadyExists || !isValid) {
-                // console.log("already exists",isValid);
+            if (result) {
                 return {
                     usernameAvailable: false,
                 };
             } else {
-                // return {
-                //     usernameAvailable: true,
-                // };
-                return addUserToDatabase(username, password);
+                const isValid = validateUsername(username);
+                if (!isValid) {
+                    return {
+                        usernameAvailable: false,
+                    };
+                } else {
+                    return addUserToDatabase(username, encryptedPassword);
+                }
             }
         })
 }
 
 function validateUsername(username) {
-    // console.log("calling validate");
     const letters = /^[0-9a-zA-Z]+$/;
     if (username.match(letters)) {
-        // console.log("accepted");
         return true;
     } else {
-        // console.log("not accepted");
         return false;
     }
 }
@@ -90,7 +113,8 @@ module.exports = {
     // getAllTrips,
     getOneTrip,
     getTripDetails,
-    checkUserExistence,
+    validateExistingUserPassword,
+    checkUserExistenceByUsername,
     getAllTripsByUser,
     createNewUser,
     addTrip,

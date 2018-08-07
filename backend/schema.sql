@@ -1,7 +1,7 @@
 CREATE TABLE users (
     user_id serial primary key,
     username varchar(30),
-    password varchar(30)
+    password varchar(300)
 );
 
 CREATE TABLE trips (
@@ -31,7 +31,7 @@ CREATE TABLE trip_activities (
     description varchar(100),
     cost float,
     location varchar(50),
-    trip_id integer REFERENCES trips(trip_id)  ON DELETE CASCADE,
+    trip_id integer REFERENCES trips(trip_id) ON DELETE CASCADE,
     start_date timestamp,
     end_date timestamp,
     contact_id integer REFERENCES contacts(contact_id),

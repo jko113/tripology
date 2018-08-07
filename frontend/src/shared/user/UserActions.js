@@ -11,7 +11,6 @@ export const LOG_IN = "LOG_IN";
 export const LOG_IN_FAILED = "LOG_IN_FAILED";
 export const CREATE_NEW_USER = "CREATE_NEW_USER";
 export const CREATE_NEW_USER_FAILED = "CREATE_NEW_USER_FAILED";
-// export const GOD_MODE = "GOD_MODE";
 
 export const updateUsername = (typedValue) => {
     return {
@@ -74,28 +73,15 @@ export const logIn = (username, password) => {
             username,
             password
         }).then(result => {
-            // console.log(result);
-            if (result.data.exists) {
-                const userInfo = result.data;
+            if (result.data.userInfo.exists) {
+                const userInfo = result.data.userInfo;
                 dispatch({
                     type: LOG_IN,
                     isAuthenticated: true,
                     userId: userInfo.user_id,
+                    categories: result.data.categories,
                 });
             } else {
-                // dispatch({
-                //     type: LOG_IN,
-                //     isAuthenticated: false,
-                //     userId: undefined,
-                // });
-                // dispatch({
-                //     type: SIGN_OUT,
-                //     isAuthenticated: false,
-                //     userId: undefined,
-                //     authorizationMode: "signin",
-                //     errorMessage: "User credentials invalid."
-                // });
-                // console.log(result, "failed");
                 dispatch({
                     type: LOG_IN_FAILED,
                     isAuthenticated: false,
@@ -108,11 +94,6 @@ export const logIn = (username, password) => {
             console.error(error);
         })
     };
-
-    // return {
-    //     type: LOG_IN,
-    //     payload: true,
-    // };
 };
 
 export const changeAuthorizationMode = (mode, auth) => {
@@ -123,23 +104,15 @@ export const changeAuthorizationMode = (mode, auth) => {
     }
 };
 
-// export const godMode = () => {
-//     return {
-//         type: GOD_MODE,
-//     };
-// };
-
 export const signOut = () => {
     return {
         type: SIGN_OUT,
-        // payload: mode,
     }
 };
 
 export const loginFailed = () => {
     return {
         type: LOG_IN_FAILED,
-        // payload: mode,
     }
 };
 

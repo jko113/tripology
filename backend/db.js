@@ -109,6 +109,10 @@ function deleteTrip(tripId) {
     return db.one("DELETE FROM trips WHERE trip_id = $1 RETURNING trip_id", [tripId]);
 }
 
+function getCategories() {
+    return db.any("SELECT * FROM categories;");
+}
+
 module.exports = {
     // getAllTrips,
     getOneTrip,
@@ -121,4 +125,5 @@ module.exports = {
     addActivity,
     deleteActivity,
     deleteTrip,
+    getCategories,
 };

@@ -82,16 +82,27 @@ app.post("/api/signin", (req, res) => {
             if (result && result.exists) {
                 db.validateExistingUserPassword(result.user_id, username, password)
                     .then(result => {
-                        // console.log(result, "result3");
                         if (result) {
-                            result["token"] = "a token";
-                            res.json(result);
+                            // result["token"] = "a token";
+                            // res.json(result);
+                            return result;
                         } else {
                             // incorrect password, no?
                             res.json({
                                 error: "Username does not exist."
                             });
                         }
+                    }).then(userExistsObject => {
+                        // console.log(result, "resultypoo");
+                        db.getCategories(userExistsObject)
+                            .then(categories => {
+                                const returnObj = {
+                                    userInfo: userExistsObject,
+                                    categories: categories,
+                                };
+                                res.json(returnObj);
+                            })
+                            .catch(error => console.error);
                     }).catch(error => {
                         console.error(error);
                     })
@@ -188,6 +199,14 @@ app.post("/api/newActivity", (req, res) => {
         // console.log("result",result);
         res.json(result);
     }).catch(error => console.error);
+});
+
+app.get("/api/getCategories", (req, res) => {
+    db.getCategories()
+        .then(result => {
+            console.log("result", result);
+        })
+        .catch(error => console.error);
 });
 
 app.listen(port, () => {

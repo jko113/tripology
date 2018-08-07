@@ -8,6 +8,7 @@ import { allTripsByUserReducer } from "./components/allTripsByUser/AllTripsByUse
 import { TripDetailsReducer } from "./components/tripDetails/TripDetailsReducer";
 import { SIGN_OUT } from "./shared/user/UserActions";
 import { initialState } from "./shared/initialState/InitialState";
+import { categoryReducer } from "./shared/category/CategoryReducer";
 
 const rootReducer = (state, action) => {
     if (action.type === SIGN_OUT) {
@@ -24,7 +25,8 @@ const combinedReducer = combineReducers({
     currentTrip: TripReducer,
     tripDetails: TripDetailsReducer,
     allTripsByUser: allTripsByUserReducer,
-    user: userReducer,           
+    user: userReducer,
+    categories: categoryReducer,           
 });
 
 const signoutReducer = (state, action) => {
@@ -42,6 +44,7 @@ const signoutReducer = (state, action) => {
         newTrip: initialNewTripState,
         user: initialState,
         newActivity: {},
+        categories: {data: []},
     };
 };
 

@@ -11,7 +11,11 @@ INSERT INTO trips (title, user_id, description, start_date, end_date) VALUES
 INSERT INTO categories (title) VALUES
 ('morning'),
 ('afternoon'),
-('evening');
+('evening'),
+('breakfast'),
+('lunch'),
+('dinner'),
+('lodging');
 
 INSERT INTO contacts (name, phone, email) VALUES
 ('Timmy Torgugas', '283-383-9954', 'timmy@robinson.com'),

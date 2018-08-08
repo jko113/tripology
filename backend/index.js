@@ -175,6 +175,7 @@ app.post("/api/newActivity", (req, res) => {
         startDate,
         endDate,
         cost,
+        categoryId,
     } = activityDetails;
     const {
         trip_id,
@@ -183,7 +184,7 @@ app.post("/api/newActivity", (req, res) => {
     // const cost = 50;
     // const location = "home";
     const contactId = 1;
-    const categoryId = 1;
+    // const categoryId = 1;
     
     db.addActivity(
         title,

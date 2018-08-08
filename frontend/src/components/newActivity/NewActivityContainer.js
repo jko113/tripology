@@ -8,6 +8,7 @@ import {
     updateDate,
     updateCost,
     updateLocation,
+    setCategory,
 } from "./NewActivityActions";
 
 const mapStateToProps = (state) => {
@@ -16,6 +17,7 @@ const mapStateToProps = (state) => {
         user: state.user,
         currentTrip: state.currentTrip,
         tripDetails: state.tripDetails,
+        categories: state.categories,
     };
 };
 
@@ -41,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         getOneTrip: (id) => {
             dispatch(getOneTrip(id));
+        },
+        setCategory: (cat, cats) => {
+            dispatch(setCategory(cat, cats));
         },
     };
 };

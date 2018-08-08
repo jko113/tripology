@@ -12,6 +12,15 @@ class NewActivity extends React.Component {
 
     // innerFormatDate = formatDate;
 
+    componentDidMount() {
+        if (!this.props.categories.data.length) {
+            this.props.history.push(`/signin`);
+            // this.props.history.push(`/allTripsByUser/${this.props.user.userId}`) 
+        } else {
+            this.props.setCategory(undefined, this.props.categories.data);
+        }
+    }
+
     displayDate = (date, mode) => {
         // console.log(date, "date");
 
@@ -31,6 +40,36 @@ class NewActivity extends React.Component {
         } else {
             return cost;
         }
+    };
+
+    getCategories = () => {
+        // console.log(this.props.categories.data);
+        return (
+            <select
+                className="app-new-trip-title app-tiny-margin-top"
+                onChange={(e) => {
+                    // this.props.updatedCategory();
+                    this.props.setCategory(e.target.value, this.props.categories.data);
+                }}
+            >
+                {this.props.categories.data.map(this.getCategory)}
+            </select>
+        );
+    };
+
+    getCategory = (cat) => {
+        return (
+            <option key={cat.category_id}>{cat.title}</option>
+        );
+    };
+
+    getCategoryId = (categoryString) => {
+        const targetCategoryObject = this.props.categories.data.find(i => {
+            console.log("comparing ", i.title, categoryString);
+            return i.title === categoryString;
+        });
+        console.log(targetCategoryObject.category_id,"targetCategoryObject")
+        return targetCategoryObject.category_id;
     };
 
     render() {
@@ -120,6 +159,7 @@ class NewActivity extends React.Component {
                                     placeholder="Location"
                                     type="text"
                                 />
+                                {this.getCategories()}
                             </div>
                             <div className="app-flex app-flex-column">
                                 <input
@@ -165,6 +205,7 @@ class NewActivity extends React.Component {
                                         currentTrip: currentTrip,
                                         cost: newActivity.cost,
                                         location: newActivity.location,
+                                        categoryId: this.getCategoryId(newActivity.category.title),
                                     });
                                 }}
                             >

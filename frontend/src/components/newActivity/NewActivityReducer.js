@@ -8,6 +8,7 @@ import {
     CREATE_NEW_ACTIVITY_FAILED,
     JUST_CREATED_ACTIVITY,
     UPDATE_ACTIVITY_LOCATION,
+    SET_CATEGORY,
     // tripStartDate,
     // tripEndDate,
 } from "./NewActivityActions";
@@ -38,6 +39,7 @@ const initialState = {
     userHasInputCost: false,
     justCreatedActivity: false,
     cost: "",
+    category: "",
 };
 
 export const newActivityReducer = (
@@ -67,6 +69,10 @@ export const newActivityReducer = (
             return {
                 ...state,
                 justCreatedActivity: false,
+                userHasInputCategory: false,
+                userHasInputCost: false,
+                userHasInputStart: false,
+                userHasInputEnd: false,
             };
         case UPDATE_ACTIVITY_TITLE:
             return {
@@ -112,6 +118,12 @@ export const newActivityReducer = (
             return {
                 ...initialState,
                 justCreatedActivity: false,
+            };
+        case SET_CATEGORY:
+            return {
+                ...state,
+                category: action.payload,
+                userHasInputCategory: true,
             };
         case GET_TRIP:
             return initialState;

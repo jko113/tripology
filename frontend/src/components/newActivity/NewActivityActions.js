@@ -16,6 +16,7 @@ export const UPDATE_ACTIVITY_END_DATE = "UPDATE_ACTIVITY_END_DATE";
 export const UPDATE_ACTIVITY_LOCATION = "UPDATE_ACTIVITY_LOCATION";
 export const CREATE_NEW_ACTIVITY_FAILED = "CREATE_NEW_ACTIVITY_FAILED";
 export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY";
+export const SET_CATEGORY = "SET_CATEGORY";
 
 const MAX = getLocalDate(new Date("2019-12-31"));
 const MIN = getLocalDate(new Date());
@@ -154,5 +155,13 @@ export const updateCost = (typedValue) => {
     return {
         type: UPDATE_ACTIVITY_COST,
         payload: typedValue,
+    };
+};
+
+export const setCategory = (cat, cats) => {
+    console.log(cats, "cats");
+    return {
+        type: SET_CATEGORY,
+        payload: cat || cats[0].title,
     };
 };

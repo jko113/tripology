@@ -57,13 +57,11 @@ class NewActivity extends React.Component {
         );
     };
 
-    getCategoryId = (categoryString) => {
+    getCategoryObject = (categoryString) => {
         const targetCategoryObject = this.props.categories.data.find(i => {
-            console.log("comparing ", i.title, categoryString);
             return i.title === categoryString;
         });
-        console.log(targetCategoryObject.category_id, "targetCategoryObject.category_id");
-        return targetCategoryObject.category_id;
+        return targetCategoryObject;
     };
 
     render() {
@@ -77,19 +75,10 @@ class NewActivity extends React.Component {
         const error = this.props.newActivity.errorMessage;
         const errorText = error ? error: "hidden";
         const errorClass = error ? "": "hidden";
-        // const userHasInputStart = this.props.newTrip.userHasInputStart;
-        // const userHasInputEnd = this.props.newTrip.userHasInputEnd;
-        // const userHasInput = this.props.newActivity.userHasInput;
-
-        // console.log(this.props, "NewTrip component props")
-        // console.log("currentTrip", Object.keys(currentTrip).length)
 
         if (!Object.keys(currentTrip).length && tripDetails && tripDetails.data && tripDetails.data.length) {
-            // console.log("no current trip for you         ", this.props.tripDetails.data[0].trip_id);
             const tripId = this.props.tripDetails.data[0].trip_id;
             this.props.getOneTrip(tripId);
-            // this.props.getOneTrip
-            // return <Redirect to="/" />
         }
 
         if (authenticated && !justCreatedActivity) {
@@ -180,11 +169,6 @@ class NewActivity extends React.Component {
                             </div>
                         </div>
                         
-                        {/* <div
-                            className="cost app-flex app-flex-wrap app-flex-start"
-                        > */}
-                        {/* </div> */}
-                        
                         <div className="app-flex">
                             <div
                                 className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
@@ -199,7 +183,7 @@ class NewActivity extends React.Component {
                                         currentTrip: currentTrip,
                                         cost: newActivity.cost,
                                         location: newActivity.location,
-                                        categoryId: this.getCategoryId(newActivity.category),
+                                        categoryId: this.getCategoryObject(newActivity.category).category_id,
                                     });
                                 }}
                             >

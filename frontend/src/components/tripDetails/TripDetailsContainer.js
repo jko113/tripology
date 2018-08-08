@@ -2,9 +2,8 @@ import { connect } from "react-redux";
 import TripDetails from "./TripDetails";
 import { getTripDetails,
     deleteActivity,
-    // changeVisibilityFilter,
     changeFilterDate,
-    // justCreatedActivity,
+    setGroupingMode,
 } from "./TripDetailsActions";
 
 const mapStateToProps = (state) => {
@@ -12,25 +11,23 @@ const mapStateToProps = (state) => {
         tripDetails: state.tripDetails,
         user: state.user,
         currentTrip: state.currentTrip,
+        categories: state.categories,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTripDetails: (id) => {
-            dispatch(getTripDetails(id));
+        getTripDetails: (id, categories, mode) => {
+            dispatch(getTripDetails(id, categories, mode));
         },
-        // justCreatedActivity: () => {
-        //     dispatch(justCreatedActivity());
-        // },
-        deleteActivity: (activityId, activitiesArray) => {
-            dispatch(deleteActivity(activityId, activitiesArray));
+        deleteActivity: (activityId, activitiesArray, groupedActivitiesArray, groupedMode) => {
+            dispatch(deleteActivity(activityId, activitiesArray, groupedActivitiesArray, groupedMode));
         },
-        // changeVisibilityFilter: (mode) => {
-        //     dispatch(changeVisibilityFilter(mode));
-        // },
         changeFilterDate: (typedValue) => {
             dispatch(changeFilterDate(typedValue));
+        },
+        setGroupingMode: () => {
+            dispatch(setGroupingMode());
         },
     };
 };

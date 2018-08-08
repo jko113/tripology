@@ -1,14 +1,15 @@
 import {
     GET_TRIP_DETAILS,
     DELETE_ACTIVITY,
-    // CHANGE_VISIBILITY_FILTER,
     CHANGE_FILTER_DATE,
+    SET_GROUPING_MODE,
 } from "./TripDetailsActions";
 
 const initialState = {
     data: [],
-    // visibilityFilter: "SHOW_ALL",
     filterDate: "",
+    groupedDetails: [],
+    grouped: false,
 };
 
 export const TripDetailsReducer = (
@@ -23,22 +24,25 @@ export const TripDetailsReducer = (
         case GET_TRIP_DETAILS:
             return Object.assign({}, state, {
                 filterDate: "",
-                data: action.payload
+                data: action.payload,
+                groupedDetails: action.groupedDetails,
+                grouped: action.mode,
             });
         case DELETE_ACTIVITY:
             return {
                 ...state,
                 data: action.payload,
+                groupedDetails: action.groupedDetails,
             };
-        // case CHANGE_VISIBILITY_FILTER:
-        //     return {
-        //         ...state,
-        //         visibilityFilter: action.payload,
-        //     };
         case CHANGE_FILTER_DATE:
             return {
                 ...state,
                 filterDate: action.payload,
+            };
+        case SET_GROUPING_MODE:
+            return {
+                ...state,
+                grouped: !state.grouped,
             };
         default:
             return state;

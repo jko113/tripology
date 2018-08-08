@@ -4,8 +4,6 @@ import {
     getLocalDate,
     formatDate,
 } from "../../shared/date/Date";
-// import MAX from "./NewTrip";
-// import MIN from "./NewTrip";
 
 export const CREATE_NEW_ACTIVITY = "CREATE_NEW_ACTIVITY";
 export const UPDATE_ACTIVITY_TITLE = "UPDATE_ACTIVITY_TITLE";
@@ -30,10 +28,6 @@ export const createNewActivity = (activityDetails) => {
     const tripEndDate = getLocalDate(new Date(activityDetails.currentTrip.end_date));
     const tripId = activityDetails.currentTrip.trip_id;
 
-    // console.log(activityDetails, "activitydetails");
-
-    // const tripEndDate = new Date(activityDetails.currentTrip.end_date);
-
     // check if activity form contains valid information
     // if not, display error
     if (
@@ -55,10 +49,6 @@ export const createNewActivity = (activityDetails) => {
         (startDate < tripStartDate) ||
         (endDate > tripEndDate)
     ) {
-        console.log(startDate, "startDate");
-        console.log(endDate, "endDate");
-        console.log(tripStartDate, "tripStartDate");
-        console.log(tripEndDate, "tripEndDate");
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
             errorMessage: `Trip activity dates (${formatDate(startDate)} and ${formatDate(endDate)}) must be within trip dates of ${formatDate(tripStartDate)} and ${formatDate(tripEndDate)}.`
@@ -85,13 +75,10 @@ export const createNewActivity = (activityDetails) => {
 
     // if trip info form is filled out, make the API call
     return async (dispatch) => {
-        // console.log(activityDetails, "activityDetails");
         axios.post(`${rootUrl}/api/newActivity`, {
             activityDetails,
         }).then(result => {
             const activityId = result.data.activity_id;
-            // console.log("result",result);
-
             if (activityId) {
                 dispatch({
                     type: CREATE_NEW_ACTIVITY,
@@ -144,11 +131,6 @@ export const updateDate = (dateValue, mode) => {
             userHasInputEnd: true,
         };
     } else return null;
-    // return {
-    //     type: UPDATE_DATE,
-    //     userHasInput: true,
-    //     payload: dateValue,
-    // };
 };
 
 export const updateCost = (typedValue) => {
@@ -159,7 +141,6 @@ export const updateCost = (typedValue) => {
 };
 
 export const setCategory = (cat, cats) => {
-    console.log(cats, "cats");
     return {
         type: SET_CATEGORY,
         payload: cat || cats[0].title,

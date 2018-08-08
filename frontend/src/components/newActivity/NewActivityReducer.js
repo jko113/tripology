@@ -123,7 +123,6 @@ export const newActivityReducer = (
             return {
                 ...state,
                 category: action.payload,
-                userHasInputCategory: true,
             };
         case GET_TRIP:
             return initialState;

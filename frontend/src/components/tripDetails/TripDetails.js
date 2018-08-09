@@ -90,7 +90,7 @@ class TripDetails extends React.Component {
             } else {
                 return filteredArray.map(category => {
                     // no activities exist for this category
-                    if (!category) {
+                    if (!category || !category.activitiesArray.length) {
                         return null;
                     }
                     // activities DO exist for this category
@@ -200,6 +200,7 @@ class TripDetails extends React.Component {
     };
 
     checkInTheZone = (a, b, c) => {
+        // console.log("comparing a", a, "b", b, "c", c);
         return (
             a >= b &&
             a <= c
@@ -235,13 +236,18 @@ class TripDetails extends React.Component {
             return;
         }
 
+        const filterDate = this.getFilterDate();
+
         const subheadings = groupedActivitiesArray.map((a, index) => {
             if (!a) return null;
 
             const currentCategoryString = categories.data.find(cat => cat.category_id === index).title;
-            const subItems = a.map(i => {
-                return i;
+            const subItems = a.filter(i => {
+                const activityStartDate = getLocalDate(new Date(i.start_date)); 
+                const activityEndDate = getLocalDate(new Date(i.end_date));
+                return (!filterDate) ? true: this.checkInTheZone(getLocalDate(new Date(filterDate)), activityStartDate, activityEndDate);
             });
+            // console.log("subitems =", subItems);
             return ({
                 categoryString: currentCategoryString,
                 categoryId: index,

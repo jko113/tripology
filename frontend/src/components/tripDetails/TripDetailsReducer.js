@@ -9,7 +9,7 @@ const initialState = {
     data: [],
     filterDate: "",
     groupedDetails: [],
-    grouped: false,
+    grouped: true,
 };
 
 export const TripDetailsReducer = (

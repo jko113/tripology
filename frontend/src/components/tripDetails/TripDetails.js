@@ -8,7 +8,7 @@ class TripDetails extends React.Component {
 
     componentDidMount() {
         if (this.props.user.authenticated) {
-            this.props.getTripDetails(this.props.match.params.id, this.props.categories, false);
+            this.props.getTripDetails(this.props.match.params.id, this.props.categories, true);
         }
     }
 
@@ -68,6 +68,7 @@ class TripDetails extends React.Component {
                 </div>
                 <label>Group by category
                     <input
+                        checked={!!this.props.tripDetails.grouped}
                         onChange={e => {
                             this.props.setGroupingMode();
                         }}

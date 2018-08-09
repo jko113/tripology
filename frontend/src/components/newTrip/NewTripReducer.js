@@ -1,10 +1,13 @@
 import {
     CREATE_NEW_TRIP,
+    EDIT_TRIP,
     UPDATE_TITLE,
     UPDATE_START_DATE,
     UPDATE_END_DATE,
     UPDATE_DESCRIPTION,
     CREATE_NEW_TRIP_FAILED,
+    EDIT_TRIP_FAILED,
+    POPULATE_EDIT_TRIP_FORM,
 } from "./NewTripActions";
 
 import { JUST_CREATED_TRIP } from "../../components/trip/TripActions";
@@ -13,8 +16,11 @@ import { JUST_CREATED_TRIP } from "../../components/trip/TripActions";
 import {
     // MAX,
     MIN,
-    formatDate,
 } from "./NewTrip";
+
+import {
+    formatDate,
+} from "../../shared/date/Date";
 
 export const initialState = {
     title: "",
@@ -26,6 +32,7 @@ export const initialState = {
     userHasInputStart: false,
     userHasInputEnd: false,
     justCreatedTrip: false,
+    justPopulatedEditTripForm: false,
 };
 
 export const newTripReducer = (
@@ -38,16 +45,16 @@ export const newTripReducer = (
 
     switch (action.type) {
         case CREATE_NEW_TRIP:
-            // return {
-            //     // ...state,
-            //     // tripData: action.payload,
-            //     errorMessage: undefined,
-            // };
             return Object.assign({}, initialState, {
-                // startDate: state.startDate,
-                // endDate: state.endDate,
                 errorMessage: undefined,
                 justCreatedTrip: true,
+                justPopulatedEditTripForm: false,
+            });
+        case EDIT_TRIP:
+            return Object.assign({}, initialState, {
+                errorMessage: undefined,
+                justCreatedTrip: true,
+                justPopulatedEditTripForm: false,
             });
         case JUST_CREATED_TRIP:
             return {
@@ -83,6 +90,26 @@ export const newTripReducer = (
                 ...state,
                 errorMessage: action.errorMessage,
             };
+        case EDIT_TRIP_FAILED:
+            return {
+                ...state,
+                errorMessage: action.errorMessage,
+            };
+        case POPULATE_EDIT_TRIP_FORM:
+            // console.log(action, "action");
+            const target = action.payload.data;
+            // return state;
+            const returnObj = {
+                title: target.title,
+                description: target.description,
+                justPopulatedEditTripForm: true,
+                startDate: target.start_date,
+                endDate: target.end_date,
+                userHasInputStart: false,
+                userHasInputEnd: false,
+                justCreatedTrip: false,
+            };
+            return returnObj;
         default:
             return state;
     }

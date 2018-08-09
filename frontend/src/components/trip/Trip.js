@@ -3,6 +3,15 @@ import { Link, Redirect } from "react-router-dom";
 
 class Trip extends React.Component {
 
+    componentWillMount() {
+        const justCreatedTrip = this.props.newTrip.justCreatedTrip;
+
+        if (justCreatedTrip) {
+            // console.log("just created and rendering Trip");
+            this.props.resetJustCreatedTrip();
+        }
+    }
+
     componentDidMount() {
         const authenticated = this.props.user.authenticated;
         // console.log(this.props.match.params, "params");
@@ -16,15 +25,6 @@ class Trip extends React.Component {
         // }
     }
 
-    componentWillMount() {
-        const justCreatedTrip = this.props.newTrip.justCreatedTrip;
-
-        if (justCreatedTrip) {
-            // console.log("just created and rendering Trip");
-            this.props.resetJustCreatedTrip();
-        }
-    }
-
     render() {
         //console.log(this.props.currentTrip.data);
         // console.log(this.props, "current trip props");
@@ -36,6 +36,7 @@ class Trip extends React.Component {
         // if (authenticated && Object.keys(currentTrip).length) {
         if (authenticated) {
             // console.log(currentTrip, "currentTrip");
+            // console.log(this.props, "this.props");
 
             return (
                 <div className="app-flex app-flex-column">
@@ -70,16 +71,24 @@ class Trip extends React.Component {
                             </Link>
                         </div>
                         <div
-                            className="pointer link-item contrast app-flex app-small-margin-top"
-                            onClick={(e) => {
-                                // console.log("props",this.props);
-                                const confirmed = window.confirm(`Are you sure you with to delete the trip "${currentTrip.title}" and all its associated activities?`);
-                                if (confirmed) {
-                                    this.props.history.push(`/allTripsByUser/${this.props.user.userId}`)
-                                    this.props.deleteTrip(currentTrip.trip_id);
-                                }
-                            }}
-                        >Delete</div>
+                            className="app-flex"
+                        >
+                            <div
+                                className="pointer link-item contrast app-flex app-small-margin-top app-margin-right"
+                                onClick={(e) => {
+                                    // console.log("props",this.props);
+                                    const confirmed = window.confirm(`Are you sure you with to delete the trip "${currentTrip.title}" and all its associated activities?`);
+                                    if (confirmed) {
+                                        this.props.history.push(`/allTripsByUser/${this.props.user.userId}`)
+                                        this.props.deleteTrip(currentTrip.trip_id);
+                                    }
+                                }}
+                            >Delete</div>
+                            <Link
+                                to={`/editTrip`}
+                                className="pointer link-item contrast app-flex app-small-margin-top"
+                            >Edit</Link>
+                        </div>
                     </div>
                 </div>
             );

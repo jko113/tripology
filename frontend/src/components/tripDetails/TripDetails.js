@@ -41,7 +41,7 @@ class TripDetails extends React.Component {
     shangmian = () => {
         return (
             <div
-                className="app-flex app-flex-column"
+                className="app-flex app-flex-column full-width"
             >
                 <div className="app-small-margin-bottom app-flex full-width app-flex-space-between">
                     <div

@@ -16,14 +16,17 @@ import {
 import { GET_TRIP_DETAILS } from "../tripDetails/TripDetailsActions";
 import { GET_TRIP } from "../trip/TripActions";
 
-import { getLocalDate } from "../../shared/date/Date";
+import {
+    getLocalDate,
+    formatDate,
+} from "../../shared/date/Date";
 
 // import { JUST_CREATED_ACTIVITY } from "../../components/tripDetails/TripDetailsActions";
 
 import {
     // MAX,
     MIN,
-    formatDate,
+    // formatDate,
 } from "../../components/newTrip/NewTrip";
 
 const initialState = {

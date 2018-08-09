@@ -162,6 +162,41 @@ app.post("/api/newTrip", (req, res) => {
     })
 });
 
+app.post("/api/editTrip", (req, res) => {
+    const {
+        tripId,
+        userInfo,
+        title,
+        description,
+        startDate,
+        endDate,
+    } = req.body.tripDetails;
+
+    db.editTrip(
+        tripId,
+        title,
+        description,
+        startDate,
+        endDate,
+    ).then(result => {
+        if (result) {
+            // add additional fields for currentTrip
+            result["user_id"] = userInfo.userId;
+            result["title"] = title;
+            result["description"] = description;
+            result["start_date"] = new Date(startDate);
+            result["end_date"] = new Date(endDate);
+            res.json(result);
+        } else {
+            res.json({
+                error: "An error occurred. The trip was not edited successfully."
+            });
+        }
+    }).catch(error => {
+        res.json(error);
+    })
+});
+
 app.post("/api/newActivity", (req, res) => {
     // console.log("req.body new activity",req.body);
     activityDetails = req.body.activityDetails;

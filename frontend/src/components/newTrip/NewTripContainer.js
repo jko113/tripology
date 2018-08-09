@@ -2,9 +2,11 @@ import { connect } from "react-redux";
 import NewTrip from "./NewTrip";
 import {
     createNewTrip,
+    editTrip,
     updateTitle,
     updateDescription,
     updateDate,
+    populateEditTripForm,
 } from "./NewTripActions";
 
 const mapStateToProps = (state) => {
@@ -20,6 +22,9 @@ const mapDispatchToProps = (dispatch) => {
         createNewTrip: (tripDetails) => {
             dispatch(createNewTrip(tripDetails));
         },
+        editTrip: (tripDetails) => {
+            dispatch(editTrip(tripDetails));
+        },
         updateTitle: (typedValue) => {
             dispatch(updateTitle(typedValue));
         },
@@ -28,6 +33,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         updateDate: (dateValue, mode) => {
             dispatch(updateDate(dateValue, mode));
+        },
+        populateEditTripForm: (currentTrip) => {
+            dispatch(populateEditTripForm(currentTrip));
         },
     };
 };

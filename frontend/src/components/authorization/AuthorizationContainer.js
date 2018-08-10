@@ -5,16 +5,12 @@ import { updateUsername, updatePassword, logIn, createNewUser } from "../../shar
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        // form: state.form,
-        // auth: state.auth,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
-    // console.log("calling mapDispatchtoprops");
     return {
         updateUsername: (typedValue) => {
-            // console.log("updating username typedVal: ", typedValue);
             dispatch(updateUsername(typedValue));
         },
         updatePassword: (typedValue) => {
@@ -24,7 +20,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(logIn(username, password));
         },
         createNewUser: (username, password) => {
-            // console.log("called createnewuser")
             dispatch(createNewUser(username, password));
         },
     };

@@ -39,9 +39,7 @@ class TripDetails extends React.Component {
     };
 
     shangmian = (filteredArray) => {
-        // const groupedMode = this.props.tripDetails.grouped;
         let buttonDisplay = this.checkIfArrayIsEmpty(filteredArray.slice()) ? "invisible": "";
-        // console.log("filteredArray", filteredArray, "buttonDisplay",buttonDisplay);
 
         return (
             <div
@@ -55,8 +53,6 @@ class TripDetails extends React.Component {
                             type="date"
                             value={this.getTripDetailsDate()}
                             onChange={(e) => {
-                                // console.log("e,",e);
-                                // console.log(e.target.value);
                                 this.props.changeFilterDate(e.target.value);
                             }}
                         />
@@ -216,6 +212,9 @@ class TripDetails extends React.Component {
                             <i className="far fa-trash-alt icon-link-item"></i>
                         </div>
                         <Link
+                            onClick={() => {
+                                console.log("this.props", this.props, "a_id", activity.activity_id);
+                            }}
                             to={`/home`}
                             className="pointer"
                         ><i className="far fa-edit icon-link-item"></i></Link>

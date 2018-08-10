@@ -2,9 +2,7 @@ import axios from "axios";
 import { rootUrl } from "../../shared/URL/rootUrl"; 
 
 export const GET_TRIP_DETAILS = "GET_TRIP_DETAILS";
-// export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY" ;
 export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
-// export const CHANGE_VISIBILITY_FILTER = "CHANGE_VISIBILITY_FILTER";
 export const CHANGE_FILTER_DATE = "CHANGE_FILTER_DATE";
 export const SET_GROUPING_MODE = "SET_GROUPING_MODE";
 
@@ -14,7 +12,6 @@ export const getTripDetails = (id, categories, mode) => {
             url: `${rootUrl}/api/tripdetails/${id}`,
             method: "get"
         }).then(result => {
-            // console.log(result, "result");
 
             if (result.status === 200 && result.data && result.data.length) {
 
@@ -24,7 +21,6 @@ export const getTripDetails = (id, categories, mode) => {
                     activity.start_date = activity.start_date.split("T")[0];
                     activity.end_date = activity.end_date.split("T")[0];
                     const currentCategoryId = activity.category_id;
-                    // const currentCategoryString = categories.data.find(cat => cat.category_id === currentCategoryId).title;
 
                     if (groupedDetailsArray[currentCategoryId]) {
                         groupedDetailsArray[currentCategoryId].push(activity);
@@ -49,7 +45,6 @@ export const getTripDetails = (id, categories, mode) => {
                     mode: mode,
                 }) 
             } else {
-                // console.log("unable to fetch trip details");
                 return null;
             }
         }).catch(error => console.error);

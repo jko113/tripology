@@ -3,14 +3,8 @@ import { Link } from "react-router-dom";
 
 class Header extends React.Component {
 
-    componentDidMount() {
-        //console.log(this.props.match.params);
-    }
-
     getAuthorizationModeButton = (mode) => {
-        // console.log(mode, "mode")
         let formattedMode = "";
-        // console.log(formattedMode, "formattedMode")
 
         switch (mode) {
             case "signin":
@@ -50,7 +44,6 @@ class Header extends React.Component {
         const username = this.props.user.username;
         const MAX_CHARACTER_LENGTH = 11;
         const tripsButtonText = username.length > MAX_CHARACTER_LENGTH ? "My Trips" : username + "'s Trips";
-        // console.log(username.length);
 
         return (
             <div className="app-flex">
@@ -66,7 +59,7 @@ class Header extends React.Component {
                         onClick={() => {
                             this.props.signOut();
                         }}
-                        to={`/signout`}
+                        to={`/`}
                     >Sign Out</Link>
                 </div>
             </div>
@@ -87,7 +80,6 @@ class Header extends React.Component {
         const loggedIn = this.props.user.authenticated ? true: false;
 
         return (
-            // <div className="app-flex">
             <div className="app-header app-flex full-width app-flex-space-between">
                 <div className="app-flex">
                     <div>

@@ -28,7 +28,6 @@ export const updatePassword = (typedValue) => {
 
 export const createNewUser = (username, password) => {
 
-    // console.log("got to action");
     return async (dispatch) => {
 
         // early return if invalid username/password combination
@@ -43,9 +42,7 @@ export const createNewUser = (username, password) => {
             username,
             password,
         }).then(result => {
-            // console.log("resultdata:",result.data);
             if (result.data.user_id) {
-                // console.log("action: ", result)
                 dispatch({
                     type: CREATE_NEW_USER,
                     userId: result.data.user_id,
@@ -68,7 +65,6 @@ export const createNewUser = (username, password) => {
 export const logIn = (username, password) => {
 
     return async (dispatch) => {
-        // console.log("dispatching login:", rootUrl);
         axios.post(`${rootUrl}/api/signin`, {
             username,
             password

@@ -7,8 +7,7 @@ class AllTripsByUser extends React.Component {
         const props = this.props;
         const tripProps = props.allTripsByUser.data;
         const authenticated = props.user.authenticated;
-        // console.log("all trip props: ", props);
-        // console.log(tripProps.match.params);
+
         if (authenticated && !tripProps.length) {
             props.getAllTripsByUser(props.match.params.id);
         }
@@ -20,9 +19,6 @@ class AllTripsByUser extends React.Component {
                 return <SingleTrip key={trip.trip_id} trip={trip} />
             })
         } else {
-            // console.log("no trips array - add one?");
-            // return "No trips yet. Add one?"
-            // return <div>No trips yet. Add one?</div>
             return (
                 <div>
                     No trips yet.&nbsp;
@@ -38,15 +34,11 @@ class AllTripsByUser extends React.Component {
     };
 
     render() {
-        // console.log("all trips props", this.props);
         const authenticated = this.props.user.authenticated;
-        // const godMode = this.props.user.godMode;
 
-        if (/*godMode ||*/ authenticated) {
+        if (authenticated) {
             const allTripsByUser = this.props.allTripsByUser.data;
             const userName = this.props.user.username;
-            // console.log(this.props, "all trips props");
-            // console.log(tripsButtonText, "tripsButtonText");
             return (
                 <div className="app-flex app-flex-column">
                     <div className="h1 app-margin-bottom">{userName}'s Trips</div>

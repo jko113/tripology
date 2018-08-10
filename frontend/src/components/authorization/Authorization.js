@@ -49,7 +49,6 @@ class Authorization extends React.Component {
                         />
                     </div>
                     <div
-                        // className="pointer link-item app-flex app-small-margin-top"
                         className="link-item app-flex app-small-margin-top pointer"
                         onClick={() => {
                             correctFunction(
@@ -71,13 +70,9 @@ class Authorization extends React.Component {
 
         const authMode = this.props.user.authorizationMode;
         const path = this.props.match.path;
-        // const mode = this.props.mode;
-        // console.log("render auth:", this.props);
-        // console.log("path:", path);
         
         // not authenticated
         if (!this.props.user.authenticated) {
-            // console.log("unauth users props", this.props);
             if (authMode) {
                 return (
                     <div className="screen-height app-flex">
@@ -86,23 +81,18 @@ class Authorization extends React.Component {
                 );
             } else if (path.toLowerCase() === "/signup" || path.toLowerCase() === "/signin") {
                 return (
-                    <div className="screen-height  app-flex">
+                    <div className="screen-height app-flex">
                         {this.getAuthInputFields(path.slice(1).toLowerCase())}
                     </div>
                 );
             } else {
-                // return null;
-                return <div className="screen-height  app-flex app-flex-center">Please sign in or create an account.</div>;
+                return <div className="screen-height app-flex app-flex-center">Please sign in or create an account.</div>;
             }
         }
         
         // authenticated
         else {
-            // console.log(this.props);
             return <Home userData={this.props} />;
-            // return (
-            //     <div>Logged in successfully.</div>
-            // );
         }
     }
     

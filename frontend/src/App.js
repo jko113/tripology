@@ -24,16 +24,13 @@ class App extends Component {
         <div className="app-flex app-flex-column">
           <Header />
 
-          {/* <div className="app-flex full-width full-height app-body"> */}
           <div className="full-width full-height app-body">
-            {/* <Route path="/allTrips" component={AllTrips} /> */}
             <Route path="/allTripsByUser/:id" component={AllTripsByUser} />
             <Route path="/trip/:id" component={Trip} />
             <Route path="/tripdetails/:id" component={TripDetails} />
             <Route path="/signup" component={Authorization} />
             <Route path="/signin" component={Authorization} />
             <Route path="/" exact={true} component={Home} />
-            <Route path="/signout" component={Home}/>
             <Route path="/newTrip" component={NewTrip}/>
             <Route path="/editTrip" component={NewTrip}/>
             <Route path="/newActivity" component={NewActivity}/>

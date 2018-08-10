@@ -32,16 +32,13 @@ export const createNewActivity = (activityDetails) => {
     // if not, display error
     if (
         !activityDetails.title ||
-        !activityDetails.description ||
         !activityDetails.startDate ||
         !activityDetails.endDate ||
-        !activityDetails.cost ||
-        !activityDetails.location
+        !activityDetails.cost
     ) {
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
-            // errorMessage: "Please enter title and description.",
-            errorMessage: "Please enter all fields.",
+            errorMessage: "Title, description and cost are required.",
         };
     }
 

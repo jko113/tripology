@@ -12,15 +12,6 @@ class TripDetails extends React.Component {
         }
     }
 
-    getAdder = (buttonText) => {
-        return (
-            <Link
-                className="app-add-first"
-                to="/newActivity"
-            >{buttonText}</Link>
-        );
-    };
-
     biaoti = (currentTrip) => {
         return (
             <div
@@ -70,7 +61,6 @@ class TripDetails extends React.Component {
                         this.props.setGroupingMode();
                     }}
                     className={`link-item-bigger pointer app-flex app-margin ${buttonDisplay}`}
-                    // className="link-item-bigger pointer app-flex app-margin"
                 >{this.props.tripDetails.grouped ? "Order By Title": "Order By Group"}</div>
             </div>
         );
@@ -78,7 +68,6 @@ class TripDetails extends React.Component {
 
     getBody = (filteredArray, groupedMode) => {
         let arrayIsEmpty = true;
-        // console.log("filteredArr", filteredArray);
         if (groupedMode) {
             filteredArray.forEach(i => {
                 if (i && i.activitiesArray.length) {
@@ -86,7 +75,6 @@ class TripDetails extends React.Component {
                 }
             });
         }
-        // console.log("arrayIsEmpty",arrayIsEmpty, "filteredArr", filteredArray, "groupedMode", groupedMode);
         if (filteredArray && (!filteredArray.length || (groupedMode && arrayIsEmpty))) {        
             return <div className="app-small-margin-top">No trip activities scheduled for the specified date.</div>;
         } else {
@@ -153,14 +141,15 @@ class TripDetails extends React.Component {
         const userId = this.props.user.userId;
 
         return (
-            <div className="app-flex app-flex-column app-flex-align-self-center">
-                <div
-                    className="app-margin-top app-small-margin-bottom"
-                >
-                    {this.getAdder("Add activity?")}
-                </div>
+            <div className="app-flex app-big-margin-top app-flex-align-self-center">
                 <Link
-                    className="link-item contrast app-flex"
+                    to="/newActivity"
+                    className="link-item app-flex app-margin-right"
+                >
+                    Add
+                </Link>
+                <Link
+                    className="link-item app-flex"
                     to={`/allTripsByUser/${userId}`}
                 >Back</Link>
             </div>
@@ -180,10 +169,17 @@ class TripDetails extends React.Component {
                         {activity.title}
                     </div>
                     <div
-                        className=""
+                        className={activity.description ? "": "invisible"}
                     >{activity.location}</div>
                     <div
                         className=""
+                    >{activity.start_date}
+                        <div
+                            className={activity.start_date === activity.end_date ? "invisible": "inline"}
+                        >&nbsp;to&nbsp;{activity.end_date}</div>
+                    </div>
+                    <div
+                        className={activity.description ? "": "invisible"}
                     >{activity.description}</div>
                     <div
                         className=""
@@ -191,13 +187,6 @@ class TripDetails extends React.Component {
                         <div
                             className={activity.start_date === activity.end_date ? "invisible": "inline"}
                         >&nbsp;(${(activity.cost / this.getTripDuration(activity)).toFixed(2)}/day)</div>
-                    </div>
-                    <div
-                        className=""
-                    >{activity.start_date}
-                        <div
-                            className={activity.start_date === activity.end_date ? "invisible": "inline"}
-                        >&nbsp;to&nbsp;{activity.end_date}</div>
                     </div>
                     <div className="app-flex app-flex-start app-small-margin-top">
                         <div
@@ -276,7 +265,6 @@ class TripDetails extends React.Component {
     };
 
     checkInTheZone = (a, b, c) => {
-        // console.log("comparing a", a, "b", b, "c", c);
         return (
             a >= b &&
             a <= c
@@ -323,7 +311,6 @@ class TripDetails extends React.Component {
                 const activityEndDate = getLocalDate(new Date(i.end_date));
                 return (!filterDate) ? true: this.checkInTheZone(getLocalDate(new Date(filterDate)), activityStartDate, activityEndDate);
             });
-            // console.log("subitems =", subItems);
             return ({
                 categoryString: currentCategoryString,
                 categoryId: index,
@@ -342,14 +329,12 @@ class TripDetails extends React.Component {
         } else {
             if (activitiesArray) {
                 activitiesArray.forEach(i => {
-                    // console.log("i, ",i);
                     if (i && i.activitiesArray && i.activitiesArray.length) {
                         emptiness = false;
                     }
                 });
             }
         }
-        // console.log("emptiness", emptiness, "activitiesArray", activitiesArray)
         return emptiness;
     };
 
@@ -364,29 +349,14 @@ class TripDetails extends React.Component {
 
             let tripActivities;
             let filteredTripActivities;
-            // let arrayIsEmpty = true;
             
             if (!groupedMode) {
                 tripActivities = this.props.tripDetails.data;
                 filteredTripActivities = this.filterTrips(tripActivities);
-                // arrayIsEmpty = false;
             } else {
                 tripActivities = this.props.tripDetails.groupedDetails;
                 filteredTripActivities = this.filterGroupedTrips(tripActivities, categories);
-                // if (filteredTripActivities) {
-                //     filteredTripActivities.forEach(a => {
-                //         arrayIsEmpty = a.activitiesArray.length === 0;
-                //     });
-                // }
             }
-
-            // const arrayIsEmpty = this.checkIfArrayIsEmpty(filteredTripActivities);
-            // if (filteredTripActivities) {
-            //     console.log("filteredTripActivities", filteredTripActivities);
-            //     arrayIsEmpty = this.checkIfArrayIsEmpty(filteredTripActivities.slice());
-            // }
-
-            // console.log("filteredTripActivities", filteredTripActivities, "tripActivities", tripActivities, "groupedMode",groupedMode, "arrayIsEmpty",arrayIsEmpty);
                     
             if (filteredTripActivities && tripActivities.length) {
                 return (
@@ -401,28 +371,37 @@ class TripDetails extends React.Component {
                         </div>
                     </div>
                 );
-                // no trips meet the date filtering criteria
+
+            // no trips meet the date filtering criteria
             } else {
                 return (
                     <div className="screen-height app-flex app-flex-column">
-                        <div className="app-flex">
-                            No trip activities for {currentTrip.title} yet.&nbsp;
-                            <div className="inline">
-                                {this.getAdder("Add one?")}
+                        <div className="app-flex app-flex-column">
+                            <div>No trip activities for {currentTrip.title} yet.</div>
+                            <div
+                                className="app-flex"
+                            >
+                                <Link
+                                    className="link-item app-flex app-margin-top app-margin-right"
+                                    to="/newActivity"
+                                >
+                                    Add
+                                </Link>
+                                <Link
+                                    className="link-item app-flex app-margin-top"
+                                    to={`/trip/${currentTrip.trip_id}`}
+                                >
+                                    Back
+                                </Link>
                             </div>
                         </div>
-                        <Link
-                            className="link-item app-flex app-margin-top"
-                            to={`/trip/${currentTrip.trip_id}`}
-                        >
-                            Back
-                        </Link>
                     </div>
                 );
             }
     
 
             }
+
         // user is not authenticated
         else
         {

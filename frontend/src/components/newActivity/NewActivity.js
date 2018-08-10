@@ -107,6 +107,7 @@ class NewActivity extends React.Component {
                                 className="app-flex app-flex-column app-margin-right"
                             >
                                 <input
+                                    required
                                     key="title"
                                     className="app-new-trip-title"
                                     value={newActivity.title}
@@ -125,6 +126,7 @@ class NewActivity extends React.Component {
                                     }}
                                 />
                                 <input
+                                    required
                                     className="app-new-trip-title app-tiny-margin-top"
                                     value={this.displayCost(this.props.newActivity.cost)}
                                     onChange={(e) => {
@@ -176,13 +178,13 @@ class NewActivity extends React.Component {
                                     // console.log("attempted to submit new activity", newActivity)
                                     createNewActivity({
                                         title: newActivity.title,
-                                        description: newActivity.description,
+                                        description: newActivity.description ? newActivity.description: undefined,
                                         startDate: newActivity.startDate,
                                         endDate: newActivity.endDate,
                                         userInfo: userInfo,
                                         currentTrip: currentTrip,
                                         cost: newActivity.cost,
-                                        location: newActivity.location,
+                                        location: newActivity.location ? newActivity.location: undefined,
                                         categoryId: this.getCategoryObject(newActivity.category).category_id,
                                     });
                                 }}
@@ -192,9 +194,6 @@ class NewActivity extends React.Component {
                             <Link
                                 to={`/tripdetails/${currentTrip.trip_id}`}
                                 className="link-item app-flex pointer app-bigger-margin-top"
-                                // onClick={(e) => {
-                                //     console.log(currentTrip);
-                                // }}
                             >
                                 Back
                             </Link>
@@ -210,8 +209,7 @@ class NewActivity extends React.Component {
         } else if (justCreatedActivity) {
             const tripId = this.props.currentTrip.data.trip_id;
             return <Redirect to={`/tripdetails/${tripId}`} />
-            // console.log(this.props, "just created activity"); return null;
-        } else {return null;}
+        } else {return <Redirect to="/" />}
     } 
 }
 

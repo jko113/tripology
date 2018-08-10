@@ -64,19 +64,137 @@ class NewActivity extends React.Component {
         return targetCategoryObject;
     };
 
+    getActivityForm = (inEditMode) => {
+
+        const createNewActivity = this.props.createNewActivity;
+        const newActivity = this.props.newActivity;
+        const userInfo = this.props.user;
+        const currentTrip = this.props.currentTrip.data;
+        const error = this.props.newActivity.errorMessage;
+        const errorText = error ? error: "hidden";
+        const errorClass = error ? "": "hidden";
+
+        return (
+            <div
+                className="app-flex app-flex-column app-new-trip-card full-width"
+            >
+                <div className="app-margin-bottom app-padding-top h2">
+                    {inEditMode ? "Edit Activity": "Add New Activity"}
+                </div>
+                <div
+                    className="app-flex app-flex-wrap app-flex-start"
+                >
+                    <div
+                        className="app-flex app-flex-column app-margin-right"
+                    >
+                        <input
+                            required
+                            key="title"
+                            className="app-new-trip-title"
+                            value={newActivity.title}
+                            placeholder="Title"
+                            onChange={(e) => {
+                                this.props.updateTitle(e.target.value);
+                            }}
+                        />
+                        <textarea
+                            key="description"
+                            className="app-new-trip-description app-tiny-margin-top"
+                            value={newActivity.description}
+                            placeholder="Description"
+                            onChange={(e) => {
+                                this.props.updateDescription(e.target.value);
+                            }}
+                        />
+                        <input
+                            required
+                            className="app-new-trip-title app-tiny-margin-top"
+                            value={this.displayCost(this.props.newActivity.cost)}
+                            onChange={(e) => {
+                                this.props.updateCost(e.target.value);
+                            }}
+                            placeholder="Cost"
+                            type="number"
+                        />
+                        <input
+                            className="app-new-trip-title app-tiny-margin-top"
+                            value={newActivity.location}
+                            onChange={(e) => {
+                                this.props.updateLocation(e.target.value);
+                            }}
+                            placeholder="Location"
+                            type="text"
+                        />
+                        {this.getCategories()}
+                    </div>
+                    <div className="app-flex app-flex-column">
+                        <input
+                            key="start-date"
+                            value={
+                                this.displayDate(this.props.newActivity.startDate, "start")
+                            }
+                            type="date"
+                            onChange={(e) => {
+                                this.props.updateDate(e.target.value, "start");
+                            }}
+                        />
+                        <input
+                            key="end-date"
+                            className="app-tiny-margin-top"
+                            value={
+                                this.displayDate(this.props.newActivity.endDate, "end")
+                            }
+                            type="date"
+                            onChange={(e) => {
+                                this.props.updateDate(e.target.value, "end");
+                            }}
+                        />
+                    </div>
+                </div>
+                
+                <div className="app-flex">
+                    <div
+                        className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
+                        onClick={() => {
+                            // console.log("attempted to submit new activity", newActivity)
+                            createNewActivity({
+                                title: newActivity.title,
+                                description: newActivity.description ? newActivity.description: undefined,
+                                startDate: newActivity.startDate,
+                                endDate: newActivity.endDate,
+                                userInfo: userInfo,
+                                currentTrip: currentTrip,
+                                cost: newActivity.cost,
+                                location: newActivity.location ? newActivity.location: undefined,
+                                categoryId: this.getCategoryObject(newActivity.category).category_id,
+                            });
+                        }}
+                    >
+                        Submit
+                    </div>
+                    <Link
+                        to={`/tripdetails/${currentTrip.trip_id}`}
+                        className="link-item app-flex pointer app-bigger-margin-top"
+                    >
+                        Back
+                    </Link>
+                </div>
+                <div
+                    className={`app-margin-top app-margin-bottom ${errorClass}`}
+                >
+                    {errorText}
+                </div>
+            </div>
+        );
+    };
+
     render() {
 
         console.log("act props", this.props);
         const authenticated = this.props.user.authenticated;
         const justCreatedActivity = this.props.newActivity.justCreatedActivity;
-        const createNewActivity = this.props.createNewActivity;
-        const newActivity = this.props.newActivity;
-        const userInfo = this.props.user;
         const tripDetails = this.props.tripDetails;
         const currentTrip = this.props.currentTrip.data;
-        const error = this.props.newActivity.errorMessage;
-        const errorText = error ? error: "hidden";
-        const errorClass = error ? "": "hidden";
 
         if (!Object.keys(currentTrip).length && tripDetails && tripDetails.data && tripDetails.data.length) {
             const tripId = this.props.tripDetails.data[0].trip_id;
@@ -84,6 +202,8 @@ class NewActivity extends React.Component {
         }
 
         if (authenticated && !justCreatedActivity) {
+            const inEditMode = this.props.match.params.id ? true: false;
+
             return (
                 <div className="app-flex app-flex-column app-margin screen-height">
                     <div
@@ -96,116 +216,7 @@ class NewActivity extends React.Component {
                     >
                         {currentTrip.start_date}&nbsp;to&nbsp;{currentTrip.end_date}
                     </div>
-                    <div
-                        className="app-flex app-flex-column app-new-trip-card full-width"
-                    >
-                        <div className="app-margin-bottom app-padding-top h2">
-                            Add New Activity
-                        </div>
-                        <div
-                            className="app-flex app-flex-wrap app-flex-start"
-                        >
-                            <div
-                                className="app-flex app-flex-column app-margin-right"
-                            >
-                                <input
-                                    required
-                                    key="title"
-                                    className="app-new-trip-title"
-                                    value={newActivity.title}
-                                    placeholder="Title"
-                                    onChange={(e) => {
-                                        this.props.updateTitle(e.target.value);
-                                    }}
-                                />
-                                <textarea
-                                    key="description"
-                                    className="app-new-trip-description app-tiny-margin-top"
-                                    value={newActivity.description}
-                                    placeholder="Description"
-                                    onChange={(e) => {
-                                        this.props.updateDescription(e.target.value);
-                                    }}
-                                />
-                                <input
-                                    required
-                                    className="app-new-trip-title app-tiny-margin-top"
-                                    value={this.displayCost(this.props.newActivity.cost)}
-                                    onChange={(e) => {
-                                        this.props.updateCost(e.target.value);
-                                    }}
-                                    placeholder="Cost"
-                                    type="number"
-                                />
-                                <input
-                                    className="app-new-trip-title app-tiny-margin-top"
-                                    value={newActivity.location}
-                                    onChange={(e) => {
-                                        this.props.updateLocation(e.target.value);
-                                    }}
-                                    placeholder="Location"
-                                    type="text"
-                                />
-                                {this.getCategories()}
-                            </div>
-                            <div className="app-flex app-flex-column">
-                                <input
-                                    key="start-date"
-                                    value={
-                                        this.displayDate(this.props.newActivity.startDate, "start")
-                                    }
-                                    type="date"
-                                    onChange={(e) => {
-                                        this.props.updateDate(e.target.value, "start");
-                                    }}
-                                />
-                                <input
-                                    key="end-date"
-                                    className="app-tiny-margin-top"
-                                    value={
-                                        this.displayDate(this.props.newActivity.endDate, "end")
-                                    }
-                                    type="date"
-                                    onChange={(e) => {
-                                        this.props.updateDate(e.target.value, "end");
-                                    }}
-                                />
-                            </div>
-                        </div>
-                        
-                        <div className="app-flex">
-                            <div
-                                className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
-                                onClick={() => {
-                                    // console.log("attempted to submit new activity", newActivity)
-                                    createNewActivity({
-                                        title: newActivity.title,
-                                        description: newActivity.description ? newActivity.description: undefined,
-                                        startDate: newActivity.startDate,
-                                        endDate: newActivity.endDate,
-                                        userInfo: userInfo,
-                                        currentTrip: currentTrip,
-                                        cost: newActivity.cost,
-                                        location: newActivity.location ? newActivity.location: undefined,
-                                        categoryId: this.getCategoryObject(newActivity.category).category_id,
-                                    });
-                                }}
-                            >
-                                Submit
-                            </div>
-                            <Link
-                                to={`/tripdetails/${currentTrip.trip_id}`}
-                                className="link-item app-flex pointer app-bigger-margin-top"
-                            >
-                                Back
-                            </Link>
-                        </div>
-                        <div
-                            className={`app-margin-top app-margin-bottom ${errorClass}`}
-                        >
-                            {errorText}
-                        </div>
-                    </div>
+                    {this.getActivityForm(inEditMode)}
                 </div>
             );
         } else if (justCreatedActivity) {

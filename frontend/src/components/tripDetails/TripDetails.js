@@ -202,9 +202,9 @@ class TripDetails extends React.Component {
                         </div>
                         <Link
                             onClick={() => {
-                                // console.log("this.props", this.props, "a_id ", activity.activity_id);
+                                this.props.populateActivityForm(activity);
                             }}
-                            to={`/editActivity/:${activity.activity_id}`}
+                            to={`/editActivity/${activity.activity_id}`}
                             className="pointer"
                         ><i className="far fa-edit icon-link-item"></i></Link>
                     </div>

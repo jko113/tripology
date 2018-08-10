@@ -5,6 +5,7 @@ import { getTripDetails,
     changeFilterDate,
     setGroupingMode,
 } from "./TripDetailsActions";
+import { populateActivityForm } from "../newActivity/NewActivityActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -28,6 +29,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         setGroupingMode: () => {
             dispatch(setGroupingMode());
+        },
+        populateActivityForm: (activityObject) => {
+            dispatch(populateActivityForm(activityObject));
         },
     };
 };

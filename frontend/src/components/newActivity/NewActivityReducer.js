@@ -9,8 +9,7 @@ import {
     JUST_CREATED_ACTIVITY,
     UPDATE_ACTIVITY_LOCATION,
     SET_CATEGORY,
-    // tripStartDate,
-    // tripEndDate,
+    POPULATE_ACTIVITY_FORM,
 } from "./NewActivityActions";
 
 import { GET_TRIP_DETAILS } from "../tripDetails/TripDetailsActions";
@@ -21,12 +20,8 @@ import {
     formatDate,
 } from "../../shared/date/Date";
 
-// import { JUST_CREATED_ACTIVITY } from "../../components/tripDetails/TripDetailsActions";
-
 import {
-    // MAX,
     MIN,
-    // formatDate,
 } from "../../components/newTrip/NewTrip";
 
 const initialState = {
@@ -35,8 +30,6 @@ const initialState = {
     location: "",
     startDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
     endDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
-    // startDate: tripStartDate,
-    // endDate: tripEndDate,
     userHasInputStart: false,
     userHasInputEnd: false,
     userHasInputCost: false,
@@ -55,14 +48,7 @@ export const newActivityReducer = (
 
     switch (action.type) {
         case CREATE_NEW_ACTIVITY:
-            // return {
-            //     // ...state, 
-            //     // tripData: action.payload,
-            //     errorMessage: undefined,
-            // };
             return Object.assign({}, initialState, {
-                // startDate: state.startDate,
-                // endDate: state.endDate,
                 errorMessage: undefined,
                 justCreatedActivity: true,
                 activityId: action.activityId,
@@ -81,13 +67,11 @@ export const newActivityReducer = (
             return {
                 ...state,
                 title: action.payload,
-                // errorMessage: undefined,
             };
         case UPDATE_ACTIVITY_DESCRIPTION:
             return {
                 ...state,
                 description: action.payload,
-                // errorMessage: undefined,
             };
         case UPDATE_ACTIVITY_START_DATE:
             return {
@@ -129,8 +113,9 @@ export const newActivityReducer = (
             };
         case GET_TRIP:
             return initialState;
+        case POPULATE_ACTIVITY_FORM:
+            return Object.assign({}, state, action.payload);
         default:
-            // return initialState;
             return state;
     }
 };

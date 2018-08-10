@@ -6,6 +6,7 @@ import {
 } from "../../shared/date/Date";
 
 export const CREATE_NEW_ACTIVITY = "CREATE_NEW_ACTIVITY";
+export const POPULATE_ACTIVITY_FORM = "POPULATE_ACTIVITY_FORM";
 export const UPDATE_ACTIVITY_TITLE = "UPDATE_ACTIVITY_TITLE";
 export const UPDATE_ACTIVITY_DESCRIPTION = "UPDATE_ACTIVITY_DESCRIPTION";
 export const UPDATE_ACTIVITY_START_DATE = "UPDATE_ACTIVITY_START_DATE";
@@ -53,7 +54,6 @@ export const createNewActivity = (activityDetails) => {
     }
     
     else if (startDate < MIN || endDate < MIN) {
-        // console.log("startDate < min", MIN, startDate);
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
             errorMessage: "Activity dates must be in the future."
@@ -141,5 +141,12 @@ export const setCategory = (cat, cats) => {
     return {
         type: SET_CATEGORY,
         payload: cat || cats[0].title,
+    };
+};
+
+export const populateActivityForm = (activityObject) => {
+    return {
+        type: POPULATE_ACTIVITY_FORM,
+        payload: activityObject,
     };
 };

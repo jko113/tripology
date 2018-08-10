@@ -6,13 +6,13 @@ html, body {
 
 * {
   box-sizing: inherit;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Open Sans', sans-serif;
+  color: #ffffff;
 }
 
 body {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
   color: rgb(28,28,28);
 }
 
@@ -36,6 +36,25 @@ body {
 
 .app-logo {
   font-size: 4rem;
+  font-weight: 700;
+  color: #ffffff;
+  font-family: 'Hind Siliguri', sans-serif;
+}
+
+.app-description {
+  font-size: 1rem;
+  font-weight: 300;
+  color: #ffffff;
+  letter-spacing: 0.17rem;
+}
+
+.app-home {
+  height: calc(100vh - 60px);
+  background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(./images/3.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .h1 {
@@ -55,6 +74,26 @@ body {
   position: relative;
 }
 
+input,
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  -webkit-text-fill-color: #ffffff;
+  -webkit-box-shadow: 0 0 0px 1000px #000 inset;
+  transition: background-color 5000s ease-in-out 0s;
+  outline:0;
+  caret-color: #ffffff;
+  letter-spacing: 0.1rem;
+}
+
 /* .full-container { */
   /* background-image: url(./images/5.jpg);
   background-position: center;
@@ -70,7 +109,12 @@ body {
 }
 
 .app-header {
+  height: 60px;
   flex-basis: 1;
+}
+
+.header-link-item {
+  color: #ffffff;
 }
 
 .app-big-margin-top {
@@ -187,8 +231,12 @@ body {
   width: inherit;
 }
 
+.screen-height {
+  height: calc(100vh - 50px);
+}
+
 .full-height {
-  height: 100%;
+  height: calc(100% - 50px);
 }
 
 .app-flex-column {
@@ -196,20 +244,16 @@ body {
 }
 
 .link-item {
-  background: #D6E2EE;
-  /* border: 1px solid rgb(28,28,28); */
+  background: #00c457;
   padding: 10px;
   width: 100px;
-  /* cursor: pointer; */
-  /* flex: 1 1 100%; */
-  /* margin: 0 10px; */
+  border-radius: 19px;
 }
 
 .link-item-bigger {
   background: #D6E2EE;
   padding: 10px;
   width: 200px;
-  /* cursor: pointer; */
 }
 
 .app-trip {

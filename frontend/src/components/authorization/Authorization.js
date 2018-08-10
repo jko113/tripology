@@ -32,7 +32,7 @@ class Authorization extends React.Component {
                             type="text"
                             className="app-small-margin app-small-padding"
                             key="username"
-                            placeholder="username (12 max)"
+                            placeholder="username"
                             value={this.props.user.username}
                             onChange={ (e) =>
                                 this.props.updateUsername(e.target.value.slice(0,12))
@@ -42,7 +42,7 @@ class Authorization extends React.Component {
                             type="password"
                             className="app-small-margin app-small-padding"
                             key="password"
-                            placeholder="password (12 max)"
+                            placeholder="password"
                             value={this.props.user.password}
                             onChange={ (e) =>
                                 this.props.updatePassword(e.target.value.slice(0,12))}
@@ -80,19 +80,19 @@ class Authorization extends React.Component {
             // console.log("unauth users props", this.props);
             if (authMode) {
                 return (
-                    <div className="">
+                    <div className="screen-height app-flex">
                         {this.getAuthInputFields(authMode)}
                     </div>
                 );
             } else if (path.toLowerCase() === "/signup" || path.toLowerCase() === "/signin") {
                 return (
-                    <div className="">
+                    <div className="screen-height  app-flex">
                         {this.getAuthInputFields(path.slice(1).toLowerCase())}
                     </div>
                 );
             } else {
                 // return null;
-                return <div className="app-flex app-flex-center">Please sign in or create an account.</div>;
+                return <div className="screen-height  app-flex app-flex-center">Please sign in or create an account.</div>;
             }
         }
         

@@ -21,11 +21,11 @@ class App extends Component {
 
     return (
       <Router>
-        <div className="full-container app-flex app-flex-column">
+        <div className="app-flex app-flex-column">
           <Header />
 
           {/* <div className="app-flex full-width full-height app-body"> */}
-          <div className="full-width full-height app-body app-big-margin-top">
+          <div className="full-width full-height app-body">
             {/* <Route path="/allTrips" component={AllTrips} /> */}
             <Route path="/allTripsByUser/:id" component={AllTripsByUser} />
             <Route path="/trip/:id" component={Trip} />

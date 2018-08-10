@@ -26,22 +26,16 @@ class Trip extends React.Component {
     }
 
     render() {
-        //console.log(this.props.currentTrip.data);
-        // console.log(this.props, "current trip props");
+
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
         const userId = this.props.user.userId;
-        // const justDeletedTrip = this.props.justDeletedTrip;
 
-        // if (authenticated && Object.keys(currentTrip).length) {
         if (authenticated) {
-            // console.log(currentTrip, "currentTrip");
-            // console.log(this.props, "this.props");
 
             return (
-                <div className="app-flex app-flex-column">
-                    <div className="h1 app-margin-bottom">Trip Overview</div>
-                    <div className="app-padding app-margin app-trip-card app-flex app-flex-column">
+                <div className="screen-height app-flex app-flex-column">
+                    <div className="app-padding app-margin app-flex app-flex-column">
                         <div className="h1 app-margin-bottom">
                             {currentTrip.title}
                         </div>
@@ -57,37 +51,36 @@ class Trip extends React.Component {
                         <div className="app-flex">
                             <Link
                                 to={`/tripdetails/${currentTrip.trip_id}`}
-                                className="link-item contrast app-flex app-margin-top app-margin-right"
-                            >
-                                
-                                More
-                            </Link>
-                            <Link
-                                to={`/allTripsByUser/${userId}`}
                                 className="link-item contrast app-flex app-margin-top"
                             >
                                 
-                                Back
+                                More
                             </Link>
                         </div>
                         <div
                             className="app-flex"
                         >
+                            <Link
+                                to={`/allTripsByUser/${userId}`}
+                                className="app-big-margin-right app-small-margin-top"
+                            >
+                                
+                                <i className="far fa-arrow-alt-circle-left icon-link-item"></i>
+                            </Link>
                             <div
-                                className="pointer link-item contrast app-flex app-small-margin-top app-margin-right"
+                                className="pointer app-big-margin-right app-small-margin-top"
                                 onClick={(e) => {
-                                    // console.log("props",this.props);
                                     const confirmed = window.confirm(`Are you sure you with to delete the trip "${currentTrip.title}" and all its associated activities?`);
                                     if (confirmed) {
                                         this.props.history.push(`/allTripsByUser/${this.props.user.userId}`)
                                         this.props.deleteTrip(currentTrip.trip_id);
                                     }
                                 }}
-                            >Delete</div>
+                            ><i className="far fa-trash-alt icon-link-item"></i></div>
                             <Link
                                 to={`/editTrip`}
-                                className="pointer link-item contrast app-flex app-small-margin-top"
-                            >Edit</Link>
+                                className="app-small-margin-top"
+                            ><i className="far fa-edit icon-link-item"></i></Link>
                         </div>
                     </div>
                 </div>

@@ -83,7 +83,7 @@ class NewActivity extends React.Component {
 
         if (authenticated && !justCreatedActivity) {
             return (
-                <div className="app-flex app-flex-column app-margin app-no-top-margin">
+                <div className="app-flex app-flex-column app-margin screen-height">
                     <div
                         className="app-flex-align-self-center h1 app-small-margin-bottom"
                     >

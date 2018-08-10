@@ -75,6 +75,8 @@ body {
 }
 
 input,
+textarea,
+select,
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
 input:-webkit-autofill:focus
@@ -84,6 +86,7 @@ textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
 select:-webkit-autofill:focus {
+  padding: 5px;
   border: none;
   border-bottom: 1px solid #ffffff;
   -webkit-text-fill-color: #ffffff;
@@ -131,6 +134,18 @@ select:-webkit-autofill:focus {
 
 .app-margin-right {
   margin-right: 20px;
+}
+
+.app-big-margin-right {
+  margin-right: 30px;
+}
+
+.green {
+  color: #00c457;
+}
+
+.checkbox {
+  outline: 1px solid #00c457 !important;
 }
 
 .app-margin-left {
@@ -208,11 +223,29 @@ select:-webkit-autofill:focus {
 }
 
 .app-flex-start {
-  align-items: flex-start
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.app-single-activity {
+  border-bottom: 1px solid #fff;
+}
+
+.app-single-activity:last-child {
+  border-bottom: none;
 }
 
 .app-flex-align-self-center {
   align-self: center;
+}
+
+.activity-group {
+  border-bottom: 1px solid #00c457;
+  margin-bottom: 30px;
+}
+
+.activity-group:last-child {
+  border-bottom: none;
 }
 
 /* .app-flex-align-self-end {
@@ -247,36 +280,59 @@ select:-webkit-autofill:focus {
   background: #00c457;
   padding: 10px;
   width: 100px;
-  border-radius: 19px;
 }
 
 .link-item-bigger {
-  background: #D6E2EE;
+  background: #00c457;
   padding: 10px;
   width: 200px;
 }
 
+@keyframes bounce {
+	0%, 100%, 20%, 50%, 80% {
+		-webkit-transform: translateY(0);
+		-ms-transform:     translateY(0);
+		transform:         translateY(0)
+	}
+	40% {
+		-webkit-transform: translateY(-20px);
+		-ms-transform:     translateY(-20px);
+		transform:         translateY(-20px)
+	}
+	60% {
+		-webkit-transform: translateY(-10px);
+		-ms-transform:     translateY(-10px);
+		transform:         translateY(-10px)
+	}
+}
+
 .app-trip {
-  background: #CDB6AF;
+  background: #00c457;
   padding: 20px;
   margin: 15px;
   width: 500px;
   height: 150px;
-  /* cursor: pointer; */
-
+  -webkit-animation-duration: 1s;
+  animation-duration: 1s;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation-timing-function: ease-in-out;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  -webkit-animation-iteration-count: infinite;
 }
 
-.app-trip-card {
-  background: #D6E2EE;
-  /* cursor: pointer; */
-}
-
-.app-new-trip-card {
-  background: #CDB6AF;
+.app-trip:hover {
+  animation-name: bounce;
+  -moz-animation-name: bounce;
 }
 
 .app-new-trip-title {
   width: 300px;
+}
+
+.icon-link-item {
+  color: #00c457;
 }
 
 .inline {
@@ -293,12 +349,12 @@ a {
   color: inherit;
 }
 
-.contrast {
+/* .contrast {
   background-color: #CDB6AF;
-}
+} */
 
 .app-add-first {
-  color: blue !important;
+  color: #00c457 !important;
   cursor: pointer;
 }
 

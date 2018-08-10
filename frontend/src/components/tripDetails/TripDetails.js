@@ -45,9 +45,6 @@ class TripDetails extends React.Component {
             >
                 <div className="app-small-margin-bottom app-flex full-width app-flex-space-between">
                     <div
-                        className="hidden"
-                    >Show All</div>
-                    <div
                     >
                         Filter by date:&nbsp;&nbsp;
                         <input
@@ -66,16 +63,12 @@ class TripDetails extends React.Component {
                         >Show All
                     </div>
                 </div>
-                <label>Group by category
-                    <input
-                        checked={!!this.props.tripDetails.grouped}
-                        onChange={e => {
-                            this.props.setGroupingMode();
-                        }}
-                        type="checkbox"
-                        className=""
-                    />
-                </label>
+                <div
+                    onClick={e => {
+                        this.props.setGroupingMode();
+                    }}
+                    className="link-item-bigger pointer app-flex app-margin"
+                >{this.props.tripDetails.grouped ? "Order By Title": "Order By Group"}</div>
             </div>
         );
     };
@@ -99,10 +92,10 @@ class TripDetails extends React.Component {
                         return (
                             <div
                                 key={category.categoryId}
-                                className="full-width"
+                                className="full-width activity-group"
                             >
                                 <div
-                                    className="app-flex-align-self-center h2"
+                                    className="h1 green"
                                 >
                                     {category.categoryString}
                                 </div>
@@ -144,7 +137,7 @@ class TripDetails extends React.Component {
         return (
             <div
                 key={activity.activity_id}
-                className="app-small-margin-top app-flex app-flex-space-between full-width"
+                className="app-single-activity app-small-margin-top app-flex app-flex-space-between full-width"
             >
                 <div className="app-small-margin-bottom app-small-margin-right">
                     <div
@@ -167,17 +160,23 @@ class TripDetails extends React.Component {
                     <div
                         className=""
                     >{activity.end_date}</div>
-                </div>
-                <div
-                    className="link-item contrast app-flex pointer"
-                    onClick={(e) => {
-                        const confirmed = window.confirm(`Are you sure you want to delete the activity "${activity.title}"?`);
-                        if (confirmed) {
-                            this.props.deleteActivity(activity.activity_id, this.props.tripDetails.data, this.props.tripDetails.groupedDetails, this.props.tripDetails.grouped);
-                        }
-                    }}
-                >
-                    Delete
+                    <div className="app-flex app-flex-start app-small-margin-top">
+                        <div
+                            className="pointer app-small-margin-right"
+                            onClick={(e) => {
+                                const confirmed = window.confirm(`Are you sure you want to delete the activity "${activity.title}"?`);
+                                if (confirmed) {
+                                    this.props.deleteActivity(activity.activity_id, this.props.tripDetails.data, this.props.tripDetails.groupedDetails, this.props.tripDetails.grouped);
+                                }
+                            }}
+                        >
+                            <i className="far fa-trash-alt icon-link-item"></i>
+                        </div>
+                        <Link
+                            to={`/home`}
+                            className="pointer"
+                        ><i className="far fa-edit icon-link-item"></i></Link>
+                    </div>
                 </div>
             </div>
         );
@@ -289,7 +288,7 @@ class TripDetails extends React.Component {
                 return (
                     <div className="app-flex app-flex-column">
                         {this.biaoti(currentTrip)}
-                        <div className="app-padding app-margin app-trip-card app-flex app-flex-column app-flex-start">
+                        <div className="app-padding app-margin app-flex app-flex-column app-flex-start">
                             {this.shangmian()}
                             {this.getBody(
                                 filteredTripActivities,
@@ -302,7 +301,7 @@ class TripDetails extends React.Component {
                 // no trips meet the date filtering criteria
             } else {
                 return (
-                    <div className="app-flex app-flex-column">
+                    <div className="screen-height app-flex app-flex-column">
                         <div className="app-flex">
                             No trip activities for {currentTrip.title} yet.&nbsp;
                             <div className="inline">

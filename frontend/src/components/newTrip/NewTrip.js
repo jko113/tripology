@@ -52,9 +52,9 @@ class NewTrip extends React.Component {
 
         return (
             <div
-                className="app-flex app-flex-column app-new-trip-card app-margin"
+                className="screen-height app-flex app-flex-column app-new-trip-card"
             >
-                <div className="app-margin-bottom app-padding-top h2">{headerMessage}</div>
+                <div className="app-margin-bottom app-padding-top h1">{headerMessage}</div>
                 <div
                     className="app-flex app-flex-wrap app-flex-start"
                 >

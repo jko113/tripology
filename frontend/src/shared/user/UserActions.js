@@ -73,7 +73,7 @@ export const logIn = (username, password) => {
             username,
             password
         }).then(result => {
-            if (result.data.userInfo.exists) {
+            if (result && result.data.userInfo && result.data.userInfo.exists) {
                 const userInfo = result.data.userInfo;
                 dispatch({
                     type: LOG_IN,

@@ -30,6 +30,10 @@ body {
   visibility: hidden;
 }
 
+.invisible {
+  display: none;
+}
+
 .pointer {
   cursor: pointer;
 }
@@ -231,9 +235,9 @@ select:-webkit-autofill:focus {
   border-bottom: 1px solid #fff;
 }
 
-.app-single-activity:last-child {
+/* .app-single-activity:last-child {
   border-bottom: none;
-}
+} */
 
 .app-flex-align-self-center {
   align-self: center;

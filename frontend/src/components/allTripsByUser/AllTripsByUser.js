@@ -1,14 +1,15 @@
 import React from "react";
 import { SingleTrip } from "../../shared/trip/SingleTrip";
-import { Link } from "react-router-dom";
+import { Redirect, Link } from "react-router-dom";
 
 class AllTripsByUser extends React.Component {
     componentDidMount() {
         const props = this.props;
         const tripProps = props.allTripsByUser.data;
+        const authenticated = props.user.authenticated;
         // console.log("all trip props: ", props);
         // console.log(tripProps.match.params);
-        if (!tripProps.length) {
+        if (authenticated && !tripProps.length) {
             props.getAllTripsByUser(props.match.params.id);
         }
     }
@@ -53,7 +54,7 @@ class AllTripsByUser extends React.Component {
                 </div>
             );
         } else {
-            return null;
+            return <Redirect to="/signin"></Redirect>;
         }
     }
 };

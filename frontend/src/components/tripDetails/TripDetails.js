@@ -38,7 +38,11 @@ class TripDetails extends React.Component {
         );
     };
 
-    shangmian = () => {
+    shangmian = (filteredArray) => {
+        // console.log("filteredArray", filteredArray);
+        // const groupedMode = this.props.tripDetails.grouped;
+        // let buttonDisplay = this.checkIfArrayIsEmpty(filteredArray) ? "invisible": "";
+
         return (
             <div
                 className="app-flex app-flex-column full-width"
@@ -67,49 +71,81 @@ class TripDetails extends React.Component {
                     onClick={e => {
                         this.props.setGroupingMode();
                     }}
+                    // className={"link-item-bigger pointer app-flex app-margin" + buttonDisplay}
                     className="link-item-bigger pointer app-flex app-margin"
                 >{this.props.tripDetails.grouped ? "Order By Title": "Order By Group"}</div>
             </div>
         );
     };
 
-    getBody = (filteredArray, fullArray, groupedMode) => {
-        if (filteredArray && !filteredArray.length) {
+    getBody = (filteredArray, groupedMode) => {
+        let arrayIsEmpty = true;
+        // console.log("filteredArr", filteredArray);
+        if (groupedMode) {
+            filteredArray.forEach(i => {
+                if (i && i.activitiesArray.length) {
+                    arrayIsEmpty = false;
+                }
+            });
+        }
+        // console.log("arrayIsEmpty",arrayIsEmpty, "filteredArr", filteredArray, "groupedMode", groupedMode);
+        if (filteredArray && (!filteredArray.length || (groupedMode && arrayIsEmpty))) {        
             return <div className="app-small-margin-top">No trip activities scheduled for the specified date.</div>;
         } else {
             if (!groupedMode) {
-                return filteredArray.map(activity => {
-                    return this.getTrip(activity, fullArray);
-                });
+                return (
+                    <div
+                        className="ungrouped-activities"
+                    >
+                        <div>{filteredArray.map(activity => {
+                            return this.getTrip(activity);
+                        })}</div>
+                        <div
+                            className="app-margin-top"
+                        >
+                            Total: ${this.getUngroupedCost(filteredArray)}
+                        </div>
+                    </div>
+                ); 
             } else {
-                return filteredArray.map(category => {
-                    // no activities exist for this category
-                    if (!category || !category.activitiesArray.length) {
-                        return null;
-                    }
-                    // activities DO exist for this category
-                    else {
-                        return (
-                            <div
-                                key={category.categoryId}
-                                className="full-width activity-group"
-                            >
-                                <div
-                                    className="h1 green"
-                                >
-                                    {category.categoryString}
-                                </div>
-                                <div
-                                    // className="full-width"
-                                >
-                                    {category.activitiesArray.map(activity => {
-                                        return this.getTrip(activity, fullArray, groupedMode);
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    }
-                });
+                return (
+                    <div
+                        className="grouped-activities"
+                    >
+                        {filteredArray.map(category => {
+                        // no activities exist for this category
+                            if (!category || !category.activitiesArray.length) {
+                                return null;
+                            }
+                            // activities DO exist for this category
+                            else {
+                                return (
+                                    <div key={category.categoryId}>
+                                        <div
+                                            className="full-width activity-group"
+                                        >
+                                            <div
+                                                className="h1 green"
+                                            >
+                                                {category.categoryString}
+                                            </div>
+                                            <div>
+                                                {category.activitiesArray.map(activity => {
+                                                    return this.getTrip(activity);
+                                                })}
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                        }})}
+                        <div
+                            className="app-margin-top"
+                        >
+                            Total: ${this.getGroupedCost(filteredArray)}
+                        </div>
+                    </div>
+                ); 
+
             }
         }
     };
@@ -133,7 +169,7 @@ class TripDetails extends React.Component {
         );
     };
 
-    getTrip = (activity, tripActivities) => {
+    getTrip = (activity) => {
         return (
             <div
                 key={activity.activity_id}
@@ -147,19 +183,24 @@ class TripDetails extends React.Component {
                     </div>
                     <div
                         className=""
-                    >{activity.description}</div>
-                    <div
-                        className=""
                     >{activity.location}</div>
                     <div
                         className=""
-                    >${activity.cost}</div>
+                    >{activity.description}</div>
                     <div
                         className=""
-                    >{activity.start_date}</div>
+                    >${activity.cost.toFixed(2)}
+                        <div
+                            className={activity.start_date === activity.end_date ? "invisible": "inline"}
+                        >&nbsp;(${(activity.cost / this.getTripDuration(activity)).toFixed(2)}/day)</div>
+                    </div>
                     <div
                         className=""
-                    >{activity.end_date}</div>
+                    >{activity.start_date}
+                        <div
+                            className={activity.start_date === activity.end_date ? "invisible": "inline"}
+                        >&nbsp;to&nbsp;{activity.end_date}</div>
+                    </div>
                     <div className="app-flex app-flex-start app-small-margin-top">
                         <div
                             className="pointer app-small-margin-right"
@@ -180,6 +221,40 @@ class TripDetails extends React.Component {
                 </div>
             </div>
         );
+    };
+
+    getTripDuration = (a) => {
+        const oneDay = 1000*60*60*24;
+        const startDate = new Date(a.start_date).getTime();
+        const endDate = new Date(a.end_date).getTime();
+        const duration = 1 + Math.round(Math.abs((startDate - endDate) / oneDay));
+        return duration;
+    };
+
+    getUngroupedCost = (activitiesArray) => {
+        let total = 0.0;
+
+        activitiesArray.forEach(a => {
+            const duration = this.getTripDuration(a);
+            total += a.cost / duration;
+        });
+
+        return total.toFixed(2);
+    };
+
+    getGroupedCost = (groupedActivitiesArray) => {
+        let total = 0.0;
+
+        groupedActivitiesArray.forEach(categoryObject => {
+            if (categoryObject) {
+                categoryObject.activitiesArray.forEach(a => {
+                    const duration = this.getTripDuration(a);
+                    total += a.cost / duration;
+                });
+            }
+        });
+
+        return total.toFixed(2);
     };
 
     getFilterDate = () => {
@@ -257,6 +332,26 @@ class TripDetails extends React.Component {
         return subheadings;
     };
 
+    /*checkIfArrayIsEmpty = (activitiesArray) => {
+        const groupedMode = this.props.tripDetails.grouped;
+        let emptiness = true;
+
+        if (!groupedMode) {
+            emptiness = false;
+        } else {
+            if (activitiesArray) {
+                activitiesArray.forEach(i => {
+                    // console.log("i, ",i);
+                    if (i && i.activitiesArray && i.activitiesArray.length) {
+                        emptiness = false;
+                    }
+                });
+            }
+        }
+        // console.log("emptiness", emptiness, "activitiesArray", activitiesArray)
+        return emptiness;
+    };*/
+
     render() {
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
@@ -269,7 +364,7 @@ class TripDetails extends React.Component {
             let tripActivities;
             let filteredTripActivities;
             let arrayIsEmpty = true;
-
+            
             if (!groupedMode) {
                 tripActivities = this.props.tripDetails.data;
                 filteredTripActivities = this.filterTrips(tripActivities);
@@ -277,22 +372,29 @@ class TripDetails extends React.Component {
             } else {
                 tripActivities = this.props.tripDetails.groupedDetails;
                 filteredTripActivities = this.filterGroupedTrips(tripActivities, categories);
-                tripActivities.forEach(i => {
-                    if (i) {
-                        arrayIsEmpty = false;
-                    }
-                });
+                if (filteredTripActivities) {
+                    filteredTripActivities.forEach(a => {
+                        arrayIsEmpty = a.activitiesArray.length === 0;
+                    });
+                }
             }
 
-            if (filteredTripActivities && tripActivities.length && !arrayIsEmpty) {
+            // const arrayIsEmpty = this.checkIfArrayIsEmpty(filteredTripActivities);
+            // if (filteredTripActivities) {
+            //     console.log("filteredTripActivities", filteredTripActivities);
+            //     arrayIsEmpty = this.checkIfArrayIsEmpty(filteredTripActivities.slice());
+            // }
+
+            // console.log("filteredTripActivities", filteredTripActivities, "tripActivities", tripActivities, "groupedMode",groupedMode, "arrayIsEmpty",arrayIsEmpty);
+                    
+            if (filteredTripActivities && tripActivities.length) {
                 return (
                     <div className="app-flex app-flex-column">
                         {this.biaoti(currentTrip)}
                         <div className="app-padding app-margin app-flex app-flex-column app-flex-start">
-                            {this.shangmian()}
+                            {this.shangmian(filteredTripActivities)}
                             {this.getBody(
                                 filteredTripActivities,
-                                tripActivities,
                                 groupedMode)}
                             {this.xiamian()}
                         </div>

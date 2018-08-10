@@ -33,10 +33,14 @@ export const getTripDetails = (id, categories, mode) => {
                     }
                 });
 
-                // const groupedDetailsArray = [];
-                // Object.key
+                result.data.sort((a, b) => {
+                    const titleA = a.title.toUpperCase();
+                    const titleB = b.title.toUpperCase();
 
-                // console.log(groupedDetailsObject, "groupedDetailsObject");
+                    if (titleA < titleB) return -1;
+                    if (titleA > titleB) return 1;
+                    return 0;
+                });
 
                 dispatch({
                     type: GET_TRIP_DETAILS,

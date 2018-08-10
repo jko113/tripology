@@ -51,7 +51,7 @@ class Trip extends React.Component {
                         <div className="app-flex">
                             <Link
                                 to={`/tripdetails/${currentTrip.trip_id}`}
-                                className="link-item contrast app-flex app-margin-top"
+                                className="link-item app-flex app-margin-top"
                             >
                                 
                                 More

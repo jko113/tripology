@@ -149,7 +149,7 @@ class NewTrip extends React.Component {
         } else if (justCreatedTrip) {
             const tripId = this.props.currentTrip.data.trip_id;
             return <Redirect to={`/trip/${tripId}`} />;
-        } else {return <Redirect to={`/signin`} />;}
+        } else {return <Redirect to={`/`} />;}
     } 
 }
 

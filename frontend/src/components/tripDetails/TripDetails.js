@@ -202,9 +202,9 @@ class TripDetails extends React.Component {
                         </div>
                         <Link
                             onClick={() => {
-                                console.log("this.props", this.props, "a_id", activity.activity_id);
+                                // console.log("this.props", this.props, "a_id ", activity.activity_id);
                             }}
-                            to={`/home`}
+                            to={`/editActivity/:${activity.activity_id}`}
                             className="pointer"
                         ><i className="far fa-edit icon-link-item"></i></Link>
                     </div>
@@ -226,7 +226,7 @@ class TripDetails extends React.Component {
 
         activitiesArray.forEach(a => {
             const duration = this.getTripDuration(a);
-            total += a.cost / duration;
+            total += this.props.tripDetails.filterDate ? a.cost / duration: a.cost;
         });
 
         return total.toFixed(2);
@@ -239,7 +239,7 @@ class TripDetails extends React.Component {
             if (categoryObject) {
                 categoryObject.activitiesArray.forEach(a => {
                     const duration = this.getTripDuration(a);
-                    total += a.cost / duration;
+                    total += this.props.tripDetails.filterDate ? a.cost / duration: a.cost;
                 });
             }
         });

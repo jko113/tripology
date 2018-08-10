@@ -65,6 +65,8 @@ class NewActivity extends React.Component {
     };
 
     render() {
+
+        console.log("act props", this.props);
         const authenticated = this.props.user.authenticated;
         const justCreatedActivity = this.props.newActivity.justCreatedActivity;
         const createNewActivity = this.props.createNewActivity;

@@ -43,10 +43,7 @@ class Trip extends React.Component {
                             {currentTrip.description}
                         </div>
                         <div>
-                            Start Date: {this._formatDate(currentTrip.start_date)}
-                        </div>
-                        <div>
-                            End Date: {this._formatDate(currentTrip.end_date)}
+                            {this._formatDate(currentTrip.start_date)}&nbsp;to&nbsp;{this._formatDate(currentTrip.end_date)}
                         </div>
                         <div className="app-flex">
                             <Link

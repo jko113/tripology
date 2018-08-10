@@ -101,16 +101,6 @@ select:-webkit-autofill:focus {
   letter-spacing: 0.1rem;
 }
 
-/* .full-container { */
-  /* background-image: url(./images/5.jpg);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  height: 100%;
-  width: 100%; */
-/* } */
-
 .app-body {
   flex-basis: 1;
 }
@@ -252,10 +242,6 @@ select:-webkit-autofill:focus {
   border-bottom: none;
 }
 
-/* .app-flex-align-self-end {
-  align-self: flex-end;
-} */
-
 .right {
   margin-left: auto;
 }
@@ -353,9 +339,6 @@ a {
   color: inherit;
 }
 
-/* .contrast {
-  background-color: #CDB6AF;
-} */
 
 .app-add-first {
   color: #00c457 !important;
@@ -363,7 +346,6 @@ a {
 }
 
 .app-new-activity-cost {
-  /* align-self: flex-start; */
   width: 300px;
 }
 

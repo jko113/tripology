@@ -28,8 +28,8 @@ const initialState = {
     title: "",
     description: "",
     location: "",
-    startDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
-    endDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
+    // startDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
+    // endDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
     userHasInputStart: false,
     userHasInputEnd: false,
     userHasInputCost: false,
@@ -114,7 +114,32 @@ export const newActivityReducer = (
         case GET_TRIP:
             return initialState;
         case POPULATE_ACTIVITY_FORM:
-            return Object.assign({}, state, action.payload);
+        const {
+            title,
+            description,
+            location,
+            cost,
+            activity_id,
+            trip_id,
+            start_date,
+            end_date,
+            contact_id,
+            category_id,
+        } = action.payload;
+
+        return {
+            ...state,
+            title: title,
+            description: description,
+            location: location,
+            category: category_id,
+            startDate: start_date,
+            endDate: end_date,
+            cost: cost,
+            contactId: contact_id,
+            activityId: activity_id,
+            tripId: trip_id,
+        };
         default:
             return state;
     }

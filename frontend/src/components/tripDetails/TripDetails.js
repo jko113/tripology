@@ -39,9 +39,9 @@ class TripDetails extends React.Component {
     };
 
     shangmian = (filteredArray) => {
-        // console.log("filteredArray", filteredArray);
         // const groupedMode = this.props.tripDetails.grouped;
-        // let buttonDisplay = this.checkIfArrayIsEmpty(filteredArray) ? "invisible": "";
+        let buttonDisplay = this.checkIfArrayIsEmpty(filteredArray.slice()) ? "invisible": "";
+        // console.log("filteredArray", filteredArray, "buttonDisplay",buttonDisplay);
 
         return (
             <div
@@ -55,6 +55,8 @@ class TripDetails extends React.Component {
                             type="date"
                             value={this.getTripDetailsDate()}
                             onChange={(e) => {
+                                // console.log("e,",e);
+                                // console.log(e.target.value);
                                 this.props.changeFilterDate(e.target.value);
                             }}
                         />
@@ -71,8 +73,8 @@ class TripDetails extends React.Component {
                     onClick={e => {
                         this.props.setGroupingMode();
                     }}
-                    // className={"link-item-bigger pointer app-flex app-margin" + buttonDisplay}
-                    className="link-item-bigger pointer app-flex app-margin"
+                    className={`link-item-bigger pointer app-flex app-margin ${buttonDisplay}`}
+                    // className="link-item-bigger pointer app-flex app-margin"
                 >{this.props.tripDetails.grouped ? "Order By Title": "Order By Group"}</div>
             </div>
         );
@@ -332,7 +334,7 @@ class TripDetails extends React.Component {
         return subheadings;
     };
 
-    /*checkIfArrayIsEmpty = (activitiesArray) => {
+    checkIfArrayIsEmpty = (activitiesArray) => {
         const groupedMode = this.props.tripDetails.grouped;
         let emptiness = true;
 
@@ -350,7 +352,7 @@ class TripDetails extends React.Component {
         }
         // console.log("emptiness", emptiness, "activitiesArray", activitiesArray)
         return emptiness;
-    };*/
+    };
 
     render() {
         const currentTrip = this.props.currentTrip.data;
@@ -363,20 +365,20 @@ class TripDetails extends React.Component {
 
             let tripActivities;
             let filteredTripActivities;
-            let arrayIsEmpty = true;
+            // let arrayIsEmpty = true;
             
             if (!groupedMode) {
                 tripActivities = this.props.tripDetails.data;
                 filteredTripActivities = this.filterTrips(tripActivities);
-                arrayIsEmpty = false;
+                // arrayIsEmpty = false;
             } else {
                 tripActivities = this.props.tripDetails.groupedDetails;
                 filteredTripActivities = this.filterGroupedTrips(tripActivities, categories);
-                if (filteredTripActivities) {
-                    filteredTripActivities.forEach(a => {
-                        arrayIsEmpty = a.activitiesArray.length === 0;
-                    });
-                }
+                // if (filteredTripActivities) {
+                //     filteredTripActivities.forEach(a => {
+                //         arrayIsEmpty = a.activitiesArray.length === 0;
+                //     });
+                // }
             }
 
             // const arrayIsEmpty = this.checkIfArrayIsEmpty(filteredTripActivities);

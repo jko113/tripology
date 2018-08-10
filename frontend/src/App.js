@@ -24,7 +24,7 @@ class App extends Component {
         <div className="app-flex app-flex-column">
           <Header />
 
-          <div className="full-width full-height app-body">
+          <div className="full-width screen-height app-body">
             <Route path="/allTripsByUser/:id" component={AllTripsByUser} />
             <Route path="/trip/:id" component={Trip} />
             <Route path="/tripdetails/:id" component={TripDetails} />
@@ -34,6 +34,7 @@ class App extends Component {
             <Route path="/newTrip" component={NewTrip}/>
             <Route path="/editTrip" component={NewTrip}/>
             <Route path="/newActivity" component={NewActivity}/>
+            <Route path="/editActivity" component={NewActivity}/>
           </div>
 
         </div>

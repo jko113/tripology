@@ -5,6 +5,8 @@ import {
     SET_GROUPING_MODE,
 } from "./TripDetailsActions";
 
+import { GET_TRIP } from "../trip/TripActions";
+
 const initialState = {
     data: [],
     filterDate: "",
@@ -43,6 +45,12 @@ export const TripDetailsReducer = (
             return {
                 ...state,
                 grouped: !state.grouped,
+            };
+        case GET_TRIP:
+            return {
+                ...state,
+                data: [],
+                groupedDetails: [],
             };
         default:
             return state;

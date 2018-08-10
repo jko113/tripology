@@ -1,5 +1,5 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import {
     getLocalDate,
     formatDate,
@@ -49,6 +49,7 @@ class NewTrip extends React.Component {
         const headerMessage = inEditMode ? "Edit Trip": "Add New Trip";
         const correctFunction = inEditMode ? editTrip: createNewTrip;
         const tripId = inEditMode ? this.props.currentTrip.data.trip_id: undefined;
+        const correctCancelPath = inEditMode ? `/trip/${tripId}`: `/`;
 
         return (
             <div
@@ -104,21 +105,28 @@ class NewTrip extends React.Component {
                         />
                     </div>
                 </div>
-                
                 <div
-                    className="link-item app-flex pointer app-bigger-margin-top"
-                    onClick={() => {
-                        correctFunction({
-                            title: newTrip.title,
-                            description: newTrip.description,
-                            startDate: newTrip.startDate,
-                            endDate: newTrip.endDate,
-                            userInfo: userInfo,
-                            tripId: tripId,
-                        });
-                    }}
+                    className="app-flex"
                 >
-                    Submit
+                    <div
+                        className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
+                        onClick={() => {
+                            correctFunction({
+                                title: newTrip.title,
+                                description: newTrip.description,
+                                startDate: newTrip.startDate,
+                                endDate: newTrip.endDate,
+                                userInfo: userInfo,
+                                tripId: tripId,
+                            });
+                        }}
+                    >
+                        Submit
+                    </div>
+                    <Link
+                        className="link-item app-flex app-bigger-margin-top"
+                        to={correctCancelPath}
+                    >Cancel</Link>
                 </div>
                 <div
                     className={`app-margin-top app-margin-bottom ${errorClass}`}

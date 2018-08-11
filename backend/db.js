@@ -8,12 +8,12 @@ const cn = {
 }
 const db = pgp(cn);
 
-const user1 = {
+const config = {
     password: process.env.ENCRYPT_PASSWORD,
     salt: process.env.ENCRYPT_SALT,
 };
 const simplecrypt = require("simplecrypt");
-const sc = simplecrypt(user1);
+const sc = simplecrypt(config);
 
 function getAllTripsByUser(user_id) {
     return db.any("SELECT * FROM trips WHERE user_id = $1;", [user_id]);

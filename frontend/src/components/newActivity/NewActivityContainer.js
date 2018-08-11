@@ -3,6 +3,7 @@ import NewActivity from "./NewActivity";
 import { getOneTrip } from "../trip/TripActions";
 import {
     createNewActivity,
+    editActivity,
     updateTitle,
     updateDescription,
     updateDate,
@@ -25,6 +26,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         createNewActivity: (activityDetails) => {
             dispatch(createNewActivity(activityDetails));
+        },
+        editActivity: (activityDetails, userId) => {
+            dispatch(editActivity(activityDetails, userId));
         },
         updateTitle: (typedValue) => {
             dispatch(updateTitle(typedValue));

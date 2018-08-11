@@ -6,6 +6,7 @@ import {
     UPDATE_ACTIVITY_DESCRIPTION,
     UPDATE_ACTIVITY_COST,
     CREATE_NEW_ACTIVITY_FAILED,
+    EDIT_ACTIVITY_FAILED,
     JUST_CREATED_ACTIVITY,
     UPDATE_ACTIVITY_LOCATION,
     SET_CATEGORY,
@@ -15,14 +16,14 @@ import {
 import { GET_TRIP_DETAILS } from "../tripDetails/TripDetailsActions";
 import { GET_TRIP } from "../trip/TripActions";
 
-import {
-    getLocalDate,
-    formatDate,
-} from "../../shared/date/Date";
+// import {
+//     getLocalDate,
+//     formatDate,
+// } from "../../shared/date/Date";
 
-import {
-    MIN,
-} from "../../components/newTrip/NewTrip";
+// import {
+//     MIN,
+// } from "../../components/newTrip/NewTrip";
 
 const initialState = {
     title: "",
@@ -91,6 +92,11 @@ export const newActivityReducer = (
                 ...state,
                 errorMessage: action.errorMessage,
             };
+        case EDIT_ACTIVITY_FAILED:
+            return {
+                ...state,
+                errorMessage: action.errorMessage,
+            };
         case UPDATE_ACTIVITY_COST:
             return {
                 ...state,
@@ -107,6 +113,8 @@ export const newActivityReducer = (
                 ...initialState,
                 justCreatedActivity: false,
                 justPopulatedActivityForm: false,
+                startDate: action.tripDetails.start_date,
+                endDate: action.tripDetails.start_date,
             };
         case SET_CATEGORY:
             return {
@@ -133,7 +141,7 @@ export const newActivityReducer = (
                 ...state,
                 title: title,
                 description: description,
-                location: location,
+                location: location ? location: undefined,
                 category: category_id,
                 startDate: start_date,
                 endDate: end_date,

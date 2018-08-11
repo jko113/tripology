@@ -18,8 +18,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getTripDetails: (id, categories, mode) => {
-            dispatch(getTripDetails(id, categories, mode));
+        getTripDetails: (id, categories, mode, tripDetails) => {
+            dispatch(getTripDetails(id, categories, mode, tripDetails));
         },
         deleteActivity: (activityId, activitiesArray, groupedActivitiesArray, groupedMode) => {
             dispatch(deleteActivity(activityId, activitiesArray, groupedActivitiesArray, groupedMode));

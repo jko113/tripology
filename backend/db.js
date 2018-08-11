@@ -104,8 +104,15 @@ function editTrip(tripId, title, description, startDate, endDate) {
 }
 
 function addActivity(title, description, cost, location, trip_id, startDate, endDate, contact_id, category_id) {
-    // console.log("adding activity");
     return db.one("INSERT INTO trip_activities (title, description, cost, location, trip_id, start_date, end_date, contact_id, category_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING activity_id", [title, description, cost, location, trip_id, startDate, endDate, contact_id, category_id]);
+}
+
+function editActivity(title, description, cost, location, startDate, endDate, contact_id, category_id, activityId) {
+    return db.one("UPDATE trip_activities SET \
+    title = $1, description = $2, cost = $3, location = $4, \
+    start_date = $5, end_date = $6, contact_id = $7, category_id = $8 \
+    WHERE activity_id = $9 \
+    RETURNING activity_id", [title, description, cost, location, startDate, endDate, contact_id, category_id, activityId]);
 }
 
 function deleteActivity(activityId) {
@@ -131,6 +138,7 @@ module.exports = {
     addTrip,
     editTrip,
     addActivity,
+    editActivity,
     deleteActivity,
     deleteTrip,
     getCategories,

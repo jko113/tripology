@@ -8,7 +8,7 @@ class TripDetails extends React.Component {
 
     componentDidMount() {
         if (this.props.user.authenticated) {
-            this.props.getTripDetails(this.props.match.params.id, this.props.categories, true);
+            this.props.getTripDetails(this.props.match.params.id, this.props.categories, true, this.props.currentTrip.data);
         }
     }
 

@@ -198,11 +198,8 @@ app.post("/api/editTrip", (req, res) => {
 });
 
 app.post("/api/newActivity", (req, res) => {
-    // console.log("req.body new activity",req.body);
     activityDetails = req.body.activityDetails;
-    // console.log("activityDet keys", Object.keys(activityDetails));
     tripDetails = activityDetails.currentTrip;
-    // console.log(tripDetails);
     const {
         title,
         description,
@@ -215,11 +212,8 @@ app.post("/api/newActivity", (req, res) => {
     const {
         trip_id,
     } = tripDetails;
-    // const trip_id = 1;
-    // const cost = 50;
-    // const location = "home";
+    
     const contactId = 1;
-    // const categoryId = 1;
     
     db.addActivity(
         title,
@@ -232,7 +226,37 @@ app.post("/api/newActivity", (req, res) => {
         contactId,
         categoryId,
     ).then(result => {
-        // console.log("result",result);
+        res.json(result);
+    }).catch(error => console.error);
+});
+
+app.post("/api/editActivity", (req, res) => {
+    activityDetails = req.body.activityDetails;
+    tripDetails = activityDetails.currentTrip;
+    const {
+        title,
+        description,
+        location,
+        startDate,
+        endDate,
+        cost,
+        categoryId,
+        activityId,
+    } = activityDetails;
+
+    const contactId = 1;
+    
+    db.editActivity(
+        title,
+        description,
+        cost,
+        location,
+        startDate,
+        endDate,
+        contactId,
+        categoryId,
+        activityId,
+    ).then(result => {
         res.json(result);
     }).catch(error => console.error);
 });

@@ -31,7 +31,7 @@ class NewActivity extends React.Component {
     };
 
     displayCost = (cost) => {
-        if (!this.props.newActivity.userHasInputCost) {
+        if (!this.props.newActivity.userHasInputCost && !this.props.newActivity.justPopulatedActivityForm) {
             return "";
         } else {
             return cost;
@@ -67,12 +67,15 @@ class NewActivity extends React.Component {
     getActivityForm = (inEditMode) => {
 
         const createNewActivity = this.props.createNewActivity;
+        const editActivity = this.props.editActivity;
         const newActivity = this.props.newActivity;
         const userInfo = this.props.user;
+        const userId = userInfo.userId;
         const currentTrip = this.props.currentTrip.data;
         const error = this.props.newActivity.errorMessage;
         const errorText = error ? error: "hidden";
         const errorClass = error ? "": "hidden";
+        const correctFunction = inEditMode ? editActivity: createNewActivity;
 
         return (
             <div
@@ -156,8 +159,7 @@ class NewActivity extends React.Component {
                     <div
                         className="link-item app-flex pointer app-bigger-margin-top app-margin-right"
                         onClick={() => {
-                            // console.log("attempted to submit new activity", newActivity)
-                            createNewActivity({
+                            const missive = {
                                 title: newActivity.title,
                                 description: newActivity.description ? newActivity.description: undefined,
                                 startDate: newActivity.startDate,
@@ -167,7 +169,10 @@ class NewActivity extends React.Component {
                                 cost: newActivity.cost,
                                 location: newActivity.location ? newActivity.location: undefined,
                                 categoryId: this.getCategoryObject(newActivity.category).category_id,
-                            });
+                                activityId: newActivity.activityId ? newActivity.activityId: undefined,
+                            };
+                            
+                            correctFunction(missive, userId);
                         }}
                     >
                         Submit
@@ -190,7 +195,6 @@ class NewActivity extends React.Component {
 
     render() {
 
-        console.log("act props", this.props);
         const authenticated = this.props.user.authenticated;
         const justCreatedActivity = this.props.newActivity.justCreatedActivity;
         const tripDetails = this.props.tripDetails;

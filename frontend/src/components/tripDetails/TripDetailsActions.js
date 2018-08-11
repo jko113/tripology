@@ -6,7 +6,7 @@ export const DELETE_ACTIVITY = "DELETE_ACTIVITY";
 export const CHANGE_FILTER_DATE = "CHANGE_FILTER_DATE";
 export const SET_GROUPING_MODE = "SET_GROUPING_MODE";
 
-export const getTripDetails = (id, categories, mode) => {
+export const getTripDetails = (id, categories, mode, tripDetails) => {
     return (dispatch) => {
         axios({
             url: `${rootUrl}/api/tripdetails/${id}`,
@@ -43,6 +43,7 @@ export const getTripDetails = (id, categories, mode) => {
                     payload: result.data,
                     groupedDetails: groupedDetailsArray,
                     mode: mode,
+                    tripDetails: tripDetails,
                 }) 
             } else {
                 return null;

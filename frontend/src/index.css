@@ -263,7 +263,12 @@ select:-webkit-autofill:focus {
   width: inherit;
 }
 
-.screen-height, .screen-height-new-trip, .screen-height-auth, .screen-height-trip {
+.screen-height,
+.screen-height-new-trip,
+.screen-height-auth,
+.screen-height-trip,
+.screen-height-all-trips
+{
   height: calc(100vh - 50px);
 }
 
@@ -354,12 +359,6 @@ select:-webkit-autofill:focus {
 a {
   text-decoration: none;
   color: inherit;
-}
-
-
-.app-add-first {
-  color: #00c457 !important;
-  cursor: pointer;
 }
 
 .app-new-activity-cost {

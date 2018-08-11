@@ -20,13 +20,17 @@ class AllTripsByUser extends React.Component {
             })
         } else {
             return (
-                <div className="">
-                    No trips yet.&nbsp;
-                    <div className="inline">
+                <div className="app-flex app-flex-column">
+                    <div className="h2 green">No trips yet!</div>
+                    <div className="app-flex app-margin-top">
                         <Link
-                            className="app-add-first"
+                            className="link-item app-flex app-margin-right"
                             to="/newTrip"
-                        >Add one?</Link>
+                        >Add</Link>
+                        <Link
+                            className="link-item-ghost app-flex"
+                            to="/"
+                        >Back</Link>
                     </div>
                 </div>
             );
@@ -38,9 +42,10 @@ class AllTripsByUser extends React.Component {
 
         if (authenticated) {
             const allTripsByUser = this.props.allTripsByUser.data;
+            const height = allTripsByUser.length ? "": "screen-height-all-trips"
             const userName = this.props.user.username;
             return (
-                <div className="app-flex app-flex-column">
+                <div className={`app-flex app-flex-column ${height}`}>
                     <div className="h1 app-margin-bottom">{userName}'s Trips</div>
                     {this.getTrips(allTripsByUser)}
                 </div>

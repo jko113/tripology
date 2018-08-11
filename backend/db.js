@@ -15,12 +15,6 @@ const user1 = {
 const simplecrypt = require("simplecrypt");
 const sc = simplecrypt(user1);
 
-// function getAllTripsByUser(user_id, trip_id) {
-//     return db.any("SELECT DISTINCT t.*, SUM(ta.cost) OVER () FROM trips AS t \
-//     JOIN trip_activities AS ta \
-//     ON t.trip_id = ta.trip_id WHERE t.user_id = $1 AND t.trip_id = $2;", [user_id, trip_id]);
-// }
-
 function getAllTripsByUser(user_id) {
     return db.any("SELECT * FROM trips WHERE user_id = $1;", [user_id]);
 }
@@ -44,10 +38,8 @@ function validateExistingUserPassword(user_id, username, password) {
 
             let decrypted = sc.decrypt(result.password);
             if (decrypted === password) {
-                // return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 AND password = $2 GROUP BY user_id;", [username, decrypted]);
                 return db.oneOrNone("SELECT user_id, (COUNT(user_id) = 1) AS exists FROM users WHERE username = $1 GROUP BY user_id;", [username]);
             } else {
-                // console.error("incorrect password");
                 return false;
             }
         })

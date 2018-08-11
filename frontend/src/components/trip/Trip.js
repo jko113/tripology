@@ -31,7 +31,6 @@ class Trip extends React.Component {
                 <div className="screen-height-trip app-flex app-flex-column">
                     <div className="app-padding app-margin app-flex app-flex-column">
                         <div className="h1 app-trip-item app-margin-bottom">
-                            {/* <div>{currentTrip.title}</div> */}
                             {currentTrip.title}
                         </div>
                         <div className="h2 app-trip-item app-small-margin-bottom">

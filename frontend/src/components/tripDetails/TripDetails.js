@@ -138,7 +138,6 @@ class TripDetails extends React.Component {
 
     xiamian = () => {
 
-        // const userId = this.props.user.userId;
         const tripId = this.props.currentTrip.data.trip_id;
 
         return (
@@ -151,7 +150,6 @@ class TripDetails extends React.Component {
                 </Link>
                 <Link
                     className="link-item-ghost app-flex"
-                    // to={`/allTripsByUser/${userId}`}
                     to={`/trip/${tripId}`}
                 >Back</Link>
             </div>

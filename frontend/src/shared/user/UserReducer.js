@@ -8,7 +8,6 @@ import {
     CREATE_NEW_USER,
     CREATE_NEW_USER_FAILED,
     LOG_IN_FAILED,
-    // GOD_MODE,
 } from "./UserActions";
 
 import { initialState } from "../../shared/initialState/InitialState"; 
@@ -37,7 +36,6 @@ export const userReducer = (
                 ...state,
                 authenticated: action.isAuthenticated,
                 userId: action.userId,
-                // username: "",
                 password: "",
                 errorMessage: undefined,
                 authorizationMode: "",
@@ -48,13 +46,11 @@ export const userReducer = (
                 authenticated: action.isAuthenticated || false,
                 userId: undefined,
                 authorizationMode: action.authorizationMode,
-                // errorMessage: "User credentials invalid."
             });
         case CHANGE_AUTHORIZATION_MODE:
             return Object.assign({}, state, {
                 authorizationMode: action.payload,
                 errorMessage: undefined,
-                // username: action.username,
                 password: action.auth ? state.password: "",
                 username: action.auth ? state.username: "",
             });
@@ -78,7 +74,6 @@ export const userReducer = (
                 ...state,
                 authenticated: action.isAuthenticated,
                 userId: action.userId,
-                // username: "",
                 password: "",
                 errorMessage: action.errorMessage,
                 authorizationMode: action.authorizationMode,
@@ -92,11 +87,6 @@ export const userReducer = (
                 password: "",
                 errorMessage: action.errorMessage,
             };
-        // case GOD_MODE:
-        //     return {
-        //         ...state,
-        //         godMode: true,
-        //     };
         default:
             return state;
     }

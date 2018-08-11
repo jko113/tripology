@@ -1,7 +1,5 @@
 import axios from "axios";
 import { rootUrl } from "../../shared/URL/rootUrl";
-// import MAX from "./NewTrip";
-// import MIN from "./NewTrip";
 import { getLocalDate } from "../../shared/date/Date";
 
 export const CREATE_NEW_TRIP = "CREATE_NEW_TRIP";
@@ -24,7 +22,6 @@ export const createNewTrip = (tripDetails) => {
     if (!tripDetails.title || !tripDetails.description || !tripDetails.startDate || !tripDetails.endDate) {
         return {
             type: CREATE_NEW_TRIP_FAILED,
-            // errorMessage: "Please enter title and description.",
             errorMessage: "Please enter all fields.",
         };
     }

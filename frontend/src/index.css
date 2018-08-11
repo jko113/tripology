@@ -230,17 +230,9 @@ select:-webkit-autofill:focus {
   text-align: center;
 }
 
-/* .app-single-activity:last-child {
-  border-bottom: none;
-} */
-
 .app-flex-align-self-center {
   align-self: center;
 }
-
-/* .app-flex-justify-self-center {
-  justify-self: center;
-} */
 
 .activity-group {
   border-bottom: 1px solid #00c457;
@@ -393,12 +385,6 @@ a {
   left: 10vw;
   top: 85vh;
 }
-
-/* @media screen and (max-height: 400px) {
-  .screen-height-all-trips {
-    height: auto;
-  }
-} */
 
 @media screen and (max-height: 445px) {
   .screen-height-trip {

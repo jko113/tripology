@@ -150,7 +150,6 @@ export const editActivity = (activityDetails, userId) => {
         axios.post(`${rootUrl}/api/editActivity`, {
             activityDetails,
         }).then(result => {
-            // console.log(result, "result");
             const activityId = result.data.activity_id;
             if (activityId) {
                 dispatch({

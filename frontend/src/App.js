@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
-// import { ConnectedAllTrips as AllTrips } from "./components/allTrips/AllTripsContainer"
 import { ConnectedAllTripsByUser as AllTripsByUser } from "./components/allTripsByUser/AllTripsByUserContainer"
 import { ConnectedTrip as Trip } from "./components/trip/TripContainer"
 import { ConnectedNewTrip as NewTrip } from "./components/newTrip/NewTripContainer";
 import { ConnectedNewActivity as NewActivity } from "./components/newActivity/NewActivityContainer";
 import { ConnectedTripDetails as TripDetails } from "./components/tripDetails/TripDetailsContainer"
-// import Signin from "./components/signin/SignIn"
 import { HashRouter as Router, Route } from "react-router-dom";
-// import NavBar from "./components/navbar/NavBar";
-// import { ConnectedSignOut as SignOut } from "./components/signin/SignOut";
 import { ConnectedHeader as Header} from "./components/header/HeaderContainer";
 import { ConnectedAuthorization as Authorization } from './components/authorization/AuthorizationContainer';
-// import { SignUp } from "./components/SignUp/SignUp";
-// import { SignIn } from "./components/SignIn/SignIn";
 import Home from "./components/home/Home";
 
 class App extends Component {

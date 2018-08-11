@@ -12,7 +12,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getAllTripsByUser: (userId) => {
-            // console.log("mapDispatchToProps userId: ", userId);
             dispatch(getAllTripsByUser(userId));
         },
     };

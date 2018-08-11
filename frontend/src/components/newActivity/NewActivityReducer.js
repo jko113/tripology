@@ -16,21 +16,10 @@ import {
 import { GET_TRIP_DETAILS } from "../tripDetails/TripDetailsActions";
 import { GET_TRIP } from "../trip/TripActions";
 
-// import {
-//     getLocalDate,
-//     formatDate,
-// } from "../../shared/date/Date";
-
-// import {
-//     MIN,
-// } from "../../components/newTrip/NewTrip";
-
 const initialState = {
     title: "",
     description: "",
     location: "",
-    // startDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
-    // endDate: formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60))),
     userHasInputStart: false,
     userHasInputEnd: false,
     userHasInputCost: false,

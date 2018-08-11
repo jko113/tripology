@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-// import { allTripsReducer } from "./components/allTrips/AllTripsReducer";
 import { newTripReducer, initialState as initialNewTripState } from "./components/newTrip/NewTripReducer";
 import { newActivityReducer } from "./components/newActivity/NewActivityReducer";
 import { TripReducer } from "./components/trip/TripReducer";
@@ -19,7 +18,6 @@ const rootReducer = (state, action) => {
 };
 
 const combinedReducer = combineReducers({
-    // allTrips: allTripsReducer,
     newTrip: newTripReducer,
     newActivity: newActivityReducer,
     currentTrip: TripReducer,
@@ -37,7 +35,6 @@ const signoutReducer = (state, action) => {
 
     return {
         ...state,
-        // allTrips: {data: []},
         currentTrip: {data: {}},
         tripDetails: {data: []},
         allTripsByUser: {data: []},
@@ -47,13 +44,5 @@ const signoutReducer = (state, action) => {
         categories: {data: []},
     };
 };
-
-// const rootReducer = combineReducers({
-//     allTrips: allTripsReducer,
-//     currentTrip: TripReducer,
-//     tripDetails: TripDetailsReducer,
-//     allTripsByUser: allTripsByUserReducer,
-//     user: userReducer,
-// });
 
 export default rootReducer;

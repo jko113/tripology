@@ -20,7 +20,6 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(getOneTrip(id));
         },
         resetJustCreatedTrip: () => {
-            // console.log("dispatched 'just created trip' method");
             dispatch(resetJustCreatedTrip());
         },
         deleteTrip: (tripId) => {

@@ -71,9 +71,7 @@ export const deleteActivity = (activityId, activitiesArray, groupedActivitiesArr
                 type: DELETE_ACTIVITY,
                 payload: activitiesArray.filter(a => a.activity_id !== activityId),
                 groupedDetails: newGroupedActivitiesArray,
-            }).then(e => {
-                console.log("e is", e);
-            }).catch(e => console.error);
+            }).catch(error => console.error);
         }).catch(error => console.error);
     };
 };

@@ -4,7 +4,6 @@ import {
     changeAuthorizationMode,
     signOut,
     loginFailed,
-    /*godMode, */
 } from "../../shared/user/UserActions";
 
 import { createNewTrip, } from "../../components/newTrip/NewTripActions";
@@ -12,8 +11,6 @@ import { createNewTrip, } from "../../components/newTrip/NewTripActions";
 const mapStateToProps = (state) => {
     return {
         user: state.user,
-        // currentTrip: state.currentTrip,
-        // allTripsByUser: state.allTripsByUser,
     };
 };
 
@@ -31,9 +28,6 @@ const mapDispatchToProps = (dispatch) => {
         createNewTrip: (tripDetails) => {
             dispatch(createNewTrip(tripDetails));
         },
-        // godMode: () => {
-        //     dispatch(godMode());
-        // },
     };
 };
 

@@ -15,8 +15,10 @@ const user1 = {
 const simplecrypt = require("simplecrypt");
 const sc = simplecrypt(user1);
 
-// function getAllTrips() {
-//     return db.any("SELECT * FROM trips;");
+// function getAllTripsByUser(user_id, trip_id) {
+//     return db.any("SELECT DISTINCT t.*, SUM(ta.cost) OVER () FROM trips AS t \
+//     JOIN trip_activities AS ta \
+//     ON t.trip_id = ta.trip_id WHERE t.user_id = $1 AND t.trip_id = $2;", [user_id, trip_id]);
 // }
 
 function getAllTripsByUser(user_id) {
@@ -25,6 +27,10 @@ function getAllTripsByUser(user_id) {
 
 function getOneTrip(trip_id) {
     return db.oneOrNone("SELECT * FROM trips WHERE trip_id = $1;", [trip_id]);
+}
+
+function getTripCost(trip_id) {
+    return db.one("SELECT SUM(cost) FROM trip_activities WHERE trip_id = $1;", [trip_id]);
 }
 
 function getTripDetails(trip_id) {
@@ -130,6 +136,7 @@ function getCategories() {
 module.exports = {
     // getAllTrips,
     getOneTrip,
+    getTripCost,
     getTripDetails,
     validateExistingUserPassword,
     checkUserExistenceByUsername,

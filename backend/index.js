@@ -14,19 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cors())
 
-// const simplecrypt = require("simplecrypt");
-// const sc = simplecrypt();
-
-// app.get("/allTrips", (req, res) => {
-//     db.getAllTrips()
-//         .then(data => {
-//             res.json(data);
-//         })
-// });
-
 app.get("/api/allTripsByUser/:id", (req, res) => {
     const userId = req.params.id;
-    // console.log(userId);
     db.getAllTripsByUser(userId)
         .then(data => {
             res.json(data);
@@ -35,16 +24,20 @@ app.get("/api/allTripsByUser/:id", (req, res) => {
 
 app.get("/api/trip/:id", (req, res) => {
     db.getOneTrip(req.params.id)
-        .then(data => {
-            res.json(data);
-        })
+        .then(tripData => {            
+            db.getTripCost(tripData.trip_id)
+                .then(cost => {
+                    tripData["tripCost"] = cost.sum;
+                    res.json(tripData);
+                })
+                .catch(error => console.error);
+        
+        }).catch(error => console.error);
 });
 
 app.get("/api/tripdetails/:id", (req, res) => {
-    // console.log("tripdetails req.params", req.params);
     db.getTripDetails(req.params.id)
         .then(data => {
-            // console.log(data);
             res.json(data);
         })
 });
@@ -56,19 +49,15 @@ app.post("/api/signout", (req, res) => {
 });
 
 app.post("/api/deleteActivity", (req, res) => {
-    // console.log(req.body, "delete acti req.body");
     db.deleteActivity(req.body.activityId)
         .then(result => {
-            // console.log("deletion result", result);
             res.json(result)
         }).catch(err => console.error);
 });
 
 app.post("/api/deleteTrip", (req, res) => {
-    // console.log("deletetrip req.body", req.body);
     db.deleteTrip(req.body.tripId)
         .then(result => {
-            // console.log("deletion result", result);
             res.json(result)
         }).catch(err => console.error);
 });
@@ -78,13 +67,10 @@ app.post("/api/signin", (req, res) => {
     const password = req.body.password;
     db.checkUserExistenceByUsername(username)
         .then(result => {
-            // console.log(result, "result1");
             if (result && result.exists) {
                 db.validateExistingUserPassword(result.user_id, username, password)
                     .then(result => {
                         if (result) {
-                            // result["token"] = "a token";
-                            // res.json(result);
                             return result;
                         } else {
                             // incorrect password, no?
@@ -93,7 +79,6 @@ app.post("/api/signin", (req, res) => {
                             });
                         }
                     }).then(userExistsObject => {
-                        // console.log(result, "resultypoo");
                         db.getCategories(userExistsObject)
                             .then(categories => {
                                 const returnObj = {
@@ -110,7 +95,6 @@ app.post("/api/signin", (req, res) => {
                 res.json({
                     error: "Username does not exist."
                 });
-                // return false;
             }
         }).catch(error => console.error);
 
@@ -120,9 +104,6 @@ app.post("/api/createnewuser", (req, res) => {
 
     db.createNewUser(req.body.username, req.body.password)
         .then(result => {
-            // console.log(JSON.stringify(result) + "result");
-            // result["usernameAvailable"] = true,
-            // console.log(result);
             res.json(result);
         })
         .catch(error => console.error);

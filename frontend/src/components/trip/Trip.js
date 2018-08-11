@@ -7,22 +7,16 @@ class Trip extends React.Component {
         const justCreatedTrip = this.props.newTrip.justCreatedTrip;
 
         if (justCreatedTrip) {
-            // console.log("just created and rendering Trip");
             this.props.resetJustCreatedTrip();
         }
     }
 
     componentDidMount() {
         const authenticated = this.props.user.authenticated;
-        // console.log(this.props.match.params, "params");
-        // console.log(this.props, "trip props hey");
+
         if (authenticated) {
             this.props.getOneTrip(this.props.match.params.id);
         }
-        // else {
-        //     console.log("got to unauth trip reload");
-        //     return <Redirect to="/signin" />;
-        // }
     }
 
     render() {
@@ -44,6 +38,11 @@ class Trip extends React.Component {
                         </div>
                         <div>
                             {this._formatDate(currentTrip.start_date)}&nbsp;to&nbsp;{this._formatDate(currentTrip.end_date)}
+                        </div>
+                        <div
+                            className={currentTrip.tripCost ? "app-small-margin-top": "invisible"}
+                        >
+                            Total Expenses: ${currentTrip.tripCost}
                         </div>
                         <div className="app-flex">
                             <Link

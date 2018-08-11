@@ -21,7 +21,7 @@ export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY";
 export const SET_CATEGORY = "SET_CATEGORY";
 
 const MAX = getLocalDate(new Date("2019-12-31"));
-const MIN = getLocalDate(new Date());
+const MIN = getLocalDate(new Date("2000-01-01"));
 
 
 export const createNewActivity = (activityDetails) => {
@@ -59,7 +59,7 @@ export const createNewActivity = (activityDetails) => {
     else if (startDate < MIN || endDate < MIN) {
         return {
             type: CREATE_NEW_ACTIVITY_FAILED,
-            errorMessage: "Activity dates must be in the future."
+            errorMessage: "Activity dates must be in the year 2000 or later."
         };
     } else if (startDate > MAX || endDate > MAX) {
         return {
@@ -131,7 +131,7 @@ export const editActivity = (activityDetails, userId) => {
     else if (startDate < MIN || endDate < MIN) {
         return {
             type: EDIT_ACTIVITY_FAILED,
-            errorMessage: "Activity dates must be in the future."
+            errorMessage: "Activity dates must be in the year 2000 or later."
         };
     } else if (startDate > MAX || endDate > MAX) {
         return {

@@ -391,7 +391,7 @@ class TripDetails extends React.Component {
                                     Add
                                 </Link>
                                 <Link
-                                    className="link-item app-flex app-margin-top"
+                                    className="link-item-ghost app-flex app-margin-top"
                                     to={`/trip/${currentTrip.trip_id}`}
                                 >
                                     Back

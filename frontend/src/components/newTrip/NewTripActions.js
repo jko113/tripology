@@ -15,7 +15,7 @@ export const EDIT_TRIP_FAILED = "EDIT_TRIP_FAILED";
 export const POPULATE_EDIT_TRIP_FORM = "POPULATE_EDIT_TRIP_FORM";
 
 const MAX = getLocalDate(new Date("2019-12-31"));
-const MIN = getLocalDate(new Date());
+const MIN = getLocalDate(new Date("2000-01-01"));
 
 export const createNewTrip = (tripDetails) => {
 
@@ -35,7 +35,7 @@ export const createNewTrip = (tripDetails) => {
     if (startDate < MIN || endDate < MIN) {
         return {
             type: CREATE_NEW_TRIP_FAILED,
-            errorMessage: "Trip dates must be in the future."
+            errorMessage: "Trip dates must be in the year 2000 or later."
         };
     } else if (startDate > MAX || endDate > MAX) {
         return {
@@ -78,7 +78,7 @@ export const editTrip = (tripDetails) => {
     if (startDate < MIN || endDate < MIN) {
         return {
             type: EDIT_TRIP_FAILED,
-            errorMessage: "Trip dates must be in the future."
+            errorMessage: "Trip dates must be in the year 2000 or later."
         };
     } else if (startDate > MAX || endDate > MAX) {
         return {

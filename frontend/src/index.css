@@ -394,6 +394,12 @@ a {
   top: 85vh;
 }
 
+/* @media screen and (max-height: 400px) {
+  .screen-height-all-trips {
+    height: auto;
+  }
+} */
+
 @media screen and (max-height: 445px) {
   .screen-height-trip {
     height: auto;

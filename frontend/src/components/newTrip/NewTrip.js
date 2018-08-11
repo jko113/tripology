@@ -42,6 +42,7 @@ class NewTrip extends React.Component {
         const editTrip = this.props.editTrip;
         const newTrip = this.props.newTrip;
         const userInfo = this.props.user;
+        const userId = userInfo.userId;
         const error = this.props.newTrip.errorMessage;
         const errorText = error ? error: "hidden";
         const errorClass = error ? "": "hidden";
@@ -49,7 +50,7 @@ class NewTrip extends React.Component {
         const headerMessage = inEditMode ? "Edit Trip": "Add New Trip";
         const correctFunction = inEditMode ? editTrip: createNewTrip;
         const tripId = inEditMode ? this.props.currentTrip.data.trip_id: undefined;
-        const correctCancelPath = inEditMode ? `/trip/${tripId}`: `/`;
+        const correctCancelPath = inEditMode ? `/trip/${tripId}`: `/allTripsByUser/${userId}`;
 
         return (
             <div

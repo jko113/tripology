@@ -174,7 +174,7 @@ class NewActivity extends React.Component {
                     </div>
                     <Link
                         to={`/tripdetails/${currentTrip.trip_id}`}
-                        className="link-item app-flex pointer app-bigger-margin-top"
+                        className="link-item-ghost app-flex pointer app-bigger-margin-top"
                     >
                         Back
                     </Link>

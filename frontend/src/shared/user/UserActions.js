@@ -1,5 +1,6 @@
 import axios from "axios";
-import { rootUrl } from "../../shared/URL/rootUrl"; 
+import { rootUrl } from "../../shared/URL/rootUrl";
+import history from '../../history';
 
 export const CHANGE_AUTHORIZATION_MODE = "CHANGE_AUTHORIZATION_MODE";
 export const SIGN_OUT = "SIGN_OUT";
@@ -50,6 +51,7 @@ export const createNewUser = (username, password) => {
                     authorizationMode: "",
                     errorMessage: undefined,
                 });
+                history.push('/');
             } else {
                 dispatch({
                     type: CREATE_NEW_USER_FAILED,
@@ -77,6 +79,7 @@ export const logIn = (username, password) => {
                     userId: userInfo.user_id,
                     categories: result.data.categories,
                 });
+                history.push('/');
             } else {
                 dispatch({
                     type: LOG_IN_FAILED,

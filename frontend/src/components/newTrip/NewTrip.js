@@ -124,7 +124,7 @@ class NewTrip extends React.Component {
                         Submit
                     </div>
                     <Link
-                        className="link-item app-flex app-bigger-margin-top"
+                        className="link-item-ghost app-flex app-bigger-margin-top"
                         to={correctCancelPath}
                     >Cancel</Link>
                 </div>

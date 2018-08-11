@@ -87,7 +87,7 @@ class TripDetails extends React.Component {
                             return this.getTrip(activity);
                         })}</div>
                         <div
-                            className="app-margin-top"
+                            className="app-margin-top h1 green"
                         >
                             Total: ${this.getUngroupedCost(filteredArray)}
                         </div>
@@ -125,7 +125,7 @@ class TripDetails extends React.Component {
                                 );
                         }})}
                         <div
-                            className="app-margin-top"
+                            className="app-margin-top h1 green"
                         >
                             Total: ${this.getGroupedCost(filteredArray)}
                         </div>
@@ -138,7 +138,8 @@ class TripDetails extends React.Component {
 
     xiamian = () => {
 
-        const userId = this.props.user.userId;
+        // const userId = this.props.user.userId;
+        const tripId = this.props.currentTrip.data.trip_id;
 
         return (
             <div className="app-flex app-big-margin-top app-flex-align-self-center">
@@ -149,8 +150,9 @@ class TripDetails extends React.Component {
                     Add
                 </Link>
                 <Link
-                    className="link-item app-flex"
-                    to={`/allTripsByUser/${userId}`}
+                    className="link-item-ghost app-flex"
+                    // to={`/allTripsByUser/${userId}`}
+                    to={`/trip/${tripId}`}
                 >Back</Link>
             </div>
         );
@@ -164,8 +166,9 @@ class TripDetails extends React.Component {
             >
                 <div className="app-small-margin-bottom app-small-margin-right">
                     <div
-                        className="h2 app-tiny-margin-bottom"
+                        className="h2 app-flex-start app-tiny-margin-bottom"
                     >
+                        <i className="fas green app-small-margin-right fa-caret-right"></i>
                         {activity.title}
                     </div>
                     <div

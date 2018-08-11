@@ -84,7 +84,7 @@ class Header extends React.Component {
                 <div className="app-flex">
                     <div>
                         <Link
-                            className="pointer header-link-item app-flex app-small-margin"
+                            className="pointer header-link-item app-flex app-margin"
                             onClick={ () => {
                                 this.props.changeAuthorizationMode("", loggedIn);
                             }}
@@ -93,7 +93,7 @@ class Header extends React.Component {
                     </div>
                     <div>
                         <Link
-                            className={`link-item app-flex ${newTrip}`}
+                            className={`link-item-ghost app-flex ${newTrip}`}
                             to="/newTrip">New Trip
                         </Link>
                     </div>

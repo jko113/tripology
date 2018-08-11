@@ -50,6 +50,7 @@ body {
   font-weight: 300;
   color: #ffffff;
   letter-spacing: 0.17rem;
+  color: #00c457;
 }
 
 .app-home {
@@ -272,6 +273,14 @@ select:-webkit-autofill:focus {
   width: 100px;
 }
 
+.link-item-ghost {
+  background: transparent;
+  border: 1px solid #00c457;
+  color: #00c457;
+  padding: 10px;
+  width: 100px;
+}
+
 .link-item-bigger {
   background: #00c457;
   padding: 10px;
@@ -351,4 +360,29 @@ a {
 
 .app-no-top-margin {
   margin-top: 0;
+}
+
+.description1 {
+  position: absolute;
+  font-size: 0.7rem;
+  letter-spacing: 0.07rem;
+  left: 2vw;
+  top: 30vh;
+}
+
+.description2 {
+  position: absolute;
+  font-size: 0.7rem;
+  letter-spacing: 0.07rem;
+  right: 2vw;
+  top: 75vh;
+  color: #00c457;
+}
+
+.description3 {
+  position: absolute;
+  font-size: 0.7rem;
+  letter-spacing: 0.07rem;
+  left: 10vw;
+  top: 85vh;
 }

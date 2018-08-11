@@ -32,10 +32,10 @@ export const createNewUser = (username, password) => {
     return async (dispatch) => {
 
         // early return if invalid username/password combination
-        if (username.length > 11) {
+        if (username.length > 12) {
             return dispatch({
                 type: CREATE_NEW_USER_FAILED,
-                errorMessage: "Username must be 11 characters or less.",
+                errorMessage: "Username must be 12 characters or less.",
             });
         }
 

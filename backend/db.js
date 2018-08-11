@@ -126,7 +126,6 @@ function getCategories() {
 }
 
 module.exports = {
-    // getAllTrips,
     getOneTrip,
     getTripCost,
     getTripDetails,

@@ -20,11 +20,11 @@ class NewActivity extends React.Component {
 
     displayDate = (date, mode) => {
 
-        if (
-            (!this.props.newActivity.userHasInputStart && mode === "start") ||
-            (!this.props.newActivity.userHasInputEnd && mode === "end")
+        if ((!this.props.newActivity.justPopulatedActivityForm) &&
+            ((!this.props.newActivity.userHasInputStart && mode === "start") ||
+            (!this.props.newActivity.userHasInputEnd && mode === "end"))
         ) {
-            return formatDate(getLocalDate(new Date(MIN.getTime() + 1000*24*60*60)));
+            return formatDate(getLocalDate(new Date(this.props.currentTrip.data.start_date)));
         } else {
             return date;
         }

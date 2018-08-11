@@ -36,6 +36,7 @@ const initialState = {
     justCreatedActivity: false,
     cost: "",
     category: "",
+    justPopulatedActivityForm: false,
 };
 
 export const newActivityReducer = (
@@ -105,6 +106,7 @@ export const newActivityReducer = (
             return {
                 ...initialState,
                 justCreatedActivity: false,
+                justPopulatedActivityForm: false,
             };
         case SET_CATEGORY:
             return {
@@ -114,32 +116,33 @@ export const newActivityReducer = (
         case GET_TRIP:
             return initialState;
         case POPULATE_ACTIVITY_FORM:
-        const {
-            title,
-            description,
-            location,
-            cost,
-            activity_id,
-            trip_id,
-            start_date,
-            end_date,
-            contact_id,
-            category_id,
-        } = action.payload;
+            const {
+                title,
+                description,
+                location,
+                cost,
+                activity_id,
+                trip_id,
+                start_date,
+                end_date,
+                contact_id,
+                category_id,
+            } = action.payload;
 
-        return {
-            ...state,
-            title: title,
-            description: description,
-            location: location,
-            category: category_id,
-            startDate: start_date,
-            endDate: end_date,
-            cost: cost,
-            contactId: contact_id,
-            activityId: activity_id,
-            tripId: trip_id,
-        };
+            return {
+                ...state,
+                title: title,
+                description: description,
+                location: location,
+                category: category_id,
+                startDate: start_date,
+                endDate: end_date,
+                cost: cost,
+                contactId: contact_id,
+                activityId: activity_id,
+                tripId: trip_id,
+                justPopulatedActivityForm: true,
+            };
         default:
             return state;
     }

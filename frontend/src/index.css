@@ -386,3 +386,9 @@ a {
   left: 10vw;
   top: 85vh;
 }
+
+@media screen and (max-height: 699px) {
+  .screen-height {
+    height: auto;
+  }
+}

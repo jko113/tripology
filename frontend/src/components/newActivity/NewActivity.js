@@ -97,7 +97,7 @@ class NewActivity extends React.Component {
                             value={newActivity.title}
                             placeholder="Title"
                             onChange={(e) => {
-                                this.props.updateTitle(e.target.value);
+                                this.props.updateTitle(e.target.value.slice(0,30));
                             }}
                         />
                         <textarea
@@ -106,7 +106,7 @@ class NewActivity extends React.Component {
                             value={newActivity.description}
                             placeholder="Description"
                             onChange={(e) => {
-                                this.props.updateDescription(e.target.value);
+                                this.props.updateDescription(e.target.value.slice(0,150));
                             }}
                         />
                         <input
@@ -123,7 +123,7 @@ class NewActivity extends React.Component {
                             className="app-new-trip-title app-tiny-margin-top"
                             value={newActivity.location}
                             onChange={(e) => {
-                                this.props.updateLocation(e.target.value);
+                                this.props.updateLocation(e.target.value.slice(0,50));
                             }}
                             placeholder="Location"
                             type="text"

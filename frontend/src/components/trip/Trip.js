@@ -45,7 +45,7 @@ class Trip extends React.Component {
                         <div
                             className={currentTrip.tripCost ? "app-small-margin-top app-trip-item": "invisible"}
                         >
-                            Total Expenses: ${currentTrip.tripCost}
+                            Total Expenses: ${currentTrip.tripCost ? currentTrip.tripCost.toFixed(2): null}
                         </div>
                         <div className="app-flex">
                             <Link

@@ -28,7 +28,7 @@ CREATE TABLE contacts (
 CREATE TABLE trip_activities (
     activity_id serial primary key,
     title varchar(30),
-    description varchar(100),
+    description varchar(150),
     cost float,
     location varchar(50),
     trip_id integer REFERENCES trips(trip_id) ON DELETE CASCADE,

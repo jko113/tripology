@@ -69,7 +69,7 @@ class NewTrip extends React.Component {
                             value={newTrip.title}
                             placeholder="Title"
                             onChange={(e) => {
-                                this.props.updateTitle(e.target.value);
+                                this.props.updateTitle(e.target.value.slice(0,30));
                             }}
                         />
                         <textarea
@@ -78,7 +78,7 @@ class NewTrip extends React.Component {
                             value={newTrip.description}
                             placeholder="Description"
                             onChange={(e) => {
-                                this.props.updateDescription(e.target.value);
+                                this.props.updateDescription(e.target.value.slice(0,100));
                             }}
                         />
                     </div>

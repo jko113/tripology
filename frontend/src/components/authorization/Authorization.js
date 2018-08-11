@@ -75,18 +75,18 @@ class Authorization extends React.Component {
         if (!this.props.user.authenticated) {
             if (authMode) {
                 return (
-                    <div className="screen-height app-flex">
+                    <div className="screen-height-auth app-flex">
                         {this.getAuthInputFields(authMode)}
                     </div>
                 );
             } else if (path.toLowerCase() === "/signup" || path.toLowerCase() === "/signin") {
                 return (
-                    <div className="screen-height app-flex">
+                    <div className="screen-height-auth app-flex">
                         {this.getAuthInputFields(path.slice(1).toLowerCase())}
                     </div>
                 );
             } else {
-                return <div className="screen-height app-flex app-flex-center">Please sign in or create an account.</div>;
+                return <div className="screen-height-auth app-flex app-flex-center">Please sign in or create an account.</div>;
             }
         }
         

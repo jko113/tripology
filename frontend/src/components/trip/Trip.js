@@ -28,19 +28,22 @@ class Trip extends React.Component {
         if (authenticated) {
 
             return (
-                <div className="screen-height app-flex app-flex-column">
+                <div className="screen-height-trip app-flex app-flex-column">
                     <div className="app-padding app-margin app-flex app-flex-column">
-                        <div className="h1 app-margin-bottom">
+                        <div className="h1 app-trip-item app-margin-bottom">
+                            {/* <div>{currentTrip.title}</div> */}
                             {currentTrip.title}
                         </div>
-                        <div className="h2 app-small-margin-bottom">
+                        <div className="h2 app-trip-item app-small-margin-bottom">
                             {currentTrip.description}
                         </div>
-                        <div>
+                        <div
+                            className="app-trip-item"
+                        >
                             {this._formatDate(currentTrip.start_date)}&nbsp;to&nbsp;{this._formatDate(currentTrip.end_date)}
                         </div>
                         <div
-                            className={currentTrip.tripCost ? "app-small-margin-top": "invisible"}
+                            className={currentTrip.tripCost ? "app-small-margin-top app-trip-item": "invisible"}
                         >
                             Total Expenses: ${currentTrip.tripCost}
                         </div>

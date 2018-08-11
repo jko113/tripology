@@ -217,13 +217,17 @@ select:-webkit-autofill:focus {
   justify-content: space-between;
 }
 
-.app-flex-start {
+.app-flex-start, .app-new-trip-flex-start {
   align-items: flex-start;
   justify-content: flex-start;
 }
 
 .app-single-activity {
   border-bottom: 1px solid #fff;
+}
+
+.app-trip-item {
+  text-align: center;
 }
 
 /* .app-single-activity:last-child {
@@ -233,6 +237,10 @@ select:-webkit-autofill:focus {
 .app-flex-align-self-center {
   align-self: center;
 }
+
+/* .app-flex-justify-self-center {
+  justify-self: center;
+} */
 
 .activity-group {
   border-bottom: 1px solid #00c457;
@@ -255,7 +263,7 @@ select:-webkit-autofill:focus {
   width: inherit;
 }
 
-.screen-height {
+.screen-height, .screen-height-new-trip, .screen-height-auth, .screen-height-trip {
   height: calc(100vh - 50px);
 }
 
@@ -385,6 +393,24 @@ a {
   letter-spacing: 0.07rem;
   left: 10vw;
   top: 85vh;
+}
+
+@media screen and (max-height: 445px) {
+  .screen-height-trip {
+    height: auto;
+  }
+}
+
+@media screen and (max-height: 460px) {
+  .screen-height-new-trip {
+    height: auto;
+  }
+}
+
+@media screen and (max-width: 491px) {
+  .app-new-trip-flex-start {
+    justify-content: center;
+  }
 }
 
 @media screen and (max-height: 699px) {

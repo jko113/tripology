@@ -20,7 +20,7 @@ class AllTripsByUser extends React.Component {
             })
         } else {
             return (
-                <div>
+                <div className="">
                     No trips yet.&nbsp;
                     <div className="inline">
                         <Link

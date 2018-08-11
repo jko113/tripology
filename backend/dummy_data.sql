@@ -26,4 +26,4 @@ INSERT INTO trip_activities (title, description, cost, location, trip_id, start_
 ('Food tour', 'Booked tickets with Capital Foodies; they requested a confirmation call the morning of.', 35.50, 'Phnom Penh', 1, '2018-11-10', '2018-11-10', 3, 5),
 ('Hotel Lugubrious', 'They say, contrary to the name, that it''s a fantastic place to stay. Maybe they actually meant to say ''luxurious''?', 500, 'Phnom Penh', 1, '2018-11-04', '2018-11-11', 3, 7),
 ('Dinner with Shane', 'Shane said on our last night he plans to take us to that Michelin restaurant he''s always raving about -- Malis I think?', 200, 'Phnom Penh', 1, '2018-11-10', '2018-11-10', 3, 6),
-('Breakfast with Benny', 'Benny will pick us up from the hotel around 9; it''s a surprise where we''re going..', 200, 'Phnom Penh', 1, '2018-11-07', '2018-11-07', 3, 4);
+('Breakfast with Benny', 'Benny will pick us up from the hotel around 9; it''s a surprise where we''re going..', 80, 'Phnom Penh', 1, '2018-11-07', '2018-11-07', 3, 4);

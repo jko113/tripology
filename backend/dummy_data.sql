@@ -5,12 +5,12 @@ INSERT INTO trips (title, user_id, description, start_date, end_date) VALUES
 ('Cambodia', 1, 'There''s lots of pretty things to see in Cambodia!', '2017-11-04', '2020-11-11');
 
 INSERT INTO categories (title) VALUES
-('Morning'),
-('Afternoon'),
-('Evening'),
 ('Breakfast'),
+('Morning'),
 ('Lunch'),
+('Afternoon'),
 ('Dinner'),
+('Evening'),
 ('Lodging');
 
 INSERT INTO contacts (name, phone, email) VALUES

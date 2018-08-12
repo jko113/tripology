@@ -42,7 +42,7 @@ class Header extends React.Component {
 
     getAuthenticatedUserLinks = () => {
         const username = this.props.user.username;
-        const MAX_CHARACTER_LENGTH = 11;
+        const MAX_CHARACTER_LENGTH = 12;
         const tripsButtonText = username.length > MAX_CHARACTER_LENGTH ? "My Trips" : username + "'s Trips";
 
         return (

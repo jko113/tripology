@@ -81,25 +81,27 @@ body {
 
 input,
 textarea,
-select,
-input:-webkit-autofill,
-input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus
-textarea:-webkit-autofill,
+select
+/* input:-webkit-autofill, */
+/* input:-webkit-autofill:hover,  */
+/* input:-webkit-autofill:focus */
+/* textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover
 textarea:-webkit-autofill:focus,
 select:-webkit-autofill,
 select:-webkit-autofill:hover,
-select:-webkit-autofill:focus {
+select:-webkit-autofill:focus  */
+{
   padding: 5px;
   border: none;
   border-bottom: 1px solid #ffffff;
   -webkit-text-fill-color: #ffffff;
   -webkit-box-shadow: 0 0 0px 1000px #000 inset;
-  transition: background-color 5000s ease-in-out 0s;
+  /* transition: background-color 5000s ease-in-out 0s; */
   outline:0;
   caret-color: #ffffff;
   letter-spacing: 0.1rem;
+  background-color: #111111 !important;
 }
 
 .app-body {

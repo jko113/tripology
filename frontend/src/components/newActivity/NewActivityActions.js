@@ -19,6 +19,7 @@ export const CREATE_NEW_ACTIVITY_FAILED = "CREATE_NEW_ACTIVITY_FAILED";
 export const EDIT_ACTIVITY_FAILED = "EDIT_ACTIVITY_FAILED";
 export const JUST_CREATED_ACTIVITY = "JUST_CREATED_ACTIVITY";
 export const SET_CATEGORY = "SET_CATEGORY";
+export const POPULATE_FILTER_DATE = "POPULATE_FILTER_DATE";
 
 const MAX = getLocalDate(new Date("2019-12-31"));
 const MIN = getLocalDate(new Date("2000-01-01"));
@@ -224,5 +225,12 @@ export const populateActivityForm = (activityObject) => {
     return {
         type: POPULATE_ACTIVITY_FORM,
         payload: activityObject,
+    };
+};
+
+export const populateFilterDate = (filterDate) => {
+    return {
+        type: POPULATE_FILTER_DATE,
+        payload: filterDate,
     };
 };

@@ -11,6 +11,7 @@ import {
     UPDATE_ACTIVITY_LOCATION,
     SET_CATEGORY,
     POPULATE_ACTIVITY_FORM,
+    POPULATE_FILTER_DATE,
 } from "./NewActivityActions";
 
 import { GET_TRIP_DETAILS } from "../tripDetails/TripDetailsActions";
@@ -102,8 +103,8 @@ export const newActivityReducer = (
                 ...initialState,
                 justCreatedActivity: false,
                 justPopulatedActivityForm: false,
-                startDate: action.tripDetails.start_date,
-                endDate: action.tripDetails.start_date,
+                // startDate: action.tripDetails.start_date,
+                // endDate: action.tripDetails.start_date,
             };
         case SET_CATEGORY:
             return {
@@ -139,6 +140,12 @@ export const newActivityReducer = (
                 activityId: activity_id,
                 tripId: trip_id,
                 justPopulatedActivityForm: true,
+            };
+        case POPULATE_FILTER_DATE:
+            return {
+                ...state,
+                startDate: action.payload,
+                endDate: action.payload,
             };
         default:
             return state;

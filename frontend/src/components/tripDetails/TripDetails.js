@@ -145,6 +145,9 @@ class TripDetails extends React.Component {
                 <Link
                     to="/newActivity"
                     className="link-item app-flex app-margin-right"
+                    onClick={e => {
+                        this.props.populateFilterDate(this.props.tripDetails.filterDate);
+                    }}
                 >
                     Add
                 </Link>

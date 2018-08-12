@@ -5,7 +5,10 @@ import { getTripDetails,
     changeFilterDate,
     setGroupingMode,
 } from "./TripDetailsActions";
-import { populateActivityForm } from "../newActivity/NewActivityActions";
+import {
+    populateActivityForm,
+    populateFilterDate,
+} from "../newActivity/NewActivityActions";
 
 const mapStateToProps = (state) => {
     return {
@@ -32,6 +35,9 @@ const mapDispatchToProps = (dispatch) => {
         },
         populateActivityForm: (activityObject) => {
             dispatch(populateActivityForm(activityObject));
+        },
+        populateFilterDate: (filterDate) => {
+            dispatch(populateFilterDate(filterDate));
         },
     };
 };

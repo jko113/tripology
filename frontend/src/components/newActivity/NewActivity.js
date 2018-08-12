@@ -18,18 +18,6 @@ class NewActivity extends React.Component {
         }
     }
 
-    displayDate = (date, mode) => {
-
-        if ((!this.props.newActivity.justPopulatedActivityForm) &&
-            ((!this.props.newActivity.userHasInputStart && mode === "start") ||
-            (!this.props.newActivity.userHasInputEnd && mode === "end"))
-        ) {
-            return formatDate(getLocalDate(new Date(this.props.currentTrip.data.start_date)));
-        } else {
-            return date;
-        }
-    };
-
     displayCost = (cost) => {
         if (!this.props.newActivity.userHasInputCost && !this.props.newActivity.justPopulatedActivityForm) {
             return "";
@@ -138,7 +126,7 @@ class NewActivity extends React.Component {
                         <input
                             key="start-date"
                             value={
-                                this.displayDate(this.props.newActivity.startDate, "start")
+                                this.props.newActivity.startDate
                             }
                             type="date"
                             onChange={(e) => {
@@ -149,7 +137,7 @@ class NewActivity extends React.Component {
                             key="end-date"
                             className="app-tiny-margin-top"
                             value={
-                                this.displayDate(this.props.newActivity.endDate, "end")
+                                this.props.newActivity.endDate
                             }
                             type="date"
                             onChange={(e) => {

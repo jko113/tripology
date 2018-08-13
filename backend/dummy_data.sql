@@ -11,6 +11,7 @@ INSERT INTO categories (title) VALUES
 ('Afternoon'),
 ('Dinner'),
 ('Evening'),
+('Transportation'),
 ('Lodging');
 
 INSERT INTO contacts (name, phone, email) VALUES

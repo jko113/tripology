@@ -194,7 +194,7 @@ The key to this working properly is the offset, which calculates the difference 
 After going to great lengths to make this work like I expected, I found [this](https://blog.lftechnology.com/date-ing-javascript-6203650b752c) excellent article about the Date object that, had I known about it ahead of time, could have saved me some time and vexation. Nevertheless, it was instructive and beneficial for me to do the leg work of better understanding the Date object's internals and how to go about creating a custom function to manipulate dates as needed.
 
 ## Lessons Learned
-### Refactor for functionality and readability
+### Refactoring for functionality and readability
 I discovered several times when writing this application that certain blocks of code became ever more unintelligible. By that I mean difficult to tell at a glance what they were meant to accomplish. This was especially apparent in `render()` functions that had to take into account lots of different scenarios in order to display content correctly.
 
 To remedy this, I went about refactoring code with the goal of transposing large functional chunks of code to separate functions. Take for example the NewTrip component, which calls the `getBody()` method to grab the JSX that is to be rendered. `getBody()`, sitting at a hefty ~100 lines of code, definitely gets in the weeds of hammering out the content it's supposed to display. It was eye-poppingly confusing to mentally sift through (or try to ignore) all that logic when skimming over the components `render()` function, and was quite a relief once I moved that chunk off-site to `getBody()`:

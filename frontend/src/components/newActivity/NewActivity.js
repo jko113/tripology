@@ -80,7 +80,7 @@ class NewActivity extends React.Component {
                     >
                         <input
                             required
-                            autocomplete="off"
+                            autoComplete="off"
                             key="title"
                             className="app-new-trip-title"
                             value={newActivity.title}
@@ -90,7 +90,7 @@ class NewActivity extends React.Component {
                             }}
                         />
                         <textarea
-                            autocomplete="off"
+                            autoComplete="off"
                             key="description"
                             className="app-new-trip-description app-tiny-margin-top"
                             value={newActivity.description}
@@ -101,7 +101,7 @@ class NewActivity extends React.Component {
                         />
                         <input
                             required
-                            autocomplete="off"
+                            autoComplete="off"
                             className="app-new-trip-title app-tiny-margin-top"
                             value={this.displayCost(this.props.newActivity.cost)}
                             onChange={(e) => {
@@ -111,7 +111,7 @@ class NewActivity extends React.Component {
                             type="number"
                         />
                         <input
-                            autocomplete="off"
+                            autoComplete="off"
                             className="app-new-trip-title app-tiny-margin-top"
                             value={newActivity.location}
                             onChange={(e) => {

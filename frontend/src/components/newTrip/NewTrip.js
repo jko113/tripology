@@ -64,7 +64,7 @@ class NewTrip extends React.Component {
                         className="app-flex app-flex-column app-margin-right"
                     >
                         <input
-                            autocomplete="off"
+                            autoComplete="off"
                             key="title"
                             className="app-new-trip-title"
                             value={newTrip.title}
@@ -74,7 +74,7 @@ class NewTrip extends React.Component {
                             }}
                         />
                         <textarea
-                            autocomplete="off"
+                            autoComplete="off"
                             key="description"
                             className="app-new-trip-description app-tiny-margin-top"
                             value={newTrip.description}

@@ -78,12 +78,7 @@ function createNewUser(username, password) {
 }
 
 function validateUsername(username) {
-    const letters = /^[0-9a-zA-Z]+$/;
-    if (username.match(letters)) {
-        return true;
-    } else {
-        return false;
-    }
+    return username.match(/^\w+$/);
 }
 
 function addUserToDatabase(username, password) {

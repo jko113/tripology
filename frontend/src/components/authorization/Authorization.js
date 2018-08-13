@@ -29,7 +29,7 @@ class Authorization extends React.Component {
                     <div className="h1">{formattedMode}</div>
                     <div className="app-flex">
                         <input
-                            autocomplete="off"
+                            autoComplete="off"
                             type="text"
                             className="app-small-margin app-small-padding"
                             key="username"
@@ -40,7 +40,7 @@ class Authorization extends React.Component {
                             }
                         />
                         <input
-                            autocomplete="off"
+                            autoComplete="off"
                             type="password"
                             className="app-small-margin app-small-padding"
                             key="password"

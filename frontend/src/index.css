@@ -145,6 +145,10 @@ select
   align-items: center;
 }
 
+.app-date-filter {
+  justify-content: flex-start;
+}
+
 .app-flex-wrap {
   flex-wrap: wrap;
 }
@@ -224,6 +228,10 @@ select
 
 .app-flex-align-self-center {
   align-self: center;
+}
+
+.app-flex-align-self-start {
+  align-self: flex-start;
 }
 
 .activity-group {
@@ -335,6 +343,10 @@ select
   display: inline;
 }
 
+.app-today {
+  color: #00c457;
+}
+
 .app-new-trip-description {
   width: 300px;
   height: 100px;
@@ -351,6 +363,10 @@ a {
 
 .app-no-top-margin {
   margin-top: 0;
+}
+
+.app-flex-nowrap {
+  flex-wrap: nowrap;
 }
 
 .description1 {

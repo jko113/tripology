@@ -2,6 +2,7 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import {
     getLocalDate,
+    formatDate,
 } from "../../shared/date/Date";
 
 class TripDetails extends React.Component {
@@ -36,20 +37,30 @@ class TripDetails extends React.Component {
             <div
                 className="app-flex app-flex-column full-width"
             >
-                <div className="app-small-margin-bottom app-flex full-width app-flex-space-between">
+                <div className="app-flex full-width app-flex-space-between">
+                        <div
+                            className="app-flex app-flex-wrap app-date-filter"
+                        >
+                            <label className="app-flex">Filter by Date:
+                                <input
+                                    className="app-small-margin-right"
+                                    type="date"
+                                    value={this.getTripDetailsDate()}
+                                    onChange={(e) => {
+                                        this.props.changeFilterDate(e.target.value);
+                                    }}
+                            /></label>
+                            <div
+                                className="pointer app-today app-flex"
+                                onClick={(e) => {
+                                    this.props.changeFilterDate(formatDate(new Date()));
+                                }}
+                            >
+                                Today
+                            </div>
+                        </div>
                     <div
-                    >
-                        Filter by date:&nbsp;&nbsp;
-                        <input
-                            type="date"
-                            value={this.getTripDetailsDate()}
-                            onChange={(e) => {
-                                this.props.changeFilterDate(e.target.value);
-                            }}
-                        />
-                    </div>
-                    <div
-                        className="pointer app-margin-left"
+                        className="pointer app-flex"
                         onClick={(e) => {
                             this.props.changeFilterDate("");
                         }}

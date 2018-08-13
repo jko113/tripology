@@ -2,6 +2,8 @@
 ## Synopsis
 [Tripology](http://tripology.joshuakowens.com/) is a web application for managing travel information, allowing users to conveniently track trip expenses and daily itineraries by entering, editing, or deleting entries as needed.
 
+[![Main functionality](https://raw.githubusercontent.com/jko113/tripology/master/media/short_intro.gif)](https://youtu.be/kg5R2UQXbb8)
+
 ## Demo
 Check out the live site [here](http://tripology.joshuakowens.com/). A brief video introduction that outlines Tripology's basic features may be viewed [here](https://youtu.be/oRsh7U0P2zM).
 

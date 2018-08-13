@@ -87,7 +87,7 @@ class TripDetails extends React.Component {
             });
         }
         if (filteredArray && (!filteredArray.length || (groupedMode && arrayIsEmpty))) {        
-            return <div className="app-small-margin-top">No trip activities scheduled for the specified date.</div>;
+            return <div className="app-small-margin-top app-flex-align-self-center">No trip activities scheduled for the specified date.</div>;
         } else {
             if (!groupedMode) {
                 return (

@@ -92,11 +92,12 @@ export const createNewUser = (username, password) => {
         if (username.length > MAX || password.length > MAX) {
             return dispatch({
                 type: CREATE_NEW_USER_FAILED,
-                errorMessage: `Username must be ${MAX} characters or less.`,
+                errorMessage: `Username and password must be ${MAX} characters or less.`,
             });
         }
         
         // if the inputs are valid, proceed to make API call to the backend
+        
     }
 }
 ```

@@ -11,10 +11,8 @@ import {
 } from "./NewTripActions";
 
 import { JUST_CREATED_TRIP } from "../../components/trip/TripActions";
-// import { getLocalDate } from "../../shared/date/Date";
 
 import {
-    // MAX,
     MIN,
 } from "./NewTrip";
 
@@ -27,8 +25,6 @@ export const initialState = {
     description: "",
     startDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60)),
     endDate: formatDate(new Date(MIN.getTime() + 1000*24*60*60*2)),
-    // startDate: "",
-    // endDate: "",
     userHasInputStart: false,
     userHasInputEnd: false,
     justCreatedTrip: false,
@@ -65,13 +61,11 @@ export const newTripReducer = (
             return {
                 ...state,
                 title: action.payload,
-                // errorMessage: undefined,
             };
         case UPDATE_DESCRIPTION:
             return {
                 ...state,
                 description: action.payload,
-                // errorMessage: undefined,
             };
         case UPDATE_START_DATE:
             return {
@@ -96,9 +90,8 @@ export const newTripReducer = (
                 errorMessage: action.errorMessage,
             };
         case POPULATE_EDIT_TRIP_FORM:
-            // console.log(action, "action");
             const target = action.payload.data;
-            // return state;
+
             const returnObj = {
                 title: target.title,
                 description: target.description,
@@ -109,6 +102,7 @@ export const newTripReducer = (
                 userHasInputEnd: false,
                 justCreatedTrip: false,
             };
+            
             return returnObj;
         default:
             return state;

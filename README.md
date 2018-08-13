@@ -5,7 +5,7 @@
 [![Main functionality](https://raw.githubusercontent.com/jko113/tripology/master/media/short_intro.gif)](https://youtu.be/kg5R2UQXbb8)
 
 ## Demo
-Check out the live site [here](http://tripology.joshuakowens.com/). A brief video introduction that outlines Tripology's basic features may be viewed [here](https://youtu.be/oRsh7U0P2zM).
+Check [here](http://tripology.joshuakowens.com/) for the live site. Check out a brief video introduction (with audio commentary) that outlines Tripology's basic features [here](https://youtu.be/oRsh7U0P2zM).
 
 ## Technologies
 * HTML/CSS

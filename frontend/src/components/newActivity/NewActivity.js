@@ -2,7 +2,6 @@ import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import {
     getLocalDate,
-    formatDate,
 } from "../../shared/date/Date";
 
 export const MAX = getLocalDate(new Date("2019-12-31"));

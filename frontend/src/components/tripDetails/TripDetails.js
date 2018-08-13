@@ -39,7 +39,7 @@ class TripDetails extends React.Component {
             >
                 <div className="app-flex full-width app-flex-space-between">
                         <div
-                            className="app-flex app-flex-wrap app-date-filter"
+                            className="app-flex app-flex-wrap app-date-filter app-margin-right"
                         >
                             <label className="app-flex">Filter by Date:
                                 <input

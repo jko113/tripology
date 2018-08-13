@@ -97,4 +97,6 @@ export const createNewUser = (username, password) => {
         }
         
         // if the inputs are valid, proceed to make API call to the backend
+    }
+}
 ```

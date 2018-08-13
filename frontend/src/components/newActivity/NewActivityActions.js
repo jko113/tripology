@@ -217,7 +217,7 @@ export const updateCost = (typedValue) => {
 export const setCategory = (cat, cats) => {
     return {
         type: SET_CATEGORY,
-        payload: cat || cats[0].title,
+        payload: cat || (cats && cats.length ? cats[0].title: undefined),
     };
 };
 

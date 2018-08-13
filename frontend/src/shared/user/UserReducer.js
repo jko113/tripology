@@ -77,6 +77,7 @@ export const userReducer = (
                 password: "",
                 errorMessage: action.errorMessage,
                 authorizationMode: action.authorizationMode,
+                categories: action.categores,
             };
         case CREATE_NEW_USER_FAILED:
             return {

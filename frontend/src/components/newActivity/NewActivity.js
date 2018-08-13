@@ -10,13 +10,11 @@ export const MIN = getLocalDate(new Date());
 class NewActivity extends React.Component {
 
     componentDidMount() {
-        if (!this.props.categories.data.length) {
-            this.props.history.push(`/signin`);
-        } else {
+        if (this.props.user.authenticated && !this.props.categories.data.length) {
             this.props.setCategory(undefined, this.props.categories.data);
         }
     }
-
+    
     displayCost = (cost) => {
         if (!this.props.newActivity.userHasInputCost && !this.props.newActivity.justPopulatedActivityForm) {
             return "";

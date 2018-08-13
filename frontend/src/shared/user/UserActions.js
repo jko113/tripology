@@ -50,6 +50,7 @@ export const createNewUser = (username, password) => {
                     isAuthenticated: true,
                     authorizationMode: "",
                     errorMessage: undefined,
+                    categories: result.data.categories,
                 });
                 history.push('/');
             } else {

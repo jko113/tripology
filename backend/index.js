@@ -103,8 +103,14 @@ app.post("/api/signin", (req, res) => {
 app.post("/api/createnewuser", (req, res) => {
 
     db.createNewUser(req.body.username, req.body.password)
-        .then(result => {
-            res.json(result);
+        .then(userCreatedObject => {
+            // res.json(result);
+            db.getCategories(userCreatedObject)
+                .then(categories => {
+                    userCreatedObject["categories"] = categories;
+                    console.log(userCreatedObject);
+                    res.json(userCreatedObject);
+                }).catch(error => console.error);
         })
         .catch(error => console.error);
 });

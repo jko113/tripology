@@ -3,19 +3,21 @@
 [Tripology](http://tripology.joshuakowens.com/) is a web application for managing travel information, allowing users to conveniently track trip expenses and daily itineraries by entering, editing, or deleting entries as needed.
 
 ## Technologies
-HTML/CSS
-JavaScript
-Node.js
-PostgreSQL
-React
-Redux
-Express
-React-Redux
-React-Router-DOM
-Axios
-pg-promise
-Body-parser
-Simplecrypt
+* HTML/CSS
+* JavaScript
+* Node.js
+* PostgreSQL
+* Amazon Web Services
+* React
+* Redux
+* Express
+* React-Redux
+* React-Router-DOM
+* NGINX
+* Axios
+* pg-promise
+* Body-parser
+* Simplecrypt
 
 ## Creator
 Joshua Owens
@@ -27,7 +29,7 @@ When planning for an upcoming trip, I realized how handy an easily accessible we
 ### Deployed full-stack app to AWS
 It took a fair amount of trial and error and online research to correctly configure the AWS EC2 instance for hosting both the front and back end at the same URL end point.
 
-I utilized NGINX to route web traffic on the server. I found that it was necessary to separate backend (or API) calls from frontend files, because otherwise each call would be incorrectly routed to the proxy server handling backend requests. This is the general structure I settled on, where <> denotes properties unique to my configuration:
+I utilized NGINX to route web traffic on the server. I found it necessary to separate backend (or API) calls from frontend files, because otherwise each call would be incorrectly routed to the proxy server handling backend requests. This is the general structure I settled on, where <> denotes properties unique to my configuration:
 
 ```
 server {

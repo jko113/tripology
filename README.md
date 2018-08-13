@@ -11,16 +11,16 @@
 * React
 * Redux
 * Express
-* React-Redux
-* React-Router-DOM
+* React Redux
+* react-router-dom
 * NGINX
-* Axios
+* axios
 * pg-promise
-* Body-parser
+* body-parser
 * Simplecrypt
 
 ## Motivation
-When planning for an upcoming trip, I realized how handy an easily accessible web tool would be for staying organized while travelling - rather than carrying around loads of documents or having to commit important appointments to memory, why not store the information securely online? This idea spawned Tripology, an app that combines the utility of a calendar and practicality of a calculator with the pleasure of using a simple, streamlined UI.
+When planning for an upcoming trip, I realized how handy an easily accessible web tool would be for staying organized while travelling - rather than carrying around loads of documents or having to commit important appointments to memory, why not store the information securely online? This idea spawned Tripology, an app that combines the utility of a calendar and precision of a calculator with the pleasure and practicality of a simple, streamlined UI.
 
 ## Challenges
 ### Deployed full-stack app to AWS
@@ -63,6 +63,35 @@ The bulk of code is dedicated to functional component groups, such as NewTrip, N
 
 The four-file component structure isn't a hard-and-fast rule, however. I also found it useful to incorporate a couple of supplemental "utility" components for sharing functionality and logic among multiple components. These include "UserActions" and "Date".
 
+An interesting challenge posed by Redux is how best to implement state changes that involve several (or even all) parts of state that would not normally be interconnected. One example is the sign out action, which is effectively tasked with clearing the entire state. No doubt there are several ways to solve this problem, but the one I used is to wrap Redux's built-in `combineReducers()` function inside a function of my own that first asks the question "is the user signing out?". If the answers is yes, the state gets reset, and if it is no, the normal root reducer takes over from there.
+
+Here's the code used to implement this approach:
+
+```javascript
+const rootReducer = (state, action) => {
+    if (action.type === SIGN_OUT) {
+        state = signoutReducer(state, action);
+    }
+
+    return combineReducers({
+        // the various pieces of state and their corresponding reducers are defined here           
+    });
+};
+
+const signoutReducer = (state, action) => {
+
+    if (!action) {
+        return state;
+    }
+
+    return {
+        // here we reset the store to its initial, pristine state
+    };
+};
+```
+
+This root reducer is used when calling Redux's `createStore()` function to create the store, which in turn is passed to the Provider object (a gift from React-Redux) that wraps the entire application in App.js.
+
 ### Conditional Rendering
 The most basic requirement of a secure app is to show private content to authorized users. In order to implement this architecturally, I enforced conditional rendering within private components. By adding user authentication details to the state and making that part of state available to the relevant components, it was possible for the components to confirm user authentication before rendering secure content.
 
@@ -77,7 +106,7 @@ componentDidMount() {
 }
 ```
 
-The component makes use of the componentDidMount() lifecycle method (see more about React's lifecycle methods [here](https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1)) to obtain information about a single trip from the backend at the correct time - that is, after the component mounts. The component is allowed to make an API call for the trip information only if the state asserts that the user is logged in successfully. If the user is not authenticated, the component also has built-in logic to redirect to the signin page:
+The component makes use of the `componentDidMount()` lifecycle method (see more about React's lifecycle methods [here](https://engineering.musefind.com/react-lifecycle-methods-how-and-when-to-use-them-2111a1b692b1)) to obtain information about a single trip from the backend at the correct time - that is, after the component mounts. The component is allowed to make an API call for the trip information only if the state asserts that the user is logged in successfully. If the user is not authenticated, the component also has built-in logic to redirect to the signin page:
 
 ```javascript
 if (authenticated) {
@@ -88,7 +117,7 @@ if (authenticated) {
 ```
 
 ### Data Validation
-There were several locations in the code base that called for solid data validation in order to ensure a quality user experience, primarily concerning dates and text input fields. In order to ensure users are able to create usernames with no more than 12 alphanumeric characters, the API layer checks the username for validity prior to firing off the createNewUser() database call. This was accomplished using a helper function called validateUsername():
+There were several locations in the code base that called for solid data validation in order to ensure a quality user experience, primarily concerning dates and text input fields. In order to ensure users are able to create usernames with no more than 12 alphanumeric characters, the API layer checks the username for validity prior to firing off the createNewUser() database call. This was accomplished using a helper function called `validateUsername()`:
 
 ```javascript
 function validateUsername(username) {
@@ -165,6 +194,48 @@ The key to this working properly is the offset, which calculates the difference 
 After going to great lengths to make this work like I expected, I found [this](https://blog.lftechnology.com/date-ing-javascript-6203650b752c) excellent article about the Date object that, had I known about it ahead of time, could have saved me some time and vexation. Nevertheless, it was instructive and beneficial for me to do the leg work of better understanding the Date object's internals and how to go about creating a custom function to manipulate dates as needed.
 
 ## Lessons Learned
+### Refactor for functionality and readability
+I discovered several times when writing this application that certain blocks of code became ever more unintelligible. By that I mean difficult to tell at a glance what they were meant to accomplish. This was especially apparent in `render()` functions that had to take into account lots of different scenarios in order to display content correctly.
+
+To remedy this, I went about refactoring code with the goal of transposing large functional chunks of code to separate functions. Take for example the NewTrip component, which calls the `getBody()` method to grab the JSX that is to be rendered. `getBody()`, sitting at a hefty ~100 lines of code, definitely gets in the weeds of hammering out the content it's supposed to display. It was eye-poppingly confusing to mentally sift through (or try to ignore) all that logic when skimming over the components `render()` function, and was quite a relief once I moved that chunk off-site to `getBody()`:
+
+```javascript
+render() {
+
+    const authenticated = this.props.user.authenticated;
+    const justCreatedTrip = this.props.newTrip.justCreatedTrip;
+    
+    if (authenticated && !justCreatedTrip) {
+
+        return this.getBody();
+
+    } else if (justCreatedTrip) {
+    
+        const tripId = this.props.currentTrip.data.trip_id;
+        return <Redirect to={`/trip/${tripId}`} />;
+        
+    } else {
+        return <Redirect to={`/`} />;
+    }
+} 
+```
+
+Now, with a mere 10 lines of code or so, a reviewer can tell at a glance what's supposed to be rendering in any given situation: either display the new trip form, or if a trip was just created, redirect to that trip's page, or if the user isn't logged in, redirect unauthenticated users to the signin page. All this can be readily ascertained without having to understand the internal mechanism of how the form is actually implemented.
+
+I took a similar approach in several other areas of the code base, opting for delegation to specialized function over centrality of logic within a single `render()`.
+
+### Passing data among components
+An interesting thing I learned while creating this application is that it’s perfectly acceptable to allow interplay between different parts of state within a Redux application. In a couple of instances, I needed to pass a data object that isn't immediately available in the store from one component to another. To illustrate this, take the contrasting examples of NewTrip and NewActivity. In truth, these should be called NewOrEditTrip and NewOrEditActivity, but for readability I kept the naming simple.
+
+I configured the store include a piece of state tracking `currentTrip`. This made it simple to populate the New/Edit Trip form with data from the `currentTrip` part of the store. This was easily achievable because there can only be a maximum of one currentTrip. For trip activities, however, there can be more than one activity per trip that displays on screen, so I made the design decision of dynamically passing in the data associated with any given activity to the Edit Activity form when the "edit activity" button is clicked.
+
+So what this amounts to is a UI data flow like so:
+
+1. on TripDetails screen, user clicks "new activity" or "edit activity"
+1. if "new", the form blank
+1. else if "edit", the button calls a function that was mapped to it by its corresponding container defined in TripDetailsContainer.js, passing in the associated activity as the function argument. The `populateActivityForm()` method is defined separately by the NewActivity component in NewActivityActions.js and is imported by the TripDetails container.
+
+To make this work, the TripDetails component has to dispatch the POPULATE_ACTIVITY_FORM action, which the NewActivity component is listening out for. When it detects that this action was dispatched, it grabs the activity object that was passed into the dispatch function and uses it to populate the Edit Activity form with the activity object's data.
 
 ## Creator
 Joshua Owens

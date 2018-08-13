@@ -194,6 +194,15 @@ The key to this working properly is the offset, which calculates the difference 
 After going to great lengths to make this work like I expected, I found [this](https://blog.lftechnology.com/date-ing-javascript-6203650b752c) excellent article about the Date object that, had I known about it ahead of time, could have saved me some time and vexation. Nevertheless, it was instructive and beneficial for me to do the leg work of better understanding the Date object's internals and how to go about creating a custom function to manipulate dates as needed.
 
 ## Lessons Learned
+### Prioritizing Effectively
+One of the most important parts of bringing a project to completion is recognizing these three things:
+
+1. What can be done from a technical perspective?
+1. What can be done from a time perspective?
+1. What ought to be done from a feature/UI perspective?
+
+Considered reflection on these matters yields a project roadmap that dictates what features take priority and approximately how much time to spend on each of them. Naturally, some things require more or less time than originally allotted, so it's necessary to frequently recalibrate progress to ensure the deadline can be met with a satisfactory MVP.
+
 ### Refactoring for functionality and readability
 I discovered several times when writing this application that certain blocks of code became ever more unintelligible. By that I mean difficult to tell at a glance what they were meant to accomplish. This was especially apparent in `render()` functions that had to take into account lots of different scenarios in order to display content correctly.
 
@@ -236,6 +245,11 @@ So what this amounts to is a UI data flow like so:
 1. else if "edit", the button calls a function that was mapped to it by its corresponding container defined in TripDetailsContainer.js, passing in the associated activity as the function argument. The `populateActivityForm()` method is defined separately by the NewActivity component in NewActivityActions.js and is imported by the TripDetails container.
 
 To make this work, the TripDetails component has to dispatch the POPULATE_ACTIVITY_FORM action, which the NewActivity component is listening out for. When it detects that this action was dispatched, it grabs the activity object that was passed into the dispatch function and uses it to populate the Edit Activity form with the activity object's data.
+
+## Ideas for future iterations
+* Making trips shareable, so that they can be viewed and edited by multiple authorized users
+* Build out more reporting functionality: right now, cost can be calculated per day and per trip, but it may be helpful to have more customizable reporting tools available, such as cost by category, location, time of day, or other criteria.
+* Incorporating JSON web tokens for session tracking: currently, refreshing the app forces the user to log back in.
 
 ## Creator
 Joshua Owens

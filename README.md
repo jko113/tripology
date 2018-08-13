@@ -187,7 +187,7 @@ export const getLocalDate = (date) => {
 };
 ```
 
-So let's break this down a bit. The function takes a date parameter, which if not supplied (or null) defaults to today's date. IThe function also handles time measured in milliseconds since 01/01/1970; dates provided as JavaScript Date objects; as well as ISO 8601-formatted strings. 
+So let's break this down a bit. The function takes a date parameter, which if not supplied (or null) defaults to today's date. The function also handles time measured in milliseconds since 01/01/1970; dates provided as JavaScript Date objects; as well as ISO 8601-formatted strings. 
 
 The key to this working properly is the offset, which calculates the difference in minutes between the browser's timezone and UTC time. The offset can be positive or negative, based on proximity to Greenwich, England. I encountered a bug where Daylight Savings Time was not properly taken into account, which I resolved by forcing the offset to calculate based off the provided date rather than today's date.
 

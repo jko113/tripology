@@ -200,18 +200,18 @@ After going to great lengths to make this work like I expected, I found [this](h
 
 ## Lessons Learned
 ### Prioritizing Effectively
-One of the most important parts of bringing a project to completion is recognizing these three things:
+One of the most important parts of bringing a project to completion is thinking about and answering these three questions:
 
 1. What can be done from a technical perspective?
 1. What can be done from a time perspective?
 1. What ought to be done from a feature/UI perspective?
 
-Considered reflection on these matters yields a project roadmap that dictates what features take priority and approximately how much time to spend on each of them. Naturally, some things require more or less time than originally allotted, so it's necessary to frequently recalibrate progress to ensure the deadline can be met with a satisfactory MVP.
+Considered reflection on these matters yields a project roadmap that dictates which features should take priority and approximately how much time to spend on each of them. Naturally, some tasks require more or less time than originally allotted, so one must frequently recalibrate progress to ensure the deadline can be met with a satisfactory MVP.
 
 ### Refactoring for functionality and readability
-I discovered several times when writing this application that certain blocks of code became ever more unintelligible. By that I mean difficult to tell at a glance what they were meant to accomplish. This was especially apparent in `render()` functions that had to take into account lots of different scenarios in order to display content correctly.
+I discovered several times when writing this application that certain blocks of code gradually became more and more unintelligible. That is to say, it was difficult to tell at a glance what they were meant to accomplish. This was especially apparent in `render()` functions that had to take into account lots of different scenarios in order to display content correctly.
 
-To remedy this, I went about refactoring code with the goal of transposing large functional chunks of code to separate functions. Take for example the NewTrip component, which calls the `getBody()` method to grab the JSX that is to be rendered. `getBody()`, sitting at a hefty ~100 lines of code, definitely gets in the weeds of hammering out the content it's supposed to display. It was eye-poppingly confusing to mentally sift through (or try to ignore) all that logic when skimming over the components `render()` function, and was quite a relief once I moved that chunk off-site to `getBody()`:
+To remedy this, I went about refactoring code with the goal of transposing large functional chunks of code to standalone functions. Take for example the NewTrip component, which calls the `getBody()` method to grab the JSX that is to be rendered. `getBody()`, sitting at a hefty ~100 lines of code, definitely gets in the weeds of hammering out the content it's supposed to display. It was eye-poppingly confusing to mentally sift through (or try to ignore) all that logic when skimming over the component's `render()` function, and became extraordinarily simple once I moved that massive chunk off-site to `getBody()`:
 
 ```javascript
 render() {
@@ -234,20 +234,20 @@ render() {
 } 
 ```
 
-Now, with a mere 10 lines of code or so, a reviewer can tell at a glance what's supposed to be rendering in any given situation: either display the new trip form, or if a trip was just created, redirect to that trip's page, or if the user isn't logged in, redirect unauthenticated users to the signin page. All this can be readily ascertained without having to understand the internal mechanism of how the form is actually implemented.
+Now, with a mere 10 lines of code or so, a reviewer can tell right away what's supposed to be rendering in any given situation: either display the new trip form, or if a trip was just created, redirect to that trip's page, or if the user isn't logged in, redirect to the signin page. All this can be readily ascertained without having to understand the internal mechanism of how the form is actually implemented.
 
-I took a similar approach in several other areas of the code base, opting for delegation to specialized function over centrality of logic within a single `render()`.
+I took a similar approach in several other areas of the code base, opting for delegation to specialized functions over centrality of logic within a single `render()`.
 
 ### Passing data among components
-An interesting thing I learned while creating this application is that it’s perfectly acceptable to allow interplay between different parts of state within a Redux application. In a couple of instances, I needed to pass a data object that isn't immediately available in the store from one component to another. To illustrate this, take the contrasting examples of NewTrip and NewActivity. In truth, these should be called NewOrEditTrip and NewOrEditActivity, but for readability I kept the naming simple.
+An interesting thing I learned while creating this application is that it’s perfectly acceptable to allow interplay between different parts of state within a Redux application. In a couple of instances, I needed to pass a data object that isn't immediately available in the store from one component to another. To illustrate this, take the contrasting examples of NewTrip and NewActivity. In truth, these should be called NewOrEditTrip and NewOrEditActivity, but for readability I kept the naming concise.
 
-I configured the store include a piece of state tracking `currentTrip`. This made it simple to populate the New/Edit Trip form with data from the `currentTrip` part of the store. This was easily achievable because there can only be a maximum of one currentTrip. For trip activities, however, there can be more than one activity per trip that displays on screen, so I made the design decision of dynamically passing in the data associated with any given activity to the Edit Activity form when the "edit activity" button is clicked.
+I configured the store to include a piece of state tracking `currentTrip`. This made it simple to populate the New/Edit Trip form with data from the `currentTrip` part of the store. This was easily achievable because there can only be a maximum of one currentTrip; for trip activities, however, there can be more than one activity per trip that displays on screen. For this reason I made the design decision of dynamically passing in the data associated with any given activity to the Edit Activity form whenever the "edit activity" button is clicked.
 
-So what this amounts to is a UI data flow like so:
+What this amounts to is a UI data flow like so:
 
-1. on TripDetails screen, user clicks "new activity" or "edit activity"
-1. if "new", the form blank
-1. else if "edit", the button calls a function that was mapped to it by its corresponding container defined in TripDetailsContainer.js, passing in the associated activity as the function argument. The `populateActivityForm()` method is defined separately by the NewActivity component in NewActivityActions.js and is imported by the TripDetails container.
+1. on the TripDetails screen, the user clicks "new activity" or "edit activity"
+1. if the user clicked "new", the form is blank
+1. otherwise, if the user clicked "edit", the button calls a function that was mapped to it by its corresponding container, which is defined in TripDetailsContainer.js, and passes in the relevant activity as the function argument. The `populateActivityForm()` method is defined separately by the NewActivity component in NewActivityActions.js and is imported by the TripDetails container.
 
 To make this work, the TripDetails component has to dispatch the POPULATE_ACTIVITY_FORM action, which the NewActivity component is listening out for. When it detects that this action was dispatched, it grabs the activity object that was passed into the dispatch function and uses it to populate the Edit Activity form with the activity object's data.
 

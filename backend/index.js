@@ -108,7 +108,6 @@ app.post("/api/createnewuser", (req, res) => {
             db.getCategories(userCreatedObject)
                 .then(categories => {
                     userCreatedObject["categories"] = categories;
-                    console.log(userCreatedObject);
                     res.json(userCreatedObject);
                 }).catch(error => console.error);
         })

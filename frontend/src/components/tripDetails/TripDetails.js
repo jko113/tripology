@@ -353,6 +353,32 @@ class TripDetails extends React.Component {
         return emptiness;
     };
 
+    noAvailableActivities = (currentTrip) => {
+        return (
+            <div className="screen-height app-flex app-flex-column">
+                <div className="app-flex app-flex-column">
+                    <div>No trip activities for {currentTrip.title} yet.</div>
+                    <div
+                        className="app-flex"
+                    >
+                        <Link
+                            className="link-item app-flex app-margin-top app-margin-right"
+                            to="/newActivity"
+                        >
+                            Add
+                        </Link>
+                        <Link
+                            className="link-item-ghost app-flex app-margin-top"
+                            to={`/trip/${currentTrip.trip_id}`}
+                        >
+                            Back
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     render() {
         const currentTrip = this.props.currentTrip.data;
         const authenticated = this.props.user.authenticated;
@@ -372,51 +398,45 @@ class TripDetails extends React.Component {
                 tripActivities = this.props.tripDetails.groupedDetails;
                 filteredTripActivities = this.filterGroupedTrips(tripActivities, categories);
             }
-                    
-            if (filteredTripActivities && tripActivities.length) {
-                return (
-                    <div className="app-flex app-flex-column">
-                        {this.biaoti(currentTrip)}
-                        <div className="app-padding app-margin app-flex app-flex-column app-flex-start">
-                            {this.shangmian(filteredTripActivities)}
-                            {this.getBody(
-                                filteredTripActivities,
-                                groupedMode)}
-                            {this.xiamian()}
-                        </div>
-                    </div>
-                );
 
-            // no trips meet the date filtering criteria
-            } else {
-                return (
-                    <div className="screen-height app-flex app-flex-column">
+            let hasData = false;
+
+            if (filteredTripActivities && tripActivities) {
+
+                filteredTripActivities.forEach(i => {
+                    if (i) {
+                        hasData = true;
+                    }
+                })
+
+                tripActivities.forEach(i => {
+                    if (i) {
+                        hasData = true;
+                    }
+                });
+
+                if (hasData && filteredTripActivities && tripActivities.length) {
+                    return (
                         <div className="app-flex app-flex-column">
-                            <div>No trip activities for {currentTrip.title} yet.</div>
-                            <div
-                                className="app-flex"
-                            >
-                                <Link
-                                    className="link-item app-flex app-margin-top app-margin-right"
-                                    to="/newActivity"
-                                >
-                                    Add
-                                </Link>
-                                <Link
-                                    className="link-item-ghost app-flex app-margin-top"
-                                    to={`/trip/${currentTrip.trip_id}`}
-                                >
-                                    Back
-                                </Link>
+                            {this.biaoti(currentTrip)}
+                            <div className="app-padding app-margin app-flex app-flex-column app-flex-start">
+                                {this.shangmian(filteredTripActivities)}
+                                {this.getBody(
+                                    filteredTripActivities,
+                                    groupedMode)}
+                                {this.xiamian()}
                             </div>
                         </div>
-                    </div>
-                );
+                    );
+                } else {
+                    return this.noAvailableActivities(currentTrip);
+                }
+            }                   
+            // no trips meet the date filtering criteria
+            else {
+                return this.noAvailableActivities(currentTrip);
             }
-    
-
-            }
-
+        }
         // user is not authenticated
         else
         {

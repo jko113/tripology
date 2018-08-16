@@ -10,7 +10,11 @@ export const MIN = getLocalDate(new Date());
 class NewActivity extends React.Component {
 
     componentDidMount() {
-        if (this.props.user.authenticated && !this.props.categories.data.length) {
+        console.log(this.props);
+        if (this.props.user.authenticated &&
+            ((!this.props.categories.data.length) ||
+            (!this.props.newActivity.category))
+         ) {
             this.props.setCategory(undefined, this.props.categories.data);
         }
     }

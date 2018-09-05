@@ -33,8 +33,8 @@ const mapDispatchToProps = (dispatch) => {
         setGroupingMode: () => {
             dispatch(setGroupingMode());
         },
-        populateActivityForm: (activityObject) => {
-            dispatch(populateActivityForm(activityObject));
+        populateActivityForm: (activityObject, categories) => {
+            dispatch(populateActivityForm(activityObject, categories));
         },
         populateFilterDate: (filterDate) => {
             dispatch(populateFilterDate(filterDate));

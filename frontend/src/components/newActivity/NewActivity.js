@@ -8,16 +8,6 @@ export const MAX = getLocalDate(new Date("2019-12-31"));
 export const MIN = getLocalDate(new Date());
 
 class NewActivity extends React.Component {
-
-    componentDidMount() {
-        // populate category with default value
-        if (this.props.user.authenticated &&
-            ((!this.props.categories.data.length) ||
-            (!this.props.newActivity.category))
-         ) {
-            this.props.setCategory(undefined, this.props.categories.data);
-        }
-    }
     
     displayCost = (cost) => {
         if (!this.props.newActivity.userHasInputCost && !this.props.newActivity.justPopulatedActivityForm) {
@@ -31,6 +21,7 @@ class NewActivity extends React.Component {
         return (
             <select
                 className="app-new-trip-title app-tiny-margin-top"
+                value={this.props.newActivity.category}
                 onChange={(e) => {
                     this.props.setCategory(e.target.value, this.props.categories.data);
                 }}

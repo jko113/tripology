@@ -217,7 +217,7 @@ class TripDetails extends React.Component {
                         </div>
                         <Link
                             onClick={() => {
-                                this.props.populateActivityForm(activity);
+                                this.props.populateActivityForm(activity, this.props.categories.data);
                             }}
                             to={`/editActivity/${activity.activity_id}`}
                             className="pointer"

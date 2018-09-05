@@ -221,10 +221,19 @@ export const setCategory = (cat, cats) => {
     };
 };
 
-export const populateActivityForm = (activityObject) => {
+export const populateActivityForm = (activityObject, categories) => {
+
+    const categoryId = activityObject.category_id;
+    const activityDescription = categories.find(item => {
+        return categoryId === item.category_id;
+    }).title;
+    const modifiedActivityObject = Object.assign({}, activityObject, {
+        category_id: activityDescription,
+    });
+
     return {
         type: POPULATE_ACTIVITY_FORM,
-        payload: activityObject,
+        payload: modifiedActivityObject,
     };
 };
 
